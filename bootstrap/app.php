@@ -19,6 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/workflow',
             'api/workflow/*',
         ]);
+        // Alias pour les routes tenant
+        $middleware->alias([
+            'tenant'       => \App\Http\Middleware\ResolveTenant::class,
+            'subscription' => \App\Http\Middleware\CheckSubscription::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
