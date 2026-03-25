@@ -1,277 +1,2719 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khayma — Gérez votre commerce avec précision</title>
+    <meta name="description" content="Khayma est le SaaS africain de gestion commerciale. Restaurants, boutiques, quincailleries, location — tout en un.">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-        <!-- Styles / Scripts -->
-        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-            @vite(['resources/js/app.js'])
-        @else
-            <style>
-                /*! tailwindcss v4.0.7 | MIT License | https://tailwindcss.com */@layer theme{:root,:host{--font-sans:'Instrument Sans',ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--font-serif:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;--font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--color-red-50:oklch(.971 .013 17.38);--color-red-100:oklch(.936 .032 17.717);--color-red-200:oklch(.885 .062 18.334);--color-red-300:oklch(.808 .114 19.571);--color-red-400:oklch(.704 .191 22.216);--color-red-500:oklch(.637 .237 25.331);--color-red-600:oklch(.577 .245 27.325);--color-red-700:oklch(.505 .213 27.518);--color-red-800:oklch(.444 .177 26.899);--color-red-900:oklch(.396 .141 25.723);--color-red-950:oklch(.258 .092 26.042);--color-orange-50:oklch(.98 .016 73.684);--color-orange-100:oklch(.954 .038 75.164);--color-orange-200:oklch(.901 .076 70.697);--color-orange-300:oklch(.837 .128 66.29);--color-orange-400:oklch(.75 .183 55.934);--color-orange-500:oklch(.705 .213 47.604);--color-orange-600:oklch(.646 .222 41.116);--color-orange-700:oklch(.553 .195 38.402);--color-orange-800:oklch(.47 .157 37.304);--color-orange-900:oklch(.408 .123 38.172);--color-orange-950:oklch(.266 .079 36.259);--color-amber-50:oklch(.987 .022 95.277);--color-amber-100:oklch(.962 .059 95.617);--color-amber-200:oklch(.924 .12 95.746);--color-amber-300:oklch(.879 .169 91.605);--color-amber-400:oklch(.828 .189 84.429);--color-amber-500:oklch(.769 .188 70.08);--color-amber-600:oklch(.666 .179 58.318);--color-amber-700:oklch(.555 .163 48.998);--color-amber-800:oklch(.473 .137 46.201);--color-amber-900:oklch(.414 .112 45.904);--color-amber-950:oklch(.279 .077 45.635);--color-yellow-50:oklch(.987 .026 102.212);--color-yellow-100:oklch(.973 .071 103.193);--color-yellow-200:oklch(.945 .129 101.54);--color-yellow-300:oklch(.905 .182 98.111);--color-yellow-400:oklch(.852 .199 91.936);--color-yellow-500:oklch(.795 .184 86.047);--color-yellow-600:oklch(.681 .162 75.834);--color-yellow-700:oklch(.554 .135 66.442);--color-yellow-800:oklch(.476 .114 61.907);--color-yellow-900:oklch(.421 .095 57.708);--color-yellow-950:oklch(.286 .066 53.813);--color-lime-50:oklch(.986 .031 120.757);--color-lime-100:oklch(.967 .067 122.328);--color-lime-200:oklch(.938 .127 124.321);--color-lime-300:oklch(.897 .196 126.665);--color-lime-400:oklch(.841 .238 128.85);--color-lime-500:oklch(.768 .233 130.85);--color-lime-600:oklch(.648 .2 131.684);--color-lime-700:oklch(.532 .157 131.589);--color-lime-800:oklch(.453 .124 130.933);--color-lime-900:oklch(.405 .101 131.063);--color-lime-950:oklch(.274 .072 132.109);--color-green-50:oklch(.982 .018 155.826);--color-green-100:oklch(.962 .044 156.743);--color-green-200:oklch(.925 .084 155.995);--color-green-300:oklch(.871 .15 154.449);--color-green-400:oklch(.792 .209 151.711);--color-green-500:oklch(.723 .219 149.579);--color-green-600:oklch(.627 .194 149.214);--color-green-700:oklch(.527 .154 150.069);--color-green-800:oklch(.448 .119 151.328);--color-green-900:oklch(.393 .095 152.535);--color-green-950:oklch(.266 .065 152.934);--color-emerald-50:oklch(.979 .021 166.113);--color-emerald-100:oklch(.95 .052 163.051);--color-emerald-200:oklch(.905 .093 164.15);--color-emerald-300:oklch(.845 .143 164.978);--color-emerald-400:oklch(.765 .177 163.223);--color-emerald-500:oklch(.696 .17 162.48);--color-emerald-600:oklch(.596 .145 163.225);--color-emerald-700:oklch(.508 .118 165.612);--color-emerald-800:oklch(.432 .095 166.913);--color-emerald-900:oklch(.378 .077 168.94);--color-emerald-950:oklch(.262 .051 172.552);--color-teal-50:oklch(.984 .014 180.72);--color-teal-100:oklch(.953 .051 180.801);--color-teal-200:oklch(.91 .096 180.426);--color-teal-300:oklch(.855 .138 181.071);--color-teal-400:oklch(.777 .152 181.912);--color-teal-500:oklch(.704 .14 182.503);--color-teal-600:oklch(.6 .118 184.704);--color-teal-700:oklch(.511 .096 186.391);--color-teal-800:oklch(.437 .078 188.216);--color-teal-900:oklch(.386 .063 188.416);--color-teal-950:oklch(.277 .046 192.524);--color-cyan-50:oklch(.984 .019 200.873);--color-cyan-100:oklch(.956 .045 203.388);--color-cyan-200:oklch(.917 .08 205.041);--color-cyan-300:oklch(.865 .127 207.078);--color-cyan-400:oklch(.789 .154 211.53);--color-cyan-500:oklch(.715 .143 215.221);--color-cyan-600:oklch(.609 .126 221.723);--color-cyan-700:oklch(.52 .105 223.128);--color-cyan-800:oklch(.45 .085 224.283);--color-cyan-900:oklch(.398 .07 227.392);--color-cyan-950:oklch(.302 .056 229.695);--color-sky-50:oklch(.977 .013 236.62);--color-sky-100:oklch(.951 .026 236.824);--color-sky-200:oklch(.901 .058 230.902);--color-sky-300:oklch(.828 .111 230.318);--color-sky-400:oklch(.746 .16 232.661);--color-sky-500:oklch(.685 .169 237.323);--color-sky-600:oklch(.588 .158 241.966);--color-sky-700:oklch(.5 .134 242.749);--color-sky-800:oklch(.443 .11 240.79);--color-sky-900:oklch(.391 .09 240.876);--color-sky-950:oklch(.293 .066 243.157);--color-blue-50:oklch(.97 .014 254.604);--color-blue-100:oklch(.932 .032 255.585);--color-blue-200:oklch(.882 .059 254.128);--color-blue-300:oklch(.809 .105 251.813);--color-blue-400:oklch(.707 .165 254.624);--color-blue-500:oklch(.623 .214 259.815);--color-blue-600:oklch(.546 .245 262.881);--color-blue-700:oklch(.488 .243 264.376);--color-blue-800:oklch(.424 .199 265.638);--color-blue-900:oklch(.379 .146 265.522);--color-blue-950:oklch(.282 .091 267.935);--color-indigo-50:oklch(.962 .018 272.314);--color-indigo-100:oklch(.93 .034 272.788);--color-indigo-200:oklch(.87 .065 274.039);--color-indigo-300:oklch(.785 .115 274.713);--color-indigo-400:oklch(.673 .182 276.935);--color-indigo-500:oklch(.585 .233 277.117);--color-indigo-600:oklch(.511 .262 276.966);--color-indigo-700:oklch(.457 .24 277.023);--color-indigo-800:oklch(.398 .195 277.366);--color-indigo-900:oklch(.359 .144 278.697);--color-indigo-950:oklch(.257 .09 281.288);--color-violet-50:oklch(.969 .016 293.756);--color-violet-100:oklch(.943 .029 294.588);--color-violet-200:oklch(.894 .057 293.283);--color-violet-300:oklch(.811 .111 293.571);--color-violet-400:oklch(.702 .183 293.541);--color-violet-500:oklch(.606 .25 292.717);--color-violet-600:oklch(.541 .281 293.009);--color-violet-700:oklch(.491 .27 292.581);--color-violet-800:oklch(.432 .232 292.759);--color-violet-900:oklch(.38 .189 293.745);--color-violet-950:oklch(.283 .141 291.089);--color-purple-50:oklch(.977 .014 308.299);--color-purple-100:oklch(.946 .033 307.174);--color-purple-200:oklch(.902 .063 306.703);--color-purple-300:oklch(.827 .119 306.383);--color-purple-400:oklch(.714 .203 305.504);--color-purple-500:oklch(.627 .265 303.9);--color-purple-600:oklch(.558 .288 302.321);--color-purple-700:oklch(.496 .265 301.924);--color-purple-800:oklch(.438 .218 303.724);--color-purple-900:oklch(.381 .176 304.987);--color-purple-950:oklch(.291 .149 302.717);--color-fuchsia-50:oklch(.977 .017 320.058);--color-fuchsia-100:oklch(.952 .037 318.852);--color-fuchsia-200:oklch(.903 .076 319.62);--color-fuchsia-300:oklch(.833 .145 321.434);--color-fuchsia-400:oklch(.74 .238 322.16);--color-fuchsia-500:oklch(.667 .295 322.15);--color-fuchsia-600:oklch(.591 .293 322.896);--color-fuchsia-700:oklch(.518 .253 323.949);--color-fuchsia-800:oklch(.452 .211 324.591);--color-fuchsia-900:oklch(.401 .17 325.612);--color-fuchsia-950:oklch(.293 .136 325.661);--color-pink-50:oklch(.971 .014 343.198);--color-pink-100:oklch(.948 .028 342.258);--color-pink-200:oklch(.899 .061 343.231);--color-pink-300:oklch(.823 .12 346.018);--color-pink-400:oklch(.718 .202 349.761);--color-pink-500:oklch(.656 .241 354.308);--color-pink-600:oklch(.592 .249 .584);--color-pink-700:oklch(.525 .223 3.958);--color-pink-800:oklch(.459 .187 3.815);--color-pink-900:oklch(.408 .153 2.432);--color-pink-950:oklch(.284 .109 3.907);--color-rose-50:oklch(.969 .015 12.422);--color-rose-100:oklch(.941 .03 12.58);--color-rose-200:oklch(.892 .058 10.001);--color-rose-300:oklch(.81 .117 11.638);--color-rose-400:oklch(.712 .194 13.428);--color-rose-500:oklch(.645 .246 16.439);--color-rose-600:oklch(.586 .253 17.585);--color-rose-700:oklch(.514 .222 16.935);--color-rose-800:oklch(.455 .188 13.697);--color-rose-900:oklch(.41 .159 10.272);--color-rose-950:oklch(.271 .105 12.094);--color-slate-50:oklch(.984 .003 247.858);--color-slate-100:oklch(.968 .007 247.896);--color-slate-200:oklch(.929 .013 255.508);--color-slate-300:oklch(.869 .022 252.894);--color-slate-400:oklch(.704 .04 256.788);--color-slate-500:oklch(.554 .046 257.417);--color-slate-600:oklch(.446 .043 257.281);--color-slate-700:oklch(.372 .044 257.287);--color-slate-800:oklch(.279 .041 260.031);--color-slate-900:oklch(.208 .042 265.755);--color-slate-950:oklch(.129 .042 264.695);--color-gray-50:oklch(.985 .002 247.839);--color-gray-100:oklch(.967 .003 264.542);--color-gray-200:oklch(.928 .006 264.531);--color-gray-300:oklch(.872 .01 258.338);--color-gray-400:oklch(.707 .022 261.325);--color-gray-500:oklch(.551 .027 264.364);--color-gray-600:oklch(.446 .03 256.802);--color-gray-700:oklch(.373 .034 259.733);--color-gray-800:oklch(.278 .033 256.848);--color-gray-900:oklch(.21 .034 264.665);--color-gray-950:oklch(.13 .028 261.692);--color-zinc-50:oklch(.985 0 0);--color-zinc-100:oklch(.967 .001 286.375);--color-zinc-200:oklch(.92 .004 286.32);--color-zinc-300:oklch(.871 .006 286.286);--color-zinc-400:oklch(.705 .015 286.067);--color-zinc-500:oklch(.552 .016 285.938);--color-zinc-600:oklch(.442 .017 285.786);--color-zinc-700:oklch(.37 .013 285.805);--color-zinc-800:oklch(.274 .006 286.033);--color-zinc-900:oklch(.21 .006 285.885);--color-zinc-950:oklch(.141 .005 285.823);--color-neutral-50:oklch(.985 0 0);--color-neutral-100:oklch(.97 0 0);--color-neutral-200:oklch(.922 0 0);--color-neutral-300:oklch(.87 0 0);--color-neutral-400:oklch(.708 0 0);--color-neutral-500:oklch(.556 0 0);--color-neutral-600:oklch(.439 0 0);--color-neutral-700:oklch(.371 0 0);--color-neutral-800:oklch(.269 0 0);--color-neutral-900:oklch(.205 0 0);--color-neutral-950:oklch(.145 0 0);--color-stone-50:oklch(.985 .001 106.423);--color-stone-100:oklch(.97 .001 106.424);--color-stone-200:oklch(.923 .003 48.717);--color-stone-300:oklch(.869 .005 56.366);--color-stone-400:oklch(.709 .01 56.259);--color-stone-500:oklch(.553 .013 58.071);--color-stone-600:oklch(.444 .011 73.639);--color-stone-700:oklch(.374 .01 67.558);--color-stone-800:oklch(.268 .007 34.298);--color-stone-900:oklch(.216 .006 56.043);--color-stone-950:oklch(.147 .004 49.25);--color-black:#000;--color-white:#fff;--spacing:.25rem;--breakpoint-sm:40rem;--breakpoint-md:48rem;--breakpoint-lg:64rem;--breakpoint-xl:80rem;--breakpoint-2xl:96rem;--container-3xs:16rem;--container-2xs:18rem;--container-xs:20rem;--container-sm:24rem;--container-md:28rem;--container-lg:32rem;--container-xl:36rem;--container-2xl:42rem;--container-3xl:48rem;--container-4xl:56rem;--container-5xl:64rem;--container-6xl:72rem;--container-7xl:80rem;--text-xs:.75rem;--text-xs--line-height:calc(1/.75);--text-sm:.875rem;--text-sm--line-height:calc(1.25/.875);--text-base:1rem;--text-base--line-height: 1.5 ;--text-lg:1.125rem;--text-lg--line-height:calc(1.75/1.125);--text-xl:1.25rem;--text-xl--line-height:calc(1.75/1.25);--text-2xl:1.5rem;--text-2xl--line-height:calc(2/1.5);--text-3xl:1.875rem;--text-3xl--line-height: 1.2 ;--text-4xl:2.25rem;--text-4xl--line-height:calc(2.5/2.25);--text-5xl:3rem;--text-5xl--line-height:1;--text-6xl:3.75rem;--text-6xl--line-height:1;--text-7xl:4.5rem;--text-7xl--line-height:1;--text-8xl:6rem;--text-8xl--line-height:1;--text-9xl:8rem;--text-9xl--line-height:1;--font-weight-thin:100;--font-weight-extralight:200;--font-weight-light:300;--font-weight-normal:400;--font-weight-medium:500;--font-weight-semibold:600;--font-weight-bold:700;--font-weight-extrabold:800;--font-weight-black:900;--tracking-tighter:-.05em;--tracking-tight:-.025em;--tracking-normal:0em;--tracking-wide:.025em;--tracking-wider:.05em;--tracking-widest:.1em;--leading-tight:1.25;--leading-snug:1.375;--leading-normal:1.5;--leading-relaxed:1.625;--leading-loose:2;--radius-xs:.125rem;--radius-sm:.25rem;--radius-md:.375rem;--radius-lg:.5rem;--radius-xl:.75rem;--radius-2xl:1rem;--radius-3xl:1.5rem;--radius-4xl:2rem;--shadow-2xs:0 1px #0000000d;--shadow-xs:0 1px 2px 0 #0000000d;--shadow-sm:0 1px 3px 0 #0000001a,0 1px 2px -1px #0000001a;--shadow-md:0 4px 6px -1px #0000001a,0 2px 4px -2px #0000001a;--shadow-lg:0 10px 15px -3px #0000001a,0 4px 6px -4px #0000001a;--shadow-xl:0 20px 25px -5px #0000001a,0 8px 10px -6px #0000001a;--shadow-2xl:0 25px 50px -12px #00000040;--inset-shadow-2xs:inset 0 1px #0000000d;--inset-shadow-xs:inset 0 1px 1px #0000000d;--inset-shadow-sm:inset 0 2px 4px #0000000d;--drop-shadow-xs:0 1px 1px #0000000d;--drop-shadow-sm:0 1px 2px #00000026;--drop-shadow-md:0 3px 3px #0000001f;--drop-shadow-lg:0 4px 4px #00000026;--drop-shadow-xl:0 9px 7px #0000001a;--drop-shadow-2xl:0 25px 25px #00000026;--ease-in:cubic-bezier(.4,0,1,1);--ease-out:cubic-bezier(0,0,.2,1);--ease-in-out:cubic-bezier(.4,0,.2,1);--animate-spin:spin 1s linear infinite;--animate-ping:ping 1s cubic-bezier(0,0,.2,1)infinite;--animate-pulse:pulse 2s cubic-bezier(.4,0,.6,1)infinite;--animate-bounce:bounce 1s infinite;--blur-xs:4px;--blur-sm:8px;--blur-md:12px;--blur-lg:16px;--blur-xl:24px;--blur-2xl:40px;--blur-3xl:64px;--perspective-dramatic:100px;--perspective-near:300px;--perspective-normal:500px;--perspective-midrange:800px;--perspective-distant:1200px;--aspect-video:16/9;--default-transition-duration:.15s;--default-transition-timing-function:cubic-bezier(.4,0,.2,1);--default-font-family:var(--font-sans);--default-font-feature-settings:var(--font-sans--font-feature-settings);--default-font-variation-settings:var(--font-sans--font-variation-settings);--default-mono-font-family:var(--font-mono);--default-mono-font-feature-settings:var(--font-mono--font-feature-settings);--default-mono-font-variation-settings:var(--font-mono--font-variation-settings)}}@layer base{*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}html,:host{-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;line-height:1.5;font-family:var(--default-font-family,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji");font-feature-settings:var(--default-font-feature-settings,normal);font-variation-settings:var(--default-font-variation-settings,normal);-webkit-tap-highlight-color:transparent}body{line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:var(--default-mono-font-family,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace);font-feature-settings:var(--default-mono-font-feature-settings,normal);font-variation-settings:var(--default-mono-font-variation-settings,normal);font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring{outline:auto}progress{vertical-align:baseline}summary{display:list-item}ol,ul,menu{list-style:none}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,select,optgroup,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1;color:color-mix(in oklab,currentColor 50%,transparent)}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit{padding-block:0}::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-day-field{padding-block:0}::-webkit-datetime-edit-hour-field{padding-block:0}::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-millisecond-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){-webkit-appearance:button;-moz-appearance:button;appearance:button}::file-selector-button{-webkit-appearance:button;-moz-appearance:button;appearance:button}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}}@layer components;@layer utilities{.absolute{position:absolute}.relative{position:relative}.static{position:static}.inset-0{inset:calc(var(--spacing)*0)}.-mt-\[4\.9rem\]{margin-top:-4.9rem}.-mb-px{margin-bottom:-1px}.mb-1{margin-bottom:calc(var(--spacing)*1)}.mb-2{margin-bottom:calc(var(--spacing)*2)}.mb-4{margin-bottom:calc(var(--spacing)*4)}.mb-6{margin-bottom:calc(var(--spacing)*6)}.-ml-8{margin-left:calc(var(--spacing)*-8)}.flex{display:flex}.hidden{display:none}.inline-block{display:inline-block}.inline-flex{display:inline-flex}.table{display:table}.aspect-\[335\/376\]{aspect-ratio:335/376}.h-1{height:calc(var(--spacing)*1)}.h-1\.5{height:calc(var(--spacing)*1.5)}.h-2{height:calc(var(--spacing)*2)}.h-2\.5{height:calc(var(--spacing)*2.5)}.h-3{height:calc(var(--spacing)*3)}.h-3\.5{height:calc(var(--spacing)*3.5)}.h-14{height:calc(var(--spacing)*14)}.h-14\.5{height:calc(var(--spacing)*14.5)}.min-h-screen{min-height:100vh}.w-1{width:calc(var(--spacing)*1)}.w-1\.5{width:calc(var(--spacing)*1.5)}.w-2{width:calc(var(--spacing)*2)}.w-2\.5{width:calc(var(--spacing)*2.5)}.w-3{width:calc(var(--spacing)*3)}.w-3\.5{width:calc(var(--spacing)*3.5)}.w-\[448px\]{width:448px}.w-full{width:100%}.max-w-\[335px\]{max-width:335px}.max-w-none{max-width:none}.flex-1{flex:1}.shrink-0{flex-shrink:0}.translate-y-0{--tw-translate-y:calc(var(--spacing)*0);translate:var(--tw-translate-x)var(--tw-translate-y)}.transform{transform:var(--tw-rotate-x)var(--tw-rotate-y)var(--tw-rotate-z)var(--tw-skew-x)var(--tw-skew-y)}.flex-col{flex-direction:column}.flex-col-reverse{flex-direction:column-reverse}.items-center{align-items:center}.justify-center{justify-content:center}.justify-end{justify-content:flex-end}.gap-3{gap:calc(var(--spacing)*3)}.gap-4{gap:calc(var(--spacing)*4)}:where(.space-x-1>:not(:last-child)){--tw-space-x-reverse:0;margin-inline-start:calc(calc(var(--spacing)*1)*var(--tw-space-x-reverse));margin-inline-end:calc(calc(var(--spacing)*1)*calc(1 - var(--tw-space-x-reverse)))}.overflow-hidden{overflow:hidden}.rounded-full{border-radius:3.40282e38px}.rounded-sm{border-radius:var(--radius-sm)}.rounded-t-lg{border-top-left-radius:var(--radius-lg);border-top-right-radius:var(--radius-lg)}.rounded-br-lg{border-bottom-right-radius:var(--radius-lg)}.rounded-bl-lg{border-bottom-left-radius:var(--radius-lg)}.border{border-style:var(--tw-border-style);border-width:1px}.border-\[\#19140035\]{border-color:#19140035}.border-\[\#e3e3e0\]{border-color:#e3e3e0}.border-black{border-color:var(--color-black)}.border-transparent{border-color:#0000}.bg-\[\#1b1b18\]{background-color:#1b1b18}.bg-\[\#FDFDFC\]{background-color:#fdfdfc}.bg-\[\#dbdbd7\]{background-color:#dbdbd7}.bg-\[\#fff2f2\]{background-color:#fff2f2}.bg-white{background-color:var(--color-white)}.p-6{padding:calc(var(--spacing)*6)}.px-5{padding-inline:calc(var(--spacing)*5)}.py-1{padding-block:calc(var(--spacing)*1)}.py-1\.5{padding-block:calc(var(--spacing)*1.5)}.py-2{padding-block:calc(var(--spacing)*2)}.pb-12{padding-bottom:calc(var(--spacing)*12)}.text-sm{font-size:var(--text-sm);line-height:var(--tw-leading,var(--text-sm--line-height))}.text-\[13px\]{font-size:13px}.leading-\[20px\]{--tw-leading:20px;line-height:20px}.leading-normal{--tw-leading:var(--leading-normal);line-height:var(--leading-normal)}.font-medium{--tw-font-weight:var(--font-weight-medium);font-weight:var(--font-weight-medium)}.text-\[\#1b1b18\]{color:#1b1b18}.text-\[\#706f6c\]{color:#706f6c}.text-\[\#F53003\],.text-\[\#f53003\]{color:#f53003}.text-white{color:var(--color-white)}.underline{text-decoration-line:underline}.underline-offset-4{text-underline-offset:4px}.opacity-100{opacity:1}.shadow-\[0px_0px_1px_0px_rgba\(0\,0\,0\,0\.03\)\,0px_1px_2px_0px_rgba\(0\,0\,0\,0\.06\)\]{--tw-shadow:0px 0px 1px 0px var(--tw-shadow-color,#00000008),0px 1px 2px 0px var(--tw-shadow-color,#0000000f);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[inset_0px_0px_0px_1px_rgba\(26\,26\,0\,0\.16\)\]{--tw-shadow:inset 0px 0px 0px 1px var(--tw-shadow-color,#1a1a0029);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.\!filter{filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)!important}.filter{filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.transition-all{transition-property:all;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.transition-opacity{transition-property:opacity;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.delay-300{transition-delay:.3s}.duration-750{--tw-duration:.75s;transition-duration:.75s}.not-has-\[nav\]\:hidden:not(:has(:is(nav))){display:none}.before\:absolute:before{content:var(--tw-content);position:absolute}.before\:top-0:before{content:var(--tw-content);top:calc(var(--spacing)*0)}.before\:top-1\/2:before{content:var(--tw-content);top:50%}.before\:bottom-0:before{content:var(--tw-content);bottom:calc(var(--spacing)*0)}.before\:bottom-1\/2:before{content:var(--tw-content);bottom:50%}.before\:left-\[0\.4rem\]:before{content:var(--tw-content);left:.4rem}.before\:border-l:before{content:var(--tw-content);border-left-style:var(--tw-border-style);border-left-width:1px}.before\:border-\[\#e3e3e0\]:before{content:var(--tw-content);border-color:#e3e3e0}@media (hover:hover){.hover\:border-\[\#1915014a\]:hover{border-color:#1915014a}.hover\:border-\[\#19140035\]:hover{border-color:#19140035}.hover\:border-black:hover{border-color:var(--color-black)}.hover\:bg-black:hover{background-color:var(--color-black)}}@media (width>=64rem){.lg\:-mt-\[6\.6rem\]{margin-top:-6.6rem}.lg\:mb-0{margin-bottom:calc(var(--spacing)*0)}.lg\:mb-6{margin-bottom:calc(var(--spacing)*6)}.lg\:-ml-px{margin-left:-1px}.lg\:ml-0{margin-left:calc(var(--spacing)*0)}.lg\:block{display:block}.lg\:aspect-auto{aspect-ratio:auto}.lg\:w-\[438px\]{width:438px}.lg\:max-w-4xl{max-width:var(--container-4xl)}.lg\:grow{flex-grow:1}.lg\:flex-row{flex-direction:row}.lg\:justify-center{justify-content:center}.lg\:rounded-t-none{border-top-left-radius:0;border-top-right-radius:0}.lg\:rounded-tl-lg{border-top-left-radius:var(--radius-lg)}.lg\:rounded-r-lg{border-top-right-radius:var(--radius-lg);border-bottom-right-radius:var(--radius-lg)}.lg\:rounded-br-none{border-bottom-right-radius:0}.lg\:p-8{padding:calc(var(--spacing)*8)}.lg\:p-20{padding:calc(var(--spacing)*20)}}@media (prefers-color-scheme:dark){.dark\:block{display:block}.dark\:hidden{display:none}.dark\:border-\[\#3E3E3A\]{border-color:#3e3e3a}.dark\:border-\[\#eeeeec\]{border-color:#eeeeec}.dark\:bg-\[\#0a0a0a\]{background-color:#0a0a0a}.dark\:bg-\[\#1D0002\]{background-color:#1d0002}.dark\:bg-\[\#3E3E3A\]{background-color:#3e3e3a}.dark\:bg-\[\#161615\]{background-color:#161615}.dark\:bg-\[\#eeeeec\]{background-color:#eeeeec}.dark\:text-\[\#1C1C1A\]{color:#1c1c1a}.dark\:text-\[\#A1A09A\]{color:#a1a09a}.dark\:text-\[\#EDEDEC\]{color:#ededec}.dark\:text-\[\#F61500\]{color:#f61500}.dark\:text-\[\#FF4433\]{color:#f43}.dark\:shadow-\[inset_0px_0px_0px_1px_\#fffaed2d\]{--tw-shadow:inset 0px 0px 0px 1px var(--tw-shadow-color,#fffaed2d);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.dark\:before\:border-\[\#3E3E3A\]:before{content:var(--tw-content);border-color:#3e3e3a}@media (hover:hover){.dark\:hover\:border-\[\#3E3E3A\]:hover{border-color:#3e3e3a}.dark\:hover\:border-\[\#62605b\]:hover{border-color:#62605b}.dark\:hover\:border-white:hover{border-color:var(--color-white)}.dark\:hover\:bg-white:hover{background-color:var(--color-white)}}}@starting-style{.starting\:translate-y-4{--tw-translate-y:calc(var(--spacing)*4);translate:var(--tw-translate-x)var(--tw-translate-y)}}@starting-style{.starting\:translate-y-6{--tw-translate-y:calc(var(--spacing)*6);translate:var(--tw-translate-x)var(--tw-translate-y)}}@starting-style{.starting\:opacity-0{opacity:0}}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes ping{75%,to{opacity:0;transform:scale(2)}}@keyframes pulse{50%{opacity:.5}}@keyframes bounce{0%,to{animation-timing-function:cubic-bezier(.8,0,1,1);transform:translateY(-25%)}50%{animation-timing-function:cubic-bezier(0,0,.2,1);transform:none}}@property --tw-translate-x{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-y{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-z{syntax:"*";inherits:false;initial-value:0}@property --tw-rotate-x{syntax:"*";inherits:false;initial-value:rotateX(0)}@property --tw-rotate-y{syntax:"*";inherits:false;initial-value:rotateY(0)}@property --tw-rotate-z{syntax:"*";inherits:false;initial-value:rotateZ(0)}@property --tw-skew-x{syntax:"*";inherits:false;initial-value:skewX(0)}@property --tw-skew-y{syntax:"*";inherits:false;initial-value:skewY(0)}@property --tw-space-x-reverse{syntax:"*";inherits:false;initial-value:0}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}@property --tw-leading{syntax:"*";inherits:false}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-shadow-color{syntax:"*";inherits:false}@property --tw-inset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-shadow-color{syntax:"*";inherits:false}@property --tw-ring-color{syntax:"*";inherits:false}@property --tw-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-ring-color{syntax:"*";inherits:false}@property --tw-inset-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-ring-inset{syntax:"*";inherits:false}@property --tw-ring-offset-width{syntax:"<length>";inherits:false;initial-value:0}@property --tw-ring-offset-color{syntax:"*";inherits:false;initial-value:#fff}@property --tw-ring-offset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-blur{syntax:"*";inherits:false}@property --tw-brightness{syntax:"*";inherits:false}@property --tw-contrast{syntax:"*";inherits:false}@property --tw-grayscale{syntax:"*";inherits:false}@property --tw-hue-rotate{syntax:"*";inherits:false}@property --tw-invert{syntax:"*";inherits:false}@property --tw-opacity{syntax:"*";inherits:false}@property --tw-saturate{syntax:"*";inherits:false}@property --tw-sepia{syntax:"*";inherits:false}@property --tw-drop-shadow{syntax:"*";inherits:false}@property --tw-duration{syntax:"*";inherits:false}@property --tw-content{syntax:"*";inherits:false;initial-value:""}
-            </style>
-        @endif
-    </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
+    <style>
+        /* ================================================
+           VARIABLES — Khayma Design System
+           ================================================ */
+        :root {
+            --green:        #10B981;
+            --green-dark:   #059669;
+            --green-light:  #D1FAE5;
+            --orange:       #F59E0B;
+            --orange-dark:  #D97706;
+            --orange-light: #FEF3C7;
+            --dark:         #0F172A;
+            --dark-2:       #1E293B;
+            --dark-3:       #334155;
+            --gray:         #64748B;
+            --gray-light:   #CBD5E1;
+            --light:        #F8FAFC;
+            --white:        #FFFFFF;
+            --font:         'Inter', sans-serif;
+        }
+
+        /* ================================================
+           RESET & BASE
+           ================================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ================================================
+           NAVBAR
+           ================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            height: 68px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(15, 23, 42, 1);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* --- Logo --- */
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        .nav-logo-img {
+            height: 72px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 6px rgba(16,185,129,0.25));
+        }
+
+        .nav-logo-tagline {
+            font-size: 0.62rem;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-left: 2px solid var(--green);
+            padding-left: 0.6rem;
+            line-height: 1.3;
+            white-space: nowrap;
+        }
+
+        /* --- Nav links --- */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a.active { color: var(--white); font-weight: 700; }
+        .nav-links a.active::after {
+            content: '';
+            display: block;
+            height: 2px;
+            background: var(--green);
+            margin-top: 2px;
+        }
+
+        /* Bouton flottant workflow */
+        #btn-workflow {
+            position: fixed;
+            bottom: 1.75rem;
+            right: 1.75rem;
+            z-index: 9000;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.1rem;
+            background: var(--dark-2);
+            color: var(--green);
+            border: 1px solid var(--green);
+            font-family: var(--font);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(16,185,129,0.2);
+            transition: all 0.25s ease;
+        }
+        #btn-workflow:hover {
+            background: var(--green);
+            color: var(--white);
+            box-shadow: 0 6px 28px rgba(16,185,129,0.4);
+            transform: translateY(-2px);
+        }
+        #btn-workflow i { font-size: 0.85rem; }
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: var(--green);
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+
+        /* --- CTA buttons --- */
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem 0.75rem;
+            transition: color 0.2s;
+        }
+
+        .btn-link:hover { color: var(--white); }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: var(--green);
+            color: var(--white);
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.55rem 1.25rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            white-space: nowrap;
+            font-family: var(--font);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+        }
+
+        /* --- Hamburger --- */
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        /* --- Mobile menu --- */
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            top: 68px;
+            left: 0;
+            right: 0;
+            background: var(--dark);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1rem 1.5rem 1.5rem;
+            z-index: 999;
+        }
+
+        .nav-mobile.open { display: block; }
+
+        .nav-mobile ul { list-style: none; margin-bottom: 1rem; }
+
+        .nav-mobile ul li a {
+            display: block;
+            padding: 0.75rem 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-mobile .btn-primary {
+            width: 100%;
+            justify-content: center;
+            margin-top: 0.75rem;
+            padding: 0.875rem;
+            font-size: 1rem;
+        }
+
+        /* ================================================
+           PLACEHOLDER (sera remplacé section par section)
+           ================================================ */
+        /* ================================================
+           HERO
+           ================================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding-top: 68px;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('/images/hero-bg.webp.png') center/cover no-repeat;
+            opacity: 0.07;
+            pointer-events: none;
+            z-index: 0;
+            transform: translateY(var(--parallax-y, 0px));
+            scale: 1.15;
+        }
+
+        .hero > * { position: relative; z-index: 1; }
+
+        /* Grille décorative en fond */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(16,185,129,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16,185,129,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        /* Lueur verte en haut à droite */
+        .hero-glow {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Lueur orange en bas à gauche */
+        .hero-glow-2 {
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 5rem 1.5rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Côté texte --- */
+        .hero-content { display: flex; flex-direction: column; gap: 0; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            color: var(--green);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 0.4rem 1rem;
+            width: fit-content;
+            margin-bottom: 1.75rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease 0.1s forwards;
+        }
+
+        .hero-badge-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--green);
+            display: inline-block;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.7s ease 0.25s forwards;
+        }
+
+        .hero-title .accent-green { color: var(--green); }
+        .hero-title .accent-orange { color: var(--orange); }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.7s ease 0.4s forwards;
+        }
+
+        /* Étymologie Khayma */
+        .hero-etymology {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.7s ease 0.55s forwards;
+        }
+
+        .etym-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 0.6rem 1rem;
+            flex: 1;
+        }
+
+        .etym-icon {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .etym-icon.green { background: rgba(16,185,129,0.15); color: var(--green); }
+        .etym-icon.orange { background: rgba(245,158,11,0.15); color: var(--orange); }
+
+        .etym-text { display: flex; flex-direction: column; line-height: 1.2; }
+        .etym-word { font-size: 0.95rem; font-weight: 700; color: var(--white); }
+        .etym-def  { font-size: 0.72rem; color: rgba(255,255,255,0.45); letter-spacing: 0.05em; }
+
+        /* Boutons hero */
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.7s ease 0.7s forwards;
+        }
+
+        .btn-hero-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--green);
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.9rem 2rem;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(16,185,129,0.35);
+        }
+
+        .btn-hero-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: transparent;
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.9rem 1.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-hero-outline:hover {
+            border-color: rgba(255,255,255,0.5);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Stats hero */
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            margin-top: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.7s ease 0.9s forwards;
+        }
+
+        .stat-item { display: flex; flex-direction: column; }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .stat-number span { color: var(--green); }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.25rem;
+        }
+
+        /* --- Côté visuel (logo + SVG) --- */
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0;
+            transform: translateX(30px);
+            animation: fadeLeft 0.9s ease 0.5s forwards;
+        }
+
+        .hero-visual-inner {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        /* Cercle décoratif derrière le logo */
+        .hero-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 380px;
+            height: 380px;
+            border: 1px solid rgba(16,185,129,0.15);
+        }
+
+        .hero-circle-2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(16,185,129,0.08);
+        }
+
+        /* Carte flottante — stat en haut */
+        .hero-card-top {
+            position: absolute;
+            top: 5%;
+            right: -5%;
+            background: var(--dark-2);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Carte flottante — stat en bas */
+        .hero-card-bot {
+            position: absolute;
+            bottom: 5%;
+            left: -5%;
+            background: var(--dark-2);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            animation: float 4s ease-in-out 2s infinite;
+        }
+
+        .hero-card-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .hero-card-icon.green  { background: rgba(16,185,129,0.15); color: var(--green); }
+        .hero-card-icon.orange { background: rgba(245,158,11,0.15);  color: var(--orange); }
+
+        .hero-card-info { display: flex; flex-direction: column; line-height: 1.2; }
+        .hero-card-val  { font-size: 1rem; font-weight: 700; color: var(--white); }
+        .hero-card-lbl  { font-size: 0.68rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; }
+
+        /* Logo principal */
+        .hero-logo-img {
+            width: 100%;
+            max-width: 340px;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 40px rgba(16,185,129,0.2));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* ================================================
+           KEYFRAMES
+           ================================================ */
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(-14px); }
+        }
+
+        /* ================================================
+           RESPONSIVE
+           ================================================ */
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav-cta       { display: none; }
+            .nav-hamburger { display: flex; }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 3rem 1.25rem 2.5rem;
+                text-align: center;
+            }
+
+            .hero-content { align-items: center; }
+
+            .hero-sub { max-width: 100%; }
+
+            .hero-etymology { flex-direction: column; gap: 0.75rem; }
+
+            .hero-actions { justify-content: center; }
+
+            .hero-stats { justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
+
+            .hero-visual { order: -1; }
+
+            .hero-card-top,
+            .hero-card-bot { display: none; }
+
+            .hero-circle,
+            .hero-circle-2 { display: none; }
+        }
+
+        /* ================================================
+           SECTION FEATURES
+           ================================================ */
+        .features {
+            padding: 6rem 1.5rem;
+            background: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('/images/features-bg.webp.png') center/cover no-repeat;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .features > * { position: relative; z-index: 1; }
+
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-badge.green {
+            color: var(--green-dark);
+            background: var(--green-light);
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+
+        .section-badge.orange {
+            color: var(--orange-dark);
+            background: var(--orange-light);
+            border: 1px solid rgba(245,158,11,0.3);
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+            font-weight: 900;
+            color: var(--dark);
+            letter-spacing: -0.04em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .section-sub {
+            font-size: 1.05rem;
+            color: var(--gray);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Grille de features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5px;
+            background: var(--gray-light);
+            border: 1.5px solid var(--gray-light);
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: default;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.25s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(15,23,42,0.1);
+            z-index: 1;
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .feature-icon.green  { background: var(--green-light);  color: var(--green-dark); }
+        .feature-icon.orange { background: var(--orange-light); color: var(--orange-dark); }
+        .feature-icon.dark   { background: rgba(15,23,42,0.07); color: var(--dark); }
+
+        .feature-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.65;
+        }
+
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--green-dark);
+            margin-top: auto;
+            transition: gap 0.2s;
+        }
+
+        .feature-link:hover { gap: 0.7rem; }
+
+        /* Bande avantages chiffrés */
+        .features-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 4rem;
+            background: var(--dark);
+        }
+
+        .feat-stat {
+            padding: 2.5rem 2rem;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            align-items: flex-start;
+        }
+
+        .feat-stat:last-child { border-right: none; }
+
+        .feat-stat-number {
+            font-size: 2.25rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .feat-stat-number .accent { color: var(--green); }
+
+        .feat-stat-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .feat-stat-desc {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.5;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 1024px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .features-stats { grid-template-columns: repeat(2, 1fr); }
+            .feat-stat:nth-child(2) { border-right: none; }
+        }
+
+        @media (max-width: 640px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .features-stats { grid-template-columns: 1fr; }
+            .feat-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+        }
+
+        /* ================================================
+           SECTION MODULES
+           ================================================ */
+        .modules {
+            padding: 6rem 1.5rem;
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modules::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('/images/modules-bg.webp.png') center/cover no-repeat;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .modules > * { position: relative; z-index: 1; }
+
+        .modules .section-title  { color: var(--white); }
+        .modules .section-sub    { color: rgba(255,255,255,0.5); }
+
+        /* Onglets */
+        .module-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid rgba(255,255,255,0.08);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .module-tabs::-webkit-scrollbar { display: none; }
+
+        .module-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 1.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.45);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-family: var(--font);
+        }
+
+        .module-tab:hover { color: rgba(255,255,255,0.75); }
+
+        .module-tab.active {
+            color: var(--green);
+            border-bottom-color: var(--green);
+        }
+
+        .module-tab .tab-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .module-tab.active .tab-icon.restaurant { background: rgba(239,68,68,0.15);  color: #EF4444; }
+        .module-tab.active .tab-icon.boutique   { background: rgba(168,85,247,0.15); color: #A855F7; }
+        .module-tab.active .tab-icon.quinc      { background: rgba(245,158,11,0.15); color: var(--orange); }
+        .module-tab.active .tab-icon.location   { background: rgba(16,185,129,0.15); color: var(--green); }
+
+        /* Panels */
+        .module-panels { position: relative; }
+
+        .module-panel {
+            display: none;
+            animation: fadeUp 0.4s ease forwards;
+        }
+
+        .module-panel.active { display: grid; }
+
+        .module-panel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        /* Contenu texte du panel */
+        .module-panel-content { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .module-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.35rem 0.9rem;
+            width: fit-content;
+        }
+
+        .module-tag.restaurant { background: rgba(239,68,68,0.12);  color: #F87171; border: 1px solid rgba(239,68,68,0.25); }
+        .module-tag.boutique   { background: rgba(168,85,247,0.12); color: #C084FC; border: 1px solid rgba(168,85,247,0.25); }
+        .module-tag.quinc      { background: rgba(245,158,11,0.12); color: #FBB249; border: 1px solid rgba(245,158,11,0.25); }
+        .module-tag.location   { background: rgba(16,185,129,0.12); color: #34D399; border: 1px solid rgba(16,185,129,0.25); }
+
+        .module-panel-title {
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -0.04em;
+            line-height: 1.15;
+        }
+
+        .module-panel-desc {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.75;
+        }
+
+        .module-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .module-features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .module-features-list li i {
+            width: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .li-check.restaurant { color: #F87171; }
+        .li-check.boutique   { color: #C084FC; }
+        .li-check.quinc      { color: #FBB249; }
+        .li-check.location   { color: #34D399; }
+
+        .module-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--green);
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0.8rem 1.75rem;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: background 0.2s, transform 0.15s;
+            width: fit-content;
+        }
+
+        .module-cta:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+        /* Visuel du panel (mockup) */
+        .module-panel-visual {
+            position: relative;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            padding: 2rem;
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.25rem;
+        }
+
+        .mockup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .mockup-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .mockup-dot { width: 8px; height: 8px; }
+        .mockup-dot.green  { background: var(--green); }
+        .mockup-dot.orange { background: var(--orange); }
+        .mockup-dot.red    { background: #EF4444; }
+        .mockup-dot.purple { background: #A855F7; }
+
+        .mockup-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .mockup-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.03);
+            padding: 0.75rem 1rem;
+            border-left: 3px solid transparent;
+        }
+
+        .mockup-row.hl-red    { border-left-color: #EF4444; }
+        .mockup-row.hl-purple { border-left-color: #A855F7; }
+        .mockup-row.hl-orange { border-left-color: var(--orange); }
+        .mockup-row.hl-green  { border-left-color: var(--green); }
+
+        .mockup-row-icon {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .mockup-row-info { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; }
+        .mockup-row-name  { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.8); }
+        .mockup-row-desc  { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
+        .mockup-row-price { font-size: 0.9rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+
+        /* Barre du bas */
+        .mockup-bar {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .mockup-bar-item {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+        }
+
+        .mockup-bar-item.fill-green  { background: var(--green); }
+        .mockup-bar-item.fill-orange { background: var(--orange); }
+        .mockup-bar-item.fill-red    { background: #EF4444; }
+        .mockup-bar-item.fill-purple { background: #A855F7; }
+
+        @media (max-width: 900px) {
+            .module-panel-grid { grid-template-columns: 1fr; }
+            .module-panel-visual { min-height: auto; }
+            .module-tabs { gap: 0; }
+            .module-tab { padding: 0.75rem 1rem; font-size: 0.8rem; }
+        }
+
+        /* ================================================
+           SECTION PRICING
+           ================================================ */
+        .pricing {
+            padding: 6rem 1.5rem;
+            background: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('/images/pricing-bg.webp.png') center/cover no-repeat;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .pricing > * { position: relative; z-index: 1; }
+
+        /* Toggle mensuel / annuel */
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .toggle-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray);
+            transition: color 0.2s;
+        }
+
+        .toggle-label.active { color: var(--dark); }
+
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: var(--gray-light);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle-switch.on { background: var(--green); }
+
+        .toggle-knob {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: var(--white);
+            transition: transform 0.25s ease;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        }
+
+        .toggle-switch.on .toggle-knob {
+            transform: translateX(24px);
+        }
+
+        .toggle-save {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            background: var(--green-light);
+            padding: 0.2rem 0.6rem;
+            letter-spacing: 0.04em;
+        }
+
+        /* Grille des plans */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            max-width: 1080px;
+            margin: 0 auto;
+            border: 1px solid var(--gray-light);
+        }
+
+        .plan-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border-right: 1px solid var(--gray-light);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .plan-card:last-child { border-right: none; }
+
+        .plan-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(15,23,42,0.1);
+            z-index: 2;
+        }
+
+        .plan-card.popular {
+            background: var(--dark);
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .plan-card.popular:hover {
+            box-shadow: 0 16px 48px rgba(16,185,129,0.2);
+        }
+
+        .plan-popular-badge {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--green);
+        }
+
+        .plan-popular-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--dark);
+            background: var(--green);
+            padding: 0.3rem 0.75rem;
+            width: fit-content;
+        }
+
+        .plan-header { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .plan-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .plan-icon.starter  { background: var(--orange-light); color: var(--orange-dark); }
+        .plan-icon.pro      { background: rgba(16,185,129,0.15); color: var(--green); }
+        .plan-icon.premium   { background: rgba(99,102,241,0.15); color: #6366F1; }
+
+        .plan-name {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .plan-card .plan-name { color: var(--dark); }
+        .plan-card.popular .plan-name { color: var(--white); }
+
+        .plan-desc {
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .plan-card .plan-desc { color: var(--gray); }
+        .plan-card.popular .plan-desc { color: rgba(255,255,255,0.5); }
+
+        /* Prix */
+        .plan-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.35rem;
+            padding: 1.25rem 0;
+            border-top: 1px solid var(--gray-light);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .plan-card.popular .plan-price {
+            border-top-color: rgba(255,255,255,0.08);
+            border-bottom-color: rgba(255,255,255,0.08);
+        }
+
+        .plan-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .plan-card .plan-amount { color: var(--dark); }
+        .plan-card.popular .plan-amount { color: var(--white); }
+
+        .plan-currency {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .plan-card .plan-currency { color: var(--gray); }
+        .plan-card.popular .plan-currency { color: rgba(255,255,255,0.5); }
+
+        .plan-period {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .plan-card .plan-period { color: var(--gray); }
+        .plan-card.popular .plan-period { color: rgba(255,255,255,0.4); }
+
+        /* Features list */
+        .plan-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            flex: 1;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.85rem;
+        }
+
+        .plan-card .plan-features li { color: var(--dark-3); }
+        .plan-card.popular .plan-features li { color: rgba(255,255,255,0.75); }
+
+        .plan-features li i {
+            width: 18px;
+            text-align: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .plan-features .check { color: var(--green); }
+        .plan-features .cross { color: var(--gray-light); }
+        .plan-card.popular .plan-features .cross { color: rgba(255,255,255,0.2); }
+
+        /* CTA */
+        .plan-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0.85rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font);
+            transition: all 0.2s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .plan-cta.outline {
+            background: transparent;
+            border: 1px solid var(--gray-light);
+            color: var(--dark);
+        }
+
+        .plan-cta.outline:hover {
+            border-color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .plan-cta.green {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .plan-cta.green:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16,185,129,0.35);
+        }
+
+        .plan-cta.white {
+            background: var(--white);
+            color: var(--dark);
+        }
+
+        .plan-cta.white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255,255,255,0.15);
+        }
+
+        /* Note sous la grille */
+        .pricing-note {
+            text-align: center;
+            margin-top: 2.5rem;
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        .pricing-note i { color: var(--green); margin-right: 0.35rem; }
+
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+            .plan-card { border-right: none; border-bottom: 1px solid var(--gray-light); }
+            .plan-card:last-child { border-bottom: none; }
+            .plan-card.popular { border-bottom: 1px solid rgba(255,255,255,0.08); }
+        }
+
+        /* ============================================================
+           TEMOIGNAGES
+        ============================================================ */
+        .testimonials-section {
+            background: var(--dark);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('/images/testimonials-bg.webp.png.jpg') center/cover no-repeat;
+            opacity: 0.07;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .testimonials-section > * { position: relative; z-index: 1; }
+
+        .testimonials-section .section-title { color: var(--white); }
+        .testimonials-section .section-sub { color: rgba(255,255,255,0.5); }
+        .testimonials-section .section-badge {
+            color: var(--green);
+            background: rgba(16,185,129,0.1);
+            border: 1px solid rgba(16,185,129,0.25);
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+        .testimonial-card {
+            padding: 2.5rem;
+            border: 1px solid var(--gray-light);
+            background: var(--dark-2);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            background: var(--dark-3);
+            transform: translateY(-4px);
+        }
+        .testimonial-stars { color: var(--orange); margin-bottom: 1rem; font-size: 0.85rem; letter-spacing: 2px; }
+        .testimonial-text {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+        .testimonial-avatar {
+            width: 48px; height: 48px;
+            background: var(--green);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white); font-weight: 700; font-size: 1.1rem;
+        }
+        .testimonial-card:nth-child(2) .testimonial-avatar { background: var(--orange); }
+        .testimonial-card:nth-child(3) .testimonial-avatar { background: #6366F1; }
+        .testimonial-info h4 { color: var(--white); font-size: 0.95rem; margin-bottom: 0.15rem; }
+        .testimonial-info span { color: var(--gray); font-size: 0.8rem; }
+
+        @media (max-width: 900px) {
+            .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+        }
+
+        /* ============================================================
+           CTA BAND
+        ============================================================ */
+        .cta-band {
+            background: var(--green);
+            padding: 4.5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-band::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('/images/cta-bg.webp.png.jpg') center/cover no-repeat;
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .cta-band::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .cta-band-content { position: relative; z-index: 1; }
+        .cta-band h2 {
+            color: var(--white); font-size: 2.2rem; font-weight: 800; margin-bottom: 0.75rem;
+        }
+        .cta-band p {
+            color: rgba(255,255,255,0.85); font-size: 1.1rem; margin-bottom: 2rem;
+        }
+        .cta-band .btn-cta-white {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 1rem 2.5rem;
+            background: var(--white); color: var(--green);
+            font-weight: 700; font-size: 1rem;
+            text-decoration: none;
+            border: none; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .cta-band .btn-cta-white:hover { background: var(--dark); color: var(--green); transform: translateY(-2px); }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        .footer { background: var(--dark-2); border-top: 1px solid var(--gray-light); padding: 4rem 0 0; }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 3rem;
+        }
+        .footer-brand img { height: 48px; margin-bottom: 1rem; }
+        .footer-brand p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; max-width: 280px; }
+        .footer-socials { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+        .footer-socials a {
+            width: 36px; height: 36px;
+            border: 1px solid var(--gray-light);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gray); font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-socials a:hover { border-color: var(--green); color: var(--green); }
+        .footer-col h4 {
+            color: var(--white); font-size: 0.85rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 1.25rem;
+        }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col li { margin-bottom: 0.6rem; }
+        .footer-col a {
+            color: var(--gray); font-size: 0.9rem;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--green); }
+        .footer-bottom {
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--gray-light);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-bottom p { color: var(--gray); font-size: 0.8rem; margin: 0; }
+        .footer-bottom-links { display: flex; gap: 1.5rem; }
+        .footer-bottom-links a { color: var(--gray); font-size: 0.8rem; text-decoration: none; }
+        .footer-bottom-links a:hover { color: var(--green); }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-brand { grid-column: 1 / -1; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+            .cta-band h2 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div id="scroll-progress"></div>
+
+<!-- Bouton flottant Workflow -->
+<a id="btn-workflow" href="/workflow/index.html" target="_blank" title="Voir le workflow de développement">
+    <i class="fas fa-diagram-project"></i> Workflow
+</a>
+
+<!-- ================================================
+     NAVBAR
+================================================ -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+
+        <!-- Logo -->
+        <a href="/" class="nav-logo" aria-label="Khayma — Accueil">
+            <img src="/khayma_logo_transparent.png"
+                 alt="Khayma"
+                 class="nav-logo-img">
+            <span class="nav-logo-tagline">Tenter<br>&amp; Estimer</span>
+        </a>
+
+        <!-- Desktop links -->
+        <ul class="nav-links">
+            <li><a href="#features">Fonctionnalités</a></li>
+            <li><a href="#modules">Modules</a></li>
+            <li><a href="#pricing">Tarifs</a></li>
+            <li><a href="#testimonials">Témoignages</a></li>
+        </ul>
+
+        <!-- Desktop CTA -->
+        <div class="nav-cta">
             @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    @auth
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
+                @auth
+                    <a href="{{ url('/dashboard') }}" class="btn-primary">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="btn-link">Connexion</a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="btn-primary">
+                            <i class="fas fa-rocket"></i> Commencer
                         </a>
-                    @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a>
-
-                        @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
-                </nav>
+                    @endif
+                @endauth
             @endif
-        </header>
-        <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-            <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-                <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
-                    <h1 class="mb-1 font-medium">Let's get started</h1>
-                    <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Laravel has an incredibly rich ecosystem. <br>We suggest starting with the following.</p>
-                    <ul class="flex flex-col mb-4 lg:mb-6">
-                        <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                            <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border dark:border-[#3E3E3A] border-[#e3e3e0]">
-                                    <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
-                                </span>
-                            </span>
-                            <span>
-                                Read the
-                                <a href="https://laravel.com/docs" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
-                                    <span>Documentation</span>
-                                    <svg
-                                        width="10"
-                                        height="11"
-                                        viewBox="0 0 10 11"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="w-2.5 h-2.5"
-                                    >
-                                        <path
-                                            d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001"
-                                            stroke="currentColor"
-                                            stroke-linecap="square"
-                                        />
-                                    </svg>
-                                </a>
-                            </span>
-                        </li>
-                        <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:bottom-1/2 before:top-0 before:left-[0.4rem] before:absolute">
-                            <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border dark:border-[#3E3E3A] border-[#e3e3e0]">
-                                    <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
-                                </span>
-                            </span>
-                            <span>
-                                Watch video tutorials at
-                                <a href="https://laracasts.com" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
-                                    <span>Laracasts</span>
-                                    <svg
-                                        width="10"
-                                        height="11"
-                                        viewBox="0 0 10 11"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="w-2.5 h-2.5"
-                                    >
-                                        <path
-                                            d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001"
-                                            stroke="currentColor"
-                                            stroke-linecap="square"
-                                        />
-                                    </svg>
-                                </a>
-                            </span>
-                        </li>
-                    </ul>
-                    <ul class="flex gap-3 text-sm leading-normal">
-                        <li>
-                            <a href="https://cloud.laravel.com" target="_blank" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
-                                Deploy now
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
-                    {{-- Laravel Logo --}}
-                    <svg class="w-full text-[#F53003] dark:text-[#F61500] transition-all translate-y-0 opacity-100 max-w-none duration-750 starting:opacity-0 starting:translate-y-6" viewBox="0 0 438 104" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.2036 -3H0V102.197H49.5189V86.7187H17.2036V-3Z" fill="currentColor" />
-                        <path d="M110.256 41.6337C108.061 38.1275 104.945 35.3731 100.905 33.3681C96.8667 31.3647 92.8016 30.3618 88.7131 30.3618C83.4247 30.3618 78.5885 31.3389 74.201 33.2923C69.8111 35.2456 66.0474 37.928 62.9059 41.3333C59.7643 44.7401 57.3198 48.6726 55.5754 53.1293C53.8287 57.589 52.9572 62.274 52.9572 67.1813C52.9572 72.1925 53.8287 76.8995 55.5754 81.3069C57.3191 85.7173 59.7636 89.6241 62.9059 93.0293C66.0474 96.4361 69.8119 99.1155 74.201 101.069C78.5885 103.022 83.4247 103.999 88.7131 103.999C92.8016 103.999 96.8667 102.997 100.905 100.994C104.945 98.9911 108.061 96.2359 110.256 92.7282V102.195H126.563V32.1642H110.256V41.6337ZM108.76 75.7472C107.762 78.4531 106.366 80.8078 104.572 82.8112C102.776 84.8161 100.606 86.4183 98.0637 87.6206C95.5202 88.823 92.7004 89.4238 89.6103 89.4238C86.5178 89.4238 83.7252 88.823 81.2324 87.6206C78.7388 86.4183 76.5949 84.8161 74.7998 82.8112C73.004 80.8078 71.6319 78.4531 70.6856 75.7472C69.7356 73.0421 69.2644 70.1868 69.2644 67.1821C69.2644 64.1758 69.7356 61.3205 70.6856 58.6154C71.6319 55.9102 73.004 53.5571 74.7998 51.5522C76.5949 49.5495 78.738 47.9451 81.2324 46.7427C83.7252 45.5404 86.5178 44.9396 89.6103 44.9396C92.7012 44.9396 95.5202 45.5404 98.0637 46.7427C100.606 47.9451 102.776 49.5487 104.572 51.5522C106.367 53.5571 107.762 55.9102 108.76 58.6154C109.756 61.3205 110.256 64.1758 110.256 67.1821C110.256 70.1868 109.756 73.0421 108.76 75.7472Z" fill="currentColor" />
-                        <path d="M242.805 41.6337C240.611 38.1275 237.494 35.3731 233.455 33.3681C229.416 31.3647 225.351 30.3618 221.262 30.3618C215.974 30.3618 211.138 31.3389 206.75 33.2923C202.36 35.2456 198.597 37.928 195.455 41.3333C192.314 44.7401 189.869 48.6726 188.125 53.1293C186.378 57.589 185.507 62.274 185.507 67.1813C185.507 72.1925 186.378 76.8995 188.125 81.3069C189.868 85.7173 192.313 89.6241 195.455 93.0293C198.597 96.4361 202.361 99.1155 206.75 101.069C211.138 103.022 215.974 103.999 221.262 103.999C225.351 103.999 229.416 102.997 233.455 100.994C237.494 98.9911 240.611 96.2359 242.805 92.7282V102.195H259.112V32.1642H242.805V41.6337ZM241.31 75.7472C240.312 78.4531 238.916 80.8078 237.122 82.8112C235.326 84.8161 233.156 86.4183 230.614 87.6206C228.07 88.823 225.251 89.4238 222.16 89.4238C219.068 89.4238 216.275 88.823 213.782 87.6206C211.289 86.4183 209.145 84.8161 207.35 82.8112C205.554 80.8078 204.182 78.4531 203.236 75.7472C202.286 73.0421 201.814 70.1868 201.814 67.1821C201.814 64.1758 202.286 61.3205 203.236 58.6154C204.182 55.9102 205.554 53.5571 207.35 51.5522C209.145 49.5495 211.288 47.9451 213.782 46.7427C216.275 45.5404 219.068 44.9396 222.16 44.9396C225.251 44.9396 228.07 45.5404 230.614 46.7427C233.156 47.9451 235.326 49.5487 237.122 51.5522C238.917 53.5571 240.312 55.9102 241.31 58.6154C242.306 61.3205 242.806 64.1758 242.806 67.1821C242.805 70.1868 242.305 73.0421 241.31 75.7472Z" fill="currentColor" />
-                        <path d="M438 -3H421.694V102.197H438V-3Z" fill="currentColor" />
-                        <path d="M139.43 102.197H155.735V48.2834H183.712V32.1665H139.43V102.197Z" fill="currentColor" />
-                        <path d="M324.49 32.1665L303.995 85.794L283.498 32.1665H266.983L293.748 102.197H314.242L341.006 32.1665H324.49Z" fill="currentColor" />
-                        <path d="M376.571 30.3656C356.603 30.3656 340.797 46.8497 340.797 67.1828C340.797 89.6597 356.094 104 378.661 104C391.29 104 399.354 99.1488 409.206 88.5848L398.189 80.0226C398.183 80.031 389.874 90.9895 377.468 90.9895C363.048 90.9895 356.977 79.3111 356.977 73.269H411.075C413.917 50.1328 398.775 30.3656 376.571 30.3656ZM357.02 61.0967C357.145 59.7487 359.023 43.3761 376.442 43.3761C393.861 43.3761 395.978 59.7464 396.099 61.0967H357.02Z" fill="currentColor" />
-                    </svg>
-
-                    {{-- Light Mode 12 SVG --}}
-                    <svg class="w-[448px] max-w-none relative -mt-[4.9rem] -ml-8 lg:ml-0 lg:-mt-[6.6rem] dark:hidden" viewBox="0 0 440 376" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M188.263 355.73L188.595 355.73C195.441 348.845 205.766 339.761 219.569 328.477C232.93 317.193 242.978 308.205 249.714 301.511C256.34 294.626 260.867 287.358 263.296 279.708C265.725 272.058 264.565 264.121 259.816 255.896C254.516 246.716 247.062 239.352 237.454 233.805C227.957 228.067 217.908 225.198 207.307 225.198C196.927 225.197 190.136 227.97 186.934 233.516C183.621 238.872 184.726 246.331 190.247 255.894L125.647 255.891C116.371 239.825 112.395 225.481 113.72 212.858C115.265 200.235 121.559 190.481 132.602 183.596C143.754 176.52 158.607 172.982 177.159 172.983C196.594 172.984 215.863 176.523 234.968 183.6C253.961 190.486 271.299 200.241 286.98 212.864C302.661 225.488 315.14 239.833 324.416 255.899C333.03 270.817 336.841 283.918 335.847 295.203C335.075 306.487 331.376 316.336 324.75 324.751C318.346 333.167 308.408 343.494 294.936 355.734L377.094 355.737L405.917 405.656L217.087 405.649L188.263 355.73Z" fill="black" />
-                            <path d="M9.11884 226.339L-13.7396 226.338L-42.7286 176.132L43.0733 176.135L175.595 405.649L112.651 405.647L9.11884 226.339Z" fill="black" />
-                            <path d="M188.263 355.73L188.595 355.73C195.441 348.845 205.766 339.761 219.569 328.477C232.93 317.193 242.978 308.205 249.714 301.511C256.34 294.626 260.867 287.358 263.296 279.708C265.725 272.058 264.565 264.121 259.816 255.896C254.516 246.716 247.062 239.352 237.454 233.805C227.957 228.067 217.908 225.198 207.307 225.198C196.927 225.197 190.136 227.97 186.934 233.516C183.621 238.872 184.726 246.331 190.247 255.894L125.647 255.891C116.371 239.825 112.395 225.481 113.72 212.858C115.265 200.235 121.559 190.481 132.602 183.596C143.754 176.52 158.607 172.982 177.159 172.983C196.594 172.984 215.863 176.523 234.968 183.6C253.961 190.486 271.299 200.241 286.98 212.864C302.661 225.488 315.14 239.833 324.416 255.899C333.03 270.817 336.841 283.918 335.847 295.203C335.075 306.487 331.376 316.336 324.75 324.751C318.346 333.167 308.408 343.494 294.936 355.734L377.094 355.737L405.917 405.656L217.087 405.649L188.263 355.73Z" stroke="#1B1B18" stroke-width="1" />
-                            <path d="M9.11884 226.339L-13.7396 226.338L-42.7286 176.132L43.0733 176.135L175.595 405.649L112.651 405.647L9.11884 226.339Z" stroke="#1B1B18" stroke-width="1" />
-                            <path d="M204.592 327.449L204.923 327.449C211.769 320.564 222.094 311.479 235.897 300.196C249.258 288.912 259.306 279.923 266.042 273.23C272.668 266.345 277.195 259.077 279.624 251.427C282.053 243.777 280.893 235.839 276.145 227.615C270.844 218.435 263.39 211.071 253.782 205.524C244.285 199.786 234.236 196.917 223.635 196.916C213.255 196.916 206.464 199.689 203.262 205.235C199.949 210.59 201.054 218.049 206.575 227.612L141.975 227.61C132.699 211.544 128.723 197.2 130.048 184.577C131.593 171.954 137.887 162.2 148.93 155.315C160.083 148.239 174.935 144.701 193.487 144.702C212.922 144.703 232.192 148.242 251.296 155.319C270.289 162.205 287.627 171.96 303.308 184.583C318.989 197.207 331.468 211.552 340.745 227.618C349.358 242.536 353.169 255.637 352.175 266.921C351.403 278.205 347.704 288.055 341.078 296.47C334.674 304.885 324.736 315.213 311.264 327.453L393.422 327.456L422.246 377.375L233.415 377.368L204.592 327.449Z" fill="#F8B803" />
-                            <path d="M25.447 198.058L2.58852 198.057L-26.4005 147.851L59.4015 147.854L191.923 377.368L128.979 377.365L25.447 198.058Z" fill="#F8B803" />
-                            <path d="M204.592 327.449L204.923 327.449C211.769 320.564 222.094 311.479 235.897 300.196C249.258 288.912 259.306 279.923 266.042 273.23C272.668 266.345 277.195 259.077 279.624 251.427C282.053 243.777 280.893 235.839 276.145 227.615C270.844 218.435 263.39 211.071 253.782 205.524C244.285 199.786 234.236 196.917 223.635 196.916C213.255 196.916 206.464 199.689 203.262 205.235C199.949 210.59 201.054 218.049 206.575 227.612L141.975 227.61C132.699 211.544 128.723 197.2 130.048 184.577C131.593 171.954 137.887 162.2 148.93 155.315C160.083 148.239 174.935 144.701 193.487 144.702C212.922 144.703 232.192 148.242 251.296 155.319C270.289 162.205 287.627 171.96 303.308 184.583C318.989 197.207 331.468 211.552 340.745 227.618C349.358 242.536 353.169 255.637 352.175 266.921C351.403 278.205 347.704 288.055 341.078 296.47C334.674 304.885 324.736 315.213 311.264 327.453L393.422 327.456L422.246 377.375L233.415 377.368L204.592 327.449Z" stroke="#1B1B18" stroke-width="1" />
-                            <path d="M25.447 198.058L2.58852 198.057L-26.4005 147.851L59.4015 147.854L191.923 377.368L128.979 377.365L25.447 198.058Z" stroke="#1B1B18" stroke-width="1" />
-                        </g>
-                        <g style="mix-blend-mode: hard-light" class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M217.342 305.363L217.673 305.363C224.519 298.478 234.844 289.393 248.647 278.11C262.008 266.826 272.056 257.837 278.792 251.144C285.418 244.259 289.945 236.991 292.374 229.341C294.803 221.691 293.643 213.753 288.895 205.529C283.594 196.349 276.14 188.985 266.532 183.438C257.035 177.7 246.986 174.831 236.385 174.83C226.005 174.83 219.214 177.603 216.012 183.149C212.699 188.504 213.804 195.963 219.325 205.527L154.725 205.524C145.449 189.458 141.473 175.114 142.798 162.491C144.343 149.868 150.637 140.114 161.68 133.229C172.833 126.153 187.685 122.615 206.237 122.616C225.672 122.617 244.942 126.156 264.046 133.233C283.039 140.119 300.377 149.874 316.058 162.497C331.739 175.121 344.218 189.466 353.495 205.532C362.108 220.45 365.919 233.551 364.925 244.835C364.153 256.12 360.454 265.969 353.828 274.384C347.424 282.799 337.486 293.127 324.014 305.367L406.172 305.37L434.996 355.289L246.165 355.282L217.342 305.363Z" fill="#F0ACB8" />
-                            <path d="M38.197 175.972L15.3385 175.971L-13.6505 125.765L72.1515 125.768L204.673 355.282L141.729 355.279L38.197 175.972Z" fill="#F0ACB8" />
-                            <path d="M217.342 305.363L217.673 305.363C224.519 298.478 234.844 289.393 248.647 278.11C262.008 266.826 272.056 257.837 278.792 251.144C285.418 244.259 289.945 236.991 292.374 229.341C294.803 221.691 293.643 213.753 288.895 205.529C283.594 196.349 276.14 188.985 266.532 183.438C257.035 177.7 246.986 174.831 236.385 174.83C226.005 174.83 219.214 177.603 216.012 183.149C212.699 188.504 213.804 195.963 219.325 205.527L154.725 205.524C145.449 189.458 141.473 175.114 142.798 162.491C144.343 149.868 150.637 140.114 161.68 133.229C172.833 126.153 187.685 122.615 206.237 122.616C225.672 122.617 244.942 126.156 264.046 133.233C283.039 140.119 300.377 149.874 316.058 162.497C331.739 175.121 344.218 189.466 353.495 205.532C362.108 220.45 365.919 233.551 364.925 244.835C364.153 256.12 360.454 265.969 353.828 274.384C347.424 282.799 337.486 293.127 324.014 305.367L406.172 305.37L434.996 355.289L246.165 355.282L217.342 305.363Z" stroke="#1B1B18" stroke-width="1" />
-                            <path d="M38.197 175.972L15.3385 175.971L-13.6505 125.765L72.1515 125.768L204.673 355.282L141.729 355.279L38.197 175.972Z" stroke="#1B1B18" stroke-width="1" />
-                        </g>
-                        <g style="mix-blend-mode: plus-darker" class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M230.951 281.792L231.282 281.793C238.128 274.907 248.453 265.823 262.256 254.539C275.617 243.256 285.666 234.267 292.402 227.573C299.027 220.688 303.554 213.421 305.983 205.771C308.412 198.12 307.253 190.183 302.504 181.959C297.203 172.778 289.749 165.415 280.142 159.868C270.645 154.13 260.596 151.26 249.995 151.26C239.615 151.26 232.823 154.033 229.621 159.579C226.309 164.934 227.413 172.393 232.935 181.956L168.335 181.954C159.058 165.888 155.082 151.543 156.407 138.92C157.953 126.298 164.247 116.544 175.289 109.659C186.442 102.583 201.294 99.045 219.846 99.0457C239.281 99.0464 258.551 102.585 277.655 109.663C296.649 116.549 313.986 126.303 329.667 138.927C345.349 151.551 357.827 165.895 367.104 181.961C375.718 196.88 379.528 209.981 378.535 221.265C377.762 232.549 374.063 242.399 367.438 250.814C361.033 259.229 351.095 269.557 337.624 281.796L419.782 281.8L448.605 331.719L259.774 331.712L230.951 281.792Z" fill="#F3BEC7" />
-                            <path d="M51.8063 152.402L28.9479 152.401L-0.0411453 102.195L85.7608 102.198L218.282 331.711L155.339 331.709L51.8063 152.402Z" fill="#F3BEC7" />
-                            <path d="M230.951 281.792L231.282 281.793C238.128 274.907 248.453 265.823 262.256 254.539C275.617 243.256 285.666 234.267 292.402 227.573C299.027 220.688 303.554 213.421 305.983 205.771C308.412 198.12 307.253 190.183 302.504 181.959C297.203 172.778 289.749 165.415 280.142 159.868C270.645 154.13 260.596 151.26 249.995 151.26C239.615 151.26 232.823 154.033 229.621 159.579C226.309 164.934 227.413 172.393 232.935 181.956L168.335 181.954C159.058 165.888 155.082 151.543 156.407 138.92C157.953 126.298 164.247 116.544 175.289 109.659C186.442 102.583 201.294 99.045 219.846 99.0457C239.281 99.0464 258.551 102.585 277.655 109.663C296.649 116.549 313.986 126.303 329.667 138.927C345.349 151.551 357.827 165.895 367.104 181.961C375.718 196.88 379.528 209.981 378.535 221.265C377.762 232.549 374.063 242.399 367.438 250.814C361.033 259.229 351.095 269.557 337.624 281.796L419.782 281.8L448.605 331.719L259.774 331.712L230.951 281.792Z" stroke="#1B1B18" stroke-width="1" />
-                            <path d="M51.8063 152.402L28.9479 152.401L-0.0411453 102.195L85.7608 102.198L218.282 331.711L155.339 331.709L51.8063 152.402Z" stroke="#1B1B18" stroke-width="1" />
-                        </g>
-                        <g class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M188.467 355.363L188.798 355.363C195.644 348.478 205.969 339.393 219.772 328.11C233.133 316.826 243.181 307.837 249.917 301.144C253.696 297.217 256.792 293.166 259.205 288.991C261.024 285.845 262.455 282.628 263.499 279.341C265.928 271.691 264.768 263.753 260.02 255.529C254.719 246.349 247.265 238.985 237.657 233.438C228.16 227.7 218.111 224.831 207.51 224.83C197.13 224.83 190.339 227.603 187.137 233.149C183.824 238.504 184.929 245.963 190.45 255.527L125.851 255.524C116.574 239.458 112.598 225.114 113.923 212.491C114.615 206.836 116.261 201.756 118.859 197.253C122.061 191.704 126.709 187.03 132.805 183.229C143.958 176.153 158.81 172.615 177.362 172.616C196.797 172.617 216.067 176.156 235.171 183.233C254.164 190.119 271.502 199.874 287.183 212.497C302.864 225.121 315.343 239.466 324.62 255.532C333.233 270.45 337.044 283.551 336.05 294.835C335.46 303.459 333.16 311.245 329.151 318.194C327.915 320.337 326.515 322.4 324.953 324.384C318.549 332.799 308.611 343.127 295.139 355.367L377.297 355.37L406.121 405.289L217.29 405.282L188.467 355.363Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M9.32197 225.972L-13.5365 225.971L-42.5255 175.765L43.2765 175.768L175.798 405.282L112.854 405.279L9.32197 225.972Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M345.247 111.915C329.566 99.2919 312.229 89.5371 293.235 82.6512L235.167 183.228C254.161 190.114 271.498 199.869 287.179 212.492L345.247 111.915Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M382.686 154.964C373.41 138.898 360.931 124.553 345.25 111.93L287.182 212.506C302.863 225.13 315.342 239.475 324.618 255.541L382.686 154.964Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M293.243 82.6472C274.139 75.57 254.869 72.031 235.434 72.0303L177.366 172.607C196.801 172.608 216.071 176.147 235.175 183.224L293.243 82.6472Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M394.118 194.257C395.112 182.973 391.301 169.872 382.688 154.953L324.619 255.53C333.233 270.448 337.044 283.55 336.05 294.834L394.118 194.257Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M235.432 72.0311C216.88 72.0304 202.027 75.5681 190.875 82.6442L132.806 183.221C143.959 176.145 158.812 172.607 177.363 172.608L235.432 72.0311Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M265.59 124.25C276.191 124.251 286.24 127.12 295.737 132.858L237.669 233.435C228.172 227.697 218.123 224.828 207.522 224.827L265.59 124.25Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M295.719 132.859C305.326 138.406 312.78 145.77 318.081 154.95L260.013 255.527C254.712 246.347 247.258 238.983 237.651 233.436L295.719 132.859Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M387.218 217.608C391.227 210.66 393.527 202.874 394.117 194.25L336.049 294.827C335.459 303.451 333.159 311.237 329.15 318.185L387.218 217.608Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M245.211 132.577C248.413 127.03 255.204 124.257 265.584 124.258L207.516 224.835C197.136 224.834 190.345 227.607 187.143 233.154L245.211 132.577Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M318.094 154.945C322.842 163.17 324.002 171.107 321.573 178.757L263.505 279.334C265.934 271.684 264.774 263.746 260.026 255.522L318.094 154.945Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M176.925 96.6737C180.127 91.1249 184.776 86.4503 190.871 82.6499L132.803 183.227C126.708 187.027 122.059 191.702 118.857 197.25L176.925 96.6737Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M387.226 217.606C385.989 219.749 384.59 221.813 383.028 223.797L324.96 324.373C326.522 322.39 327.921 320.326 329.157 318.183L387.226 217.606Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M317.269 188.408C319.087 185.262 320.519 182.045 321.562 178.758L263.494 279.335C262.451 282.622 261.019 285.839 259.201 288.985L317.269 188.408Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M245.208 132.573C241.895 137.928 243 145.387 248.522 154.95L190.454 255.527C184.932 245.964 183.827 238.505 187.14 233.15L245.208 132.573Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M176.93 96.6719C174.331 101.175 172.686 106.255 171.993 111.91L113.925 212.487C114.618 206.831 116.263 201.752 118.862 197.249L176.93 96.6719Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M317.266 188.413C314.853 192.589 311.757 196.64 307.978 200.566L249.91 301.143C253.689 297.216 256.785 293.166 259.198 288.99L317.266 188.413Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M464.198 304.708L435.375 254.789L377.307 355.366L406.13 405.285L464.198 304.708Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M353.209 254.787C366.68 242.548 376.618 232.22 383.023 223.805L324.955 324.382C318.55 332.797 308.612 343.124 295.141 355.364L353.209 254.787Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M435.37 254.787L353.212 254.784L295.144 355.361L377.302 355.364L435.37 254.787Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M183.921 154.947L248.521 154.95L190.453 255.527L125.853 255.524L183.921 154.947Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M171.992 111.914C170.668 124.537 174.643 138.881 183.92 154.947L125.852 255.524C116.575 239.458 112.599 225.114 113.924 212.491L171.992 111.914Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M307.987 200.562C301.251 207.256 291.203 216.244 277.842 227.528L219.774 328.105C233.135 316.821 243.183 307.832 249.919 301.139L307.987 200.562Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M15.5469 75.1797L44.5359 125.386L-13.5321 225.963L-42.5212 175.756L15.5469 75.1797Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M277.836 227.536C264.033 238.82 253.708 247.904 246.862 254.789L188.794 355.366C195.64 348.481 205.965 339.397 219.768 328.113L277.836 227.536Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M275.358 304.706L464.189 304.713L406.12 405.29L217.29 405.283L275.358 304.706Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M44.5279 125.39L67.3864 125.39L9.31834 225.967L-13.5401 225.966L44.5279 125.39Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M101.341 75.1911L233.863 304.705L175.795 405.282L43.2733 175.768L101.341 75.1911ZM15.5431 75.19L-42.525 175.767L43.277 175.77L101.345 75.1932L15.5431 75.19Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M246.866 254.784L246.534 254.784L188.466 355.361L188.798 355.361L246.866 254.784Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M246.539 254.781L275.362 304.701L217.294 405.277L188.471 355.358L246.539 254.781Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M67.3906 125.391L170.923 304.698L112.855 405.275L9.32257 225.967L67.3906 125.391Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                            <path d="M170.921 304.699L233.865 304.701L175.797 405.278L112.853 405.276L170.921 304.699Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="bevel" />
-                        </g>
-                        <g style="mix-blend-mode: hard-light" class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M246.544 254.79L246.875 254.79C253.722 247.905 264.046 238.82 277.849 227.537C291.21 216.253 301.259 207.264 307.995 200.57C314.62 193.685 319.147 186.418 321.577 178.768C324.006 171.117 322.846 163.18 318.097 154.956C312.796 145.775 305.342 138.412 295.735 132.865C286.238 127.127 276.189 124.258 265.588 124.257C255.208 124.257 248.416 127.03 245.214 132.576C241.902 137.931 243.006 145.39 248.528 154.953L183.928 154.951C174.652 138.885 170.676 124.541 172 111.918C173.546 99.2946 179.84 89.5408 190.882 82.6559C202.035 75.5798 216.887 72.0421 235.439 72.0428C254.874 72.0435 274.144 75.5825 293.248 82.6598C312.242 89.5457 329.579 99.3005 345.261 111.924C360.942 124.548 373.421 138.892 382.697 154.958C391.311 169.877 395.121 182.978 394.128 194.262C393.355 205.546 389.656 215.396 383.031 223.811C376.627 232.226 366.688 242.554 353.217 254.794L435.375 254.797L464.198 304.716L275.367 304.709L246.544 254.79Z" fill="#F0ACB8" />
-                            <path d="M246.544 254.79L246.875 254.79C253.722 247.905 264.046 238.82 277.849 227.537C291.21 216.253 301.259 207.264 307.995 200.57C314.62 193.685 319.147 186.418 321.577 178.768C324.006 171.117 322.846 163.18 318.097 154.956C312.796 145.775 305.342 138.412 295.735 132.865C286.238 127.127 276.189 124.258 265.588 124.257C255.208 124.257 248.416 127.03 245.214 132.576C241.902 137.931 243.006 145.39 248.528 154.953L183.928 154.951C174.652 138.885 170.676 124.541 172 111.918C173.546 99.2946 179.84 89.5408 190.882 82.6559C202.035 75.5798 216.887 72.0421 235.439 72.0428C254.874 72.0435 274.144 75.5825 293.248 82.6598C312.242 89.5457 329.579 99.3005 345.261 111.924C360.942 124.548 373.421 138.892 382.697 154.958C391.311 169.877 395.121 182.978 394.128 194.262C393.355 205.546 389.656 215.396 383.031 223.811C376.627 232.226 366.688 242.554 353.217 254.794L435.375 254.797L464.198 304.716L275.367 304.709L246.544 254.79Z" stroke="#1B1B18" stroke-width="1" stroke-linejoin="round" />
-                        </g>
-                        <g style="mix-blend-mode: hard-light" class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M67.41 125.402L44.5515 125.401L15.5625 75.1953L101.364 75.1985L233.886 304.712L170.942 304.71L67.41 125.402Z" fill="#F0ACB8" />
-                            <path d="M67.41 125.402L44.5515 125.401L15.5625 75.1953L101.364 75.1985L233.886 304.712L170.942 304.71L67.41 125.402Z" stroke="#1B1B18" stroke-width="1" />
-                        </g>
-                    </svg>
-
-                    {{-- Dark Mode 12 SVG --}}
-                    <svg class="w-[448px] max-w-none relative -mt-[4.9rem] -ml-8 lg:ml-0 lg:-mt-[6.6rem] hidden dark:block" viewBox="0 0 440 376" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M188.263 355.73L188.595 355.73C195.441 348.845 205.766 339.761 219.569 328.477C232.93 317.193 242.978 308.205 249.714 301.511C256.34 294.626 260.867 287.358 263.296 279.708C265.725 272.058 264.565 264.121 259.816 255.896C254.516 246.716 247.062 239.352 237.454 233.805C227.957 228.067 217.908 225.198 207.307 225.198C196.927 225.197 190.136 227.97 186.934 233.516C183.621 238.872 184.726 246.331 190.247 255.894L125.647 255.891C116.371 239.825 112.395 225.481 113.72 212.858C115.265 200.235 121.559 190.481 132.602 183.596C143.754 176.52 158.607 172.982 177.159 172.983C196.594 172.984 215.863 176.523 234.968 183.6C253.961 190.486 271.299 200.241 286.98 212.864C302.661 225.488 315.14 239.833 324.416 255.899C333.03 270.817 336.841 283.918 335.847 295.203C335.075 306.487 331.376 316.336 324.75 324.751C318.346 333.167 308.408 343.494 294.936 355.734L377.094 355.737L405.917 405.656L217.087 405.649L188.263 355.73Z" fill="black"/>
-                            <path d="M9.11884 226.339L-13.7396 226.338L-42.7286 176.132L43.0733 176.135L175.595 405.649L112.651 405.647L9.11884 226.339Z" fill="black"/>
-                            <path d="M188.263 355.73L188.595 355.73C195.441 348.845 205.766 339.761 219.569 328.477C232.93 317.193 242.978 308.205 249.714 301.511C256.34 294.626 260.867 287.358 263.296 279.708C265.725 272.058 264.565 264.121 259.816 255.896C254.516 246.716 247.062 239.352 237.454 233.805C227.957 228.067 217.908 225.198 207.307 225.198C196.927 225.197 190.136 227.97 186.934 233.516C183.621 238.872 184.726 246.331 190.247 255.894L125.647 255.891C116.371 239.825 112.395 225.481 113.72 212.858C115.265 200.235 121.559 190.481 132.602 183.596C143.754 176.52 158.607 172.982 177.159 172.983C196.594 172.984 215.863 176.523 234.968 183.6C253.961 190.486 271.299 200.241 286.98 212.864C302.661 225.488 315.14 239.833 324.416 255.899C333.03 270.817 336.841 283.918 335.847 295.203C335.075 306.487 331.376 316.336 324.75 324.751C318.346 333.167 308.408 343.494 294.936 355.734L377.094 355.737L405.917 405.656L217.087 405.649L188.263 355.73Z" stroke="#FF750F" stroke-width="1"/>
-                            <path d="M9.11884 226.339L-13.7396 226.338L-42.7286 176.132L43.0733 176.135L175.595 405.649L112.651 405.647L9.11884 226.339Z" stroke="#FF750F" stroke-width="1"/>
-                            <path d="M204.592 327.449L204.923 327.449C211.769 320.564 222.094 311.479 235.897 300.196C249.258 288.912 259.306 279.923 266.042 273.23C272.668 266.345 277.195 259.077 279.624 251.427C282.053 243.777 280.893 235.839 276.145 227.615C270.844 218.435 263.39 211.071 253.782 205.524C244.285 199.786 234.236 196.917 223.635 196.916C213.255 196.916 206.464 199.689 203.262 205.235C199.949 210.59 201.054 218.049 206.575 227.612L141.975 227.61C132.699 211.544 128.723 197.2 130.048 184.577C131.593 171.954 137.887 162.2 148.93 155.315C160.083 148.239 174.935 144.701 193.487 144.702C212.922 144.703 232.192 148.242 251.296 155.319C270.289 162.205 287.627 171.96 303.308 184.583C318.989 197.207 331.468 211.552 340.745 227.618C349.358 242.536 353.169 255.637 352.175 266.921C351.403 278.205 347.704 288.055 341.078 296.47C334.674 304.885 324.736 315.213 311.264 327.453L393.422 327.456L422.246 377.375L233.415 377.368L204.592 327.449Z" fill="#391800"/>
-                            <path d="M25.447 198.058L2.58852 198.057L-26.4005 147.851L59.4015 147.854L191.923 377.368L128.979 377.365L25.447 198.058Z" fill="#391800"/>
-                            <path d="M204.592 327.449L204.923 327.449C211.769 320.564 222.094 311.479 235.897 300.196C249.258 288.912 259.306 279.923 266.042 273.23C272.668 266.345 277.195 259.077 279.624 251.427C282.053 243.777 280.893 235.839 276.145 227.615C270.844 218.435 263.39 211.071 253.782 205.524C244.285 199.786 234.236 196.917 223.635 196.916C213.255 196.916 206.464 199.689 203.262 205.235C199.949 210.59 201.054 218.049 206.575 227.612L141.975 227.61C132.699 211.544 128.723 197.2 130.048 184.577C131.593 171.954 137.887 162.2 148.93 155.315C160.083 148.239 174.935 144.701 193.487 144.702C212.922 144.703 232.192 148.242 251.296 155.319C270.289 162.205 287.627 171.96 303.308 184.583C318.989 197.207 331.468 211.552 340.745 227.618C349.358 242.536 353.169 255.637 352.175 266.921C351.403 278.205 347.704 288.055 341.078 296.47C334.674 304.885 324.736 315.213 311.264 327.453L393.422 327.456L422.246 377.375L233.415 377.368L204.592 327.449Z" stroke="#FF750F" stroke-width="1"/>
-                            <path d="M25.447 198.058L2.58852 198.057L-26.4005 147.851L59.4015 147.854L191.923 377.368L128.979 377.365L25.447 198.058Z" stroke="#FF750F" stroke-width="1"/>
-                        </g>
-                        <g class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4" style="mix-blend-mode:hard-light">
-                            <path d="M217.342 305.363L217.673 305.363C224.519 298.478 234.844 289.393 248.647 278.11C262.008 266.826 272.056 257.837 278.792 251.144C285.418 244.259 289.945 236.991 292.374 229.341C294.803 221.691 293.643 213.753 288.895 205.529C283.594 196.349 276.14 188.985 266.532 183.438C257.035 177.7 246.986 174.831 236.385 174.83C226.005 174.83 219.214 177.603 216.012 183.149C212.699 188.504 213.804 195.963 219.325 205.527L154.725 205.524C145.449 189.458 141.473 175.114 142.798 162.491C144.343 149.868 150.637 140.114 161.68 133.229C172.833 126.153 187.685 122.615 206.237 122.616C225.672 122.617 244.942 126.156 264.046 133.233C283.039 140.119 300.377 149.874 316.058 162.497C331.739 175.121 344.218 189.466 353.495 205.532C362.108 220.45 365.919 233.551 364.925 244.835C364.153 256.12 360.454 265.969 353.828 274.384C347.424 282.799 337.486 293.127 324.014 305.367L406.172 305.37L434.996 355.289L246.165 355.282L217.342 305.363Z" fill="#733000"/>
-                            <path d="M38.197 175.972L15.3385 175.971L-13.6505 125.765L72.1515 125.768L204.673 355.282L141.729 355.279L38.197 175.972Z" fill="#733000"/>
-                            <path d="M217.342 305.363L217.673 305.363C224.519 298.478 234.844 289.393 248.647 278.11C262.008 266.826 272.056 257.837 278.792 251.144C285.418 244.259 289.945 236.991 292.374 229.341C294.803 221.691 293.643 213.753 288.895 205.529C283.594 196.349 276.14 188.985 266.532 183.438C257.035 177.7 246.986 174.831 236.385 174.83C226.005 174.83 219.214 177.603 216.012 183.149C212.699 188.504 213.804 195.963 219.325 205.527L154.725 205.524C145.449 189.458 141.473 175.114 142.798 162.491C144.343 149.868 150.637 140.114 161.68 133.229C172.833 126.153 187.685 122.615 206.237 122.616C225.672 122.617 244.942 126.156 264.046 133.233C283.039 140.119 300.377 149.874 316.058 162.497C331.739 175.121 344.218 189.466 353.495 205.532C362.108 220.45 365.919 233.551 364.925 244.835C364.153 256.12 360.454 265.969 353.828 274.384C347.424 282.799 337.486 293.127 324.014 305.367L406.172 305.37L434.996 355.289L246.165 355.282L217.342 305.363Z" stroke="#FF750F" stroke-width="1"/>
-                            <path d="M38.197 175.972L15.3385 175.971L-13.6505 125.765L72.1515 125.768L204.673 355.282L141.729 355.279L38.197 175.972Z" stroke="#FF750F" stroke-width="1"/>
-                        </g>
-                        <g class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M217.342 305.363L217.673 305.363C224.519 298.478 234.844 289.393 248.647 278.11C262.008 266.826 272.056 257.837 278.792 251.144C285.418 244.259 289.945 236.991 292.374 229.341C294.803 221.691 293.643 213.753 288.895 205.529C283.594 196.349 276.14 188.985 266.532 183.438C257.035 177.7 246.986 174.831 236.385 174.83C226.005 174.83 219.214 177.603 216.012 183.149C212.699 188.504 213.804 195.963 219.325 205.527L154.726 205.524C145.449 189.458 141.473 175.114 142.798 162.491C144.343 149.868 150.637 140.114 161.68 133.229C172.833 126.153 187.685 122.615 206.237 122.616C225.672 122.617 244.942 126.156 264.046 133.233C283.039 140.119 300.377 149.874 316.058 162.497C331.739 175.121 344.218 189.466 353.495 205.532C362.108 220.45 365.919 233.551 364.925 244.835C364.153 256.12 360.454 265.969 353.828 274.384C347.424 282.799 337.486 293.127 324.014 305.367L406.172 305.37L434.996 355.289L246.165 355.282L217.342 305.363Z" stroke="#FF750F" stroke-width="1"/>
-                            <path d="M38.197 175.972L15.3385 175.971L-13.6505 125.765L72.1515 125.768L204.673 355.282L141.729 355.279L38.197 175.972Z" stroke="#FF750F" stroke-width="1"/>
-                        </g>
-                        <g class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4">
-                            <path d="M188.467 355.363L188.798 355.363C195.644 348.478 205.969 339.393 219.772 328.11C233.133 316.826 243.181 307.837 249.917 301.144C253.696 297.217 256.792 293.166 259.205 288.991C261.024 285.845 262.455 282.628 263.499 279.341C265.928 271.691 264.768 263.753 260.02 255.529C254.719 246.349 247.265 238.985 237.657 233.438C228.16 227.7 218.111 224.831 207.51 224.83C197.13 224.83 190.339 227.603 187.137 233.149C183.824 238.504 184.929 245.963 190.45 255.527L125.851 255.524C116.574 239.458 112.598 225.114 113.923 212.491C114.615 206.836 116.261 201.756 118.859 197.253C122.061 191.704 126.709 187.03 132.805 183.229C143.958 176.153 158.81 172.615 177.362 172.616C196.797 172.617 216.067 176.156 235.171 183.233C254.164 190.119 271.502 199.874 287.183 212.497C302.864 225.121 315.343 239.466 324.62 255.532C333.233 270.45 337.044 283.551 336.05 294.835C335.46 303.459 333.16 311.245 329.151 318.194C327.915 320.337 326.515 322.4 324.953 324.384C318.549 332.799 308.611 343.127 295.139 355.367L377.297 355.37L406.121 405.289L217.29 405.282L188.467 355.363Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M9.32197 225.972L-13.5365 225.971L-42.5255 175.765L43.2765 175.768L175.798 405.282L112.854 405.279L9.32197 225.972Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M345.247 111.915C329.566 99.2919 312.229 89.5371 293.235 82.6512L235.167 183.228C254.161 190.114 271.498 199.869 287.179 212.492L345.247 111.915Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M382.686 154.964C373.41 138.898 360.931 124.553 345.25 111.93L287.182 212.506C302.863 225.13 315.342 239.475 324.618 255.541L382.686 154.964Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M293.243 82.6472C274.139 75.57 254.869 72.031 235.434 72.0303L177.366 172.607C196.801 172.608 216.071 176.147 235.175 183.224L293.243 82.6472Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M394.118 194.257C395.112 182.973 391.301 169.872 382.688 154.953L324.619 255.53C333.233 270.448 337.044 283.55 336.05 294.834L394.118 194.257Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M235.432 72.0311C216.88 72.0304 202.027 75.5681 190.875 82.6442L132.806 183.221C143.959 176.145 158.812 172.607 177.363 172.608L235.432 72.0311Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M265.59 124.25C276.191 124.251 286.24 127.12 295.737 132.858L237.669 233.435C228.172 227.697 218.123 224.828 207.522 224.827L265.59 124.25Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M295.719 132.859C305.326 138.406 312.78 145.77 318.081 154.95L260.013 255.527C254.712 246.347 247.258 238.983 237.651 233.436L295.719 132.859Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M387.218 217.608C391.227 210.66 393.527 202.874 394.117 194.25L336.049 294.827C335.459 303.451 333.159 311.237 329.15 318.185L387.218 217.608Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M245.211 132.577C248.413 127.03 255.204 124.257 265.584 124.258L207.516 224.835C197.136 224.834 190.345 227.607 187.143 233.154L245.211 132.577Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M318.094 154.945C322.842 163.17 324.002 171.107 321.573 178.757L263.505 279.334C265.934 271.684 264.774 263.746 260.026 255.522L318.094 154.945Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M176.925 96.6737C180.127 91.1249 184.776 86.4503 190.871 82.6499L132.803 183.227C126.708 187.027 122.059 191.702 118.857 197.25L176.925 96.6737Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M387.226 217.606C385.989 219.749 384.59 221.813 383.028 223.797L324.96 324.373C326.522 322.39 327.921 320.326 329.157 318.183L387.226 217.606Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M317.269 188.408C319.087 185.262 320.519 182.045 321.562 178.758L263.494 279.335C262.451 282.622 261.019 285.839 259.201 288.985L317.269 188.408Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M245.208 132.573C241.895 137.928 243 145.387 248.522 154.95L190.454 255.527C184.932 245.964 183.827 238.505 187.14 233.15L245.208 132.573Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M176.93 96.6719C174.331 101.175 172.686 106.255 171.993 111.91L113.925 212.487C114.618 206.831 116.263 201.752 118.862 197.249L176.93 96.6719Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M317.266 188.413C314.853 192.589 311.757 196.64 307.978 200.566L249.91 301.143C253.689 297.216 256.785 293.166 259.198 288.99L317.266 188.413Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M464.198 304.708L435.375 254.789L377.307 355.366L406.13 405.285L464.198 304.708Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M353.209 254.787C366.68 242.548 376.618 232.22 383.023 223.805L324.955 324.382C318.55 332.797 308.612 343.124 295.141 355.364L353.209 254.787Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M435.37 254.787L353.212 254.784L295.144 355.361L377.302 355.364L435.37 254.787Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M183.921 154.947L248.521 154.95L190.453 255.527L125.853 255.524L183.921 154.947Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M171.992 111.914C170.668 124.537 174.643 138.881 183.92 154.947L125.852 255.524C116.575 239.458 112.599 225.114 113.924 212.491L171.992 111.914Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M307.987 200.562C301.251 207.256 291.203 216.244 277.842 227.528L219.774 328.105C233.135 316.821 243.183 307.832 249.919 301.139L307.987 200.562Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M15.5469 75.1797L44.5359 125.386L-13.5321 225.963L-42.5212 175.756L15.5469 75.1797Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M277.836 227.536C264.033 238.82 253.708 247.904 246.862 254.789L188.794 355.366C195.64 348.481 205.965 339.397 219.768 328.113L277.836 227.536Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M275.358 304.706L464.189 304.713L406.12 405.29L217.29 405.283L275.358 304.706Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M44.5279 125.39L67.3864 125.39L9.31834 225.967L-13.5401 225.966L44.5279 125.39Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M101.341 75.1911L233.863 304.705L175.795 405.282L43.2733 175.768L101.341 75.1911ZM15.5431 75.19L-42.525 175.767L43.277 175.77L101.345 75.1932L15.5431 75.19Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M246.866 254.784L246.534 254.784L188.466 355.361L188.798 355.361L246.866 254.784Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M246.539 254.781L275.362 304.701L217.294 405.277L188.471 355.358L246.539 254.781Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M67.3906 125.391L170.923 304.698L112.855 405.275L9.32257 225.967L67.3906 125.391Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                            <path d="M170.921 304.699L233.865 304.701L175.797 405.278L112.853 405.276L170.921 304.699Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="bevel"/>
-                        </g>
-                        <g class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4" style="mix-blend-mode:hard-light">
-                            <path d="M246.544 254.79L246.875 254.79C253.722 247.905 264.046 238.82 277.849 227.537C291.21 216.253 301.259 207.264 307.995 200.57C314.62 193.685 319.147 186.418 321.577 178.768C324.006 171.117 322.846 163.18 318.097 154.956C312.796 145.775 305.342 138.412 295.735 132.865C286.238 127.127 276.189 124.258 265.588 124.257C255.208 124.257 248.416 127.03 245.214 132.576C241.902 137.931 243.006 145.39 248.528 154.953L183.928 154.951C174.652 138.885 170.676 124.541 172 111.918C173.546 99.2946 179.84 89.5408 190.882 82.6559C202.035 75.5798 216.887 72.0421 235.439 72.0428C254.874 72.0435 274.144 75.5825 293.248 82.6598C312.242 89.5457 329.579 99.3005 345.261 111.924C360.942 124.548 373.421 138.892 382.697 154.958C391.311 169.877 395.121 182.978 394.128 194.262C393.355 205.546 389.656 215.396 383.031 223.811C376.627 232.226 366.688 242.554 353.217 254.794L435.375 254.797L464.198 304.716L275.367 304.709L246.544 254.79Z" fill="#4B0600"/>
-                            <path d="M246.544 254.79L246.875 254.79C253.722 247.905 264.046 238.82 277.849 227.537C291.21 216.253 301.259 207.264 307.995 200.57C314.62 193.685 319.147 186.418 321.577 178.768C324.006 171.117 322.846 163.18 318.097 154.956C312.796 145.775 305.342 138.412 295.735 132.865C286.238 127.127 276.189 124.258 265.588 124.257C255.208 124.257 248.416 127.03 245.214 132.576C241.902 137.931 243.006 145.39 248.528 154.953L183.928 154.951C174.652 138.885 170.676 124.541 172 111.918C173.546 99.2946 179.84 89.5408 190.882 82.6559C202.035 75.5798 216.887 72.0421 235.439 72.0428C254.874 72.0435 274.144 75.5825 293.248 82.6598C312.242 89.5457 329.579 99.3005 345.261 111.924C360.942 124.548 373.421 138.892 382.697 154.958C391.311 169.877 395.121 182.978 394.128 194.262C393.355 205.546 389.656 215.396 383.031 223.811C376.627 232.226 366.688 242.554 353.217 254.794L435.375 254.797L464.198 304.716L275.367 304.709L246.544 254.79Z" stroke="#FF750F" stroke-width="1" stroke-linejoin="round"/>
-                        </g>
-                        <g class="transition-all delay-300 translate-y-0 opacity-100 duration-750 starting:opacity-0 starting:translate-y-4" style="mix-blend-mode:hard-light">
-                            <path d="M67.41 125.402L44.5515 125.401L15.5625 75.1953L101.364 75.1985L233.886 304.712L170.942 304.71L67.41 125.402Z" fill="#4B0600"/>
-                            <path d="M67.41 125.402L44.5515 125.401L15.5625 75.1953L101.364 75.1985L233.886 304.712L170.942 304.71L67.41 125.402Z" stroke="#FF750F" stroke-width="1"/>
-                        </g>
-                    </svg>
-                    <div class="absolute inset-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"></div>
-                </div>
-            </main>
         </div>
 
-        @if (Route::has('login'))
-            <div class="h-14.5 hidden lg:block"></div>
-        @endif
-    </body>
+        <!-- Hamburger (mobile) -->
+        <button class="nav-hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="nav-mobile" id="mobileMenu" role="navigation" aria-label="Menu mobile">
+    <ul>
+        <li><a href="#features">Fonctionnalités</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <li><a href="#pricing">Tarifs</a></li>
+        <li><a href="#testimonials">Témoignages</a></li>
+    </ul>
+    @if (Route::has('login'))
+        @auth
+            <a href="{{ url('/dashboard') }}" class="btn-primary">Dashboard</a>
+        @else
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="btn-primary">
+                    <i class="fas fa-rocket"></i> Commencer gratuitement
+                </a>
+            @endif
+        @endauth
+    @endif
+</div>
+
+<!-- ================================================
+     SECTION HERO
+================================================ -->
+<section class="hero" id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow-2"></div>
+
+    <div class="hero-container">
+
+        <!-- Colonne gauche : texte -->
+        <div class="hero-content">
+
+            <!-- Badge live -->
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Nouveau — SaaS africain de gestion commerciale
+            </div>
+
+            <!-- Titre principal -->
+            <h1 class="hero-title">
+                Gérez votre commerce<br>
+                avec <span class="accent-green">précision</span><br>
+                et <span class="accent-orange">sérénité</span>
+            </h1>
+
+            <!-- Sous-titre -->
+            <p class="hero-sub">
+                Khayma centralise votre restaurant, boutique, quincaillerie
+                ou location dans une seule plateforme intuitive,
+                pensée pour les entrepreneurs africains.
+            </p>
+
+            <!-- Étymologie Khayma -->
+            <div class="hero-etymology">
+                <div class="etym-item">
+                    <div class="etym-icon green">
+                        <!-- SVG tente -->
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 3L1 21h22L12 3Z" fill="currentColor" fill-opacity="0.85"/>
+                            <rect x="10.5" y="14" width="3" height="7" fill="#0F172A" fill-opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <div class="etym-text">
+                        <span class="etym-word">Tenter</span>
+                        <span class="etym-def">Oser entreprendre</span>
+                    </div>
+                </div>
+                <div class="etym-item">
+                    <div class="etym-icon orange">
+                        <i class="fas fa-calculator" style="font-size:1rem;"></i>
+                    </div>
+                    <div class="etym-text">
+                        <span class="etym-word">Estimer</span>
+                        <span class="etym-def">Calculer en Wolof</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="hero-actions">
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="btn-hero-primary">
+                        <i class="fas fa-rocket"></i> Démarrer gratuitement
+                    </a>
+                @endif
+                <a href="#features" class="btn-hero-outline">
+                    <i class="fas fa-play-circle"></i> Voir la démo
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number"><span id="stat1">0</span>+</span>
+                    <span class="stat-label">Entreprises actives</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number"><span id="stat2">0</span>K+</span>
+                    <span class="stat-label">Transactions / mois</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number"><span id="stat3">0</span>%</span>
+                    <span class="stat-label">Satisfaction client</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Colonne droite : visuel -->
+        <div class="hero-visual">
+            <div class="hero-visual-inner">
+
+                <!-- Cercles décoratifs -->
+                <div class="hero-circle"></div>
+                <div class="hero-circle-2"></div>
+
+                <!-- Logo Khayma transparent -->
+                <img src="/khayma_logo_transparent.png"
+                     alt="Khayma"
+                     class="hero-logo-img">
+
+                <!-- Carte flottante haut -->
+                <div class="hero-card-top">
+                    <div class="hero-card-icon green">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="hero-card-info">
+                        <span class="hero-card-val">+34%</span>
+                        <span class="hero-card-lbl">Croissance ce mois</span>
+                    </div>
+                </div>
+
+                <!-- Carte flottante bas -->
+                <div class="hero-card-bot">
+                    <div class="hero-card-icon orange">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="hero-card-info">
+                        <span class="hero-card-val">4 modules</span>
+                        <span class="hero-card-lbl">Secteurs couverts</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================================================
+     SECTION FONCTIONNALITÉS
+================================================ -->
+<section class="features" id="features">
+    <div class="section-container">
+
+        <!-- En-tête -->
+        <div class="section-header">
+            <div class="section-badge green">
+                <i class="fas fa-bolt"></i> Fonctionnalités
+            </div>
+            <h2 class="section-title">
+                Tout ce dont votre commerce<br>a besoin, au même endroit
+            </h2>
+            <p class="section-sub">
+                De la caisse à la comptabilité, Khayma couvre l'ensemble
+                de vos opérations quotidiennes sans complexité.
+            </p>
+        </div>
+
+        <!-- Grille 6 cards -->
+        <div class="features-grid">
+
+            <!-- 1 -->
+            <div class="feature-card" data-reveal>
+                <div class="feature-icon green">
+                    <i class="fas fa-cash-register"></i>
+                </div>
+                <h3 class="feature-title">Caisse & Point de vente</h3>
+                <p class="feature-desc">
+                    Interface rapide, scan de codes-barres, tickets de caisse
+                    et remises en quelques clics — même hors ligne.
+                </p>
+                <span class="feature-link">En savoir plus <i class="fas fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 2 -->
+            <div class="feature-card" data-reveal>
+                <div class="feature-icon orange">
+                    <i class="fas fa-boxes-stacked"></i>
+                </div>
+                <h3 class="feature-title">Gestion des stocks</h3>
+                <p class="feature-desc">
+                    Suivi en temps réel, alertes de rupture, entrées/sorties
+                    et historique complet de chaque produit.
+                </p>
+                <span class="feature-link">En savoir plus <i class="fas fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 3 -->
+            <div class="feature-card" data-reveal>
+                <div class="feature-icon dark">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="feature-title">Rapports & Analytique</h3>
+                <p class="feature-desc">
+                    Tableaux de bord clairs, chiffre d'affaires journalier,
+                    hebdomadaire, mensuel — exportables en PDF.
+                </p>
+                <span class="feature-link">En savoir plus <i class="fas fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 4 -->
+            <div class="feature-card" data-reveal>
+                <div class="feature-icon green">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Gestion des employés</h3>
+                <p class="feature-desc">
+                    Rôles et permissions, pointage, performance individuelle
+                    et accès multi-utilisateurs sécurisé.
+                </p>
+                <span class="feature-link">En savoir plus <i class="fas fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 5 -->
+            <div class="feature-card" data-reveal>
+                <div class="feature-icon orange">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                <h3 class="feature-title">Factures & Devis</h3>
+                <p class="feature-desc">
+                    Génération automatique de factures PDF professionnelles,
+                    suivi des paiements et relances clients.
+                </p>
+                <span class="feature-link">En savoir plus <i class="fas fa-arrow-right"></i></span>
+            </div>
+
+            <!-- 6 -->
+            <div class="feature-card" data-reveal>
+                <div class="feature-icon dark">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <h3 class="feature-title">Sécurité & Sauvegarde</h3>
+                <p class="feature-desc">
+                    Données chiffrées, sauvegardes automatiques, journal
+                    d'audit complet et accès restreint par rôle.
+                </p>
+                <span class="feature-link">En savoir plus <i class="fas fa-arrow-right"></i></span>
+            </div>
+
+        </div>
+
+        <!-- Bande stats -->
+        <div class="features-stats">
+            <div class="feat-stat">
+                <span class="feat-stat-number">99<span class="accent">%</span></span>
+                <span class="feat-stat-label">Disponibilité</span>
+                <span class="feat-stat-desc">Uptime garanti avec surveillance 24h/24</span>
+            </div>
+            <div class="feat-stat">
+                <span class="feat-stat-number">&lt;1<span class="accent">s</span></span>
+                <span class="feat-stat-label">Temps de réponse</span>
+                <span class="feat-stat-desc">Interface fluide même sur connexion lente</span>
+            </div>
+            <div class="feat-stat">
+                <span class="feat-stat-number">256<span class="accent">-bit</span></span>
+                <span class="feat-stat-label">Chiffrement</span>
+                <span class="feat-stat-desc">Vos données sont protégées de bout en bout</span>
+            </div>
+            <div class="feat-stat">
+                <span class="feat-stat-number">4<span class="accent">+</span></span>
+                <span class="feat-stat-label">Modules métier</span>
+                <span class="feat-stat-desc">Restaurant · Boutique · Quincaillerie · Location</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================================================
+     SECTION MODULES METIER
+================================================ -->
+<section class="modules" id="modules">
+    <div class="section-container">
+
+        <div class="section-header">
+            <div class="section-badge orange">
+                <i class="fas fa-cubes"></i> Modules Métier
+            </div>
+            <h2 class="section-title">
+                Un module dédié<br>pour chaque activité
+            </h2>
+            <p class="section-sub">
+                Choisissez le module adapté à votre commerce.
+                Chaque module est conçu spécifiquement pour son secteur.
+            </p>
+        </div>
+
+        <!-- Onglets -->
+        <div class="module-tabs" role="tablist">
+            <button class="module-tab active" onclick="switchModule('restaurant')" role="tab" aria-selected="true">
+                <span class="tab-icon restaurant"><i class="fas fa-utensils"></i></span>
+                Restaurant
+            </button>
+            <button class="module-tab" onclick="switchModule('boutique')" role="tab" aria-selected="false">
+                <span class="tab-icon boutique"><i class="fas fa-shirt"></i></span>
+                Boutique
+            </button>
+            <button class="module-tab" onclick="switchModule('quinc')" role="tab" aria-selected="false">
+                <span class="tab-icon quinc"><i class="fas fa-wrench"></i></span>
+                Quincaillerie
+            </button>
+            <button class="module-tab" onclick="switchModule('location')" role="tab" aria-selected="false">
+                <span class="tab-icon location"><i class="fas fa-key"></i></span>
+                Location
+            </button>
+        </div>
+
+        <!-- Panels -->
+        <div class="module-panels">
+
+            <!-- RESTAURANT -->
+            <div class="module-panel active" id="panel-restaurant">
+                <div class="module-panel-grid">
+                    <div class="module-panel-content">
+                        <span class="module-tag restaurant"><i class="fas fa-utensils"></i> Restaurant</span>
+                        <h3 class="module-panel-title">Gérez tables, commandes<br>et cuisine en temps réel</h3>
+                        <p class="module-panel-desc">
+                            Du plan de salle à la cuisine, chaque commande est suivie
+                            en direct. Tickets imprimés automatiquement, stocks
+                            ingrédients gérés intelligemment.
+                        </p>
+                        <ul class="module-features-list">
+                            <li><i class="fas fa-check li-check restaurant"></i> Gestion des tables et salles</li>
+                            <li><i class="fas fa-check li-check restaurant"></i> Commandes en salle, à emporter, livraison</li>
+                            <li><i class="fas fa-check li-check restaurant"></i> Affichage cuisine en temps réel</li>
+                            <li><i class="fas fa-check li-check restaurant"></i> Gestion des ingrédients et recettes</li>
+                            <li><i class="fas fa-check li-check restaurant"></i> Statistiques par plat et par serveur</li>
+                        </ul>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="module-cta">
+                                <i class="fas fa-rocket"></i> Essayer ce module
+                            </a>
+                        @endif
+                    </div>
+                    <div class="module-panel-visual">
+                        <div class="mockup-header">
+                            <span class="mockup-title">Commandes du jour</span>
+                            <span class="mockup-dot red"></span>
+                        </div>
+                        <div class="mockup-rows">
+                            <div class="mockup-row hl-red">
+                                <div class="mockup-row-icon" style="background:rgba(239,68,68,0.12);color:#F87171"><i class="fas fa-chair"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Table 4 — 3 couverts</span>
+                                    <span class="mockup-row-desc">Thieb + Yassa + Bissap</span>
+                                </div>
+                                <span class="mockup-row-price">8 500 F</span>
+                            </div>
+                            <div class="mockup-row hl-red">
+                                <div class="mockup-row-icon" style="background:rgba(239,68,68,0.12);color:#F87171"><i class="fas fa-motorcycle"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Livraison #42</span>
+                                    <span class="mockup-row-desc">Mafé + Riz blanc</span>
+                                </div>
+                                <span class="mockup-row-price">3 200 F</span>
+                            </div>
+                            <div class="mockup-row hl-red">
+                                <div class="mockup-row-icon" style="background:rgba(239,68,68,0.12);color:#F87171"><i class="fas fa-bag-shopping"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">À emporter #17</span>
+                                    <span class="mockup-row-desc">Poulet braisé + Attiéké</span>
+                                </div>
+                                <span class="mockup-row-price">4 000 F</span>
+                            </div>
+                        </div>
+                        <div class="mockup-bar">
+                            <div class="mockup-bar-item fill-red" style="flex:4"></div>
+                            <div class="mockup-bar-item" style="flex:2"></div>
+                            <div class="mockup-bar-item" style="flex:1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOUTIQUE -->
+            <div class="module-panel" id="panel-boutique">
+                <div class="module-panel-grid">
+                    <div class="module-panel-content">
+                        <span class="module-tag boutique"><i class="fas fa-shirt"></i> Boutique</span>
+                        <h3 class="module-panel-title">Vendez plus vite,<br>gérez sans effort</h3>
+                        <p class="module-panel-desc">
+                            Catalogue produits, caisse rapide, gestion des tailles
+                            et couleurs, fidélisation client. Tout pour booster
+                            votre boutique de mode ou générale.
+                        </p>
+                        <ul class="module-features-list">
+                            <li><i class="fas fa-check li-check boutique"></i> Catalogue avec variantes (taille, couleur)</li>
+                            <li><i class="fas fa-check li-check boutique"></i> Codes-barres et étiquettes</li>
+                            <li><i class="fas fa-check li-check boutique"></i> Caisse POS ultra-rapide</li>
+                            <li><i class="fas fa-check li-check boutique"></i> Programme de fidélité client</li>
+                            <li><i class="fas fa-check li-check boutique"></i> Soldes et promotions programmées</li>
+                        </ul>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="module-cta">
+                                <i class="fas fa-rocket"></i> Essayer ce module
+                            </a>
+                        @endif
+                    </div>
+                    <div class="module-panel-visual">
+                        <div class="mockup-header">
+                            <span class="mockup-title">Ventes aujourd'hui</span>
+                            <span class="mockup-dot purple"></span>
+                        </div>
+                        <div class="mockup-rows">
+                            <div class="mockup-row hl-purple">
+                                <div class="mockup-row-icon" style="background:rgba(168,85,247,0.12);color:#C084FC"><i class="fas fa-shirt"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Boubou Taille M — Bleu</span>
+                                    <span class="mockup-row-desc">Stock : 12 restants</span>
+                                </div>
+                                <span class="mockup-row-price">18 000 F</span>
+                            </div>
+                            <div class="mockup-row hl-purple">
+                                <div class="mockup-row-icon" style="background:rgba(168,85,247,0.12);color:#C084FC"><i class="fas fa-shoe-prints"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Mocassins Pointure 42</span>
+                                    <span class="mockup-row-desc">Stock : 3 restants</span>
+                                </div>
+                                <span class="mockup-row-price">25 000 F</span>
+                            </div>
+                            <div class="mockup-row hl-purple">
+                                <div class="mockup-row-icon" style="background:rgba(168,85,247,0.12);color:#C084FC"><i class="fas fa-tag"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Promo Fin de semaine</span>
+                                    <span class="mockup-row-desc">-20% sur sacs femme</span>
+                                </div>
+                                <span class="mockup-row-price">actif</span>
+                            </div>
+                        </div>
+                        <div class="mockup-bar">
+                            <div class="mockup-bar-item fill-purple" style="flex:3"></div>
+                            <div class="mockup-bar-item" style="flex:2"></div>
+                            <div class="mockup-bar-item" style="flex:3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUINCAILLERIE -->
+            <div class="module-panel" id="panel-quinc">
+                <div class="module-panel-grid">
+                    <div class="module-panel-content">
+                        <span class="module-tag quinc"><i class="fas fa-wrench"></i> Quincaillerie</span>
+                        <h3 class="module-panel-title">Stocks complexes,<br>gérés simplement</h3>
+                        <p class="module-panel-desc">
+                            Des milliers de références, units de mesure multiples,
+                            fournisseurs et bons de commande. La quincaillerie
+                            n'a plus de secrets.
+                        </p>
+                        <ul class="module-features-list">
+                            <li><i class="fas fa-check li-check quinc"></i> Catégories et sous-catégories illimitées</li>
+                            <li><i class="fas fa-check li-check quinc"></i> Unités multiples (mètre, kg, pièce, litre)</li>
+                            <li><i class="fas fa-check li-check quinc"></i> Bons de commande fournisseur</li>
+                            <li><i class="fas fa-check li-check quinc"></i> Prix de gros et détail automatiques</li>
+                            <li><i class="fas fa-check li-check quinc"></i> Alertes de rupture intelligentes</li>
+                        </ul>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="module-cta">
+                                <i class="fas fa-rocket"></i> Essayer ce module
+                            </a>
+                        @endif
+                    </div>
+                    <div class="module-panel-visual">
+                        <div class="mockup-header">
+                            <span class="mockup-title">Stock critique</span>
+                            <span class="mockup-dot orange"></span>
+                        </div>
+                        <div class="mockup-rows">
+                            <div class="mockup-row hl-orange">
+                                <div class="mockup-row-icon" style="background:rgba(245,158,11,0.12);color:#FBB249"><i class="fas fa-bolt"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Câble électrique 2.5mm</span>
+                                    <span class="mockup-row-desc">Stock : 18m — seuil : 50m</span>
+                                </div>
+                                <span class="mockup-row-price" style="color:#FBB249">Alerte</span>
+                            </div>
+                            <div class="mockup-row hl-orange">
+                                <div class="mockup-row-icon" style="background:rgba(245,158,11,0.12);color:#FBB249"><i class="fas fa-faucet"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Tuyau PVC 32mm × 6m</span>
+                                    <span class="mockup-row-desc">Stock : 5 pièces</span>
+                                </div>
+                                <span class="mockup-row-price">6 500 F</span>
+                            </div>
+                            <div class="mockup-row hl-orange">
+                                <div class="mockup-row-icon" style="background:rgba(245,158,11,0.12);color:#FBB249"><i class="fas fa-screwdriver"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Visserie inox 6×50</span>
+                                    <span class="mockup-row-desc">Stock : 847 pièces</span>
+                                </div>
+                                <span class="mockup-row-price">150 F</span>
+                            </div>
+                        </div>
+                        <div class="mockup-bar">
+                            <div class="mockup-bar-item fill-orange" style="flex:2"></div>
+                            <div class="mockup-bar-item" style="flex:4"></div>
+                            <div class="mockup-bar-item" style="flex:1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOCATION -->
+            <div class="module-panel" id="panel-location">
+                <div class="module-panel-grid">
+                    <div class="module-panel-content">
+                        <span class="module-tag location"><i class="fas fa-key"></i> Location</span>
+                        <h3 class="module-panel-title">Contrats, cautions<br>et plannings automatisés</h3>
+                        <p class="module-panel-desc">
+                            Gérez vos biens en location (véhicules, immeubles, matériel).
+                            Contrats PDF, suivis de paiements, cautions et
+                            calendrier de disponibilité intuitif.
+                        </p>
+                        <ul class="module-features-list">
+                            <li><i class="fas fa-check li-check location"></i> Catalogue biens locatifs</li>
+                            <li><i class="fas fa-check li-check location"></i> Contrats et état des lieux PDF</li>
+                            <li><i class="fas fa-check li-check location"></i> Suivi des loyers et cautions</li>
+                            <li><i class="fas fa-check li-check location"></i> Calendrier de disponibilité</li>
+                            <li><i class="fas fa-check li-check location"></i> Alertes échéances et retards</li>
+                        </ul>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="module-cta">
+                                <i class="fas fa-rocket"></i> Essayer ce module
+                            </a>
+                        @endif
+                    </div>
+                    <div class="module-panel-visual">
+                        <div class="mockup-header">
+                            <span class="mockup-title">Locations actives</span>
+                            <span class="mockup-dot green"></span>
+                        </div>
+                        <div class="mockup-rows">
+                            <div class="mockup-row hl-green">
+                                <div class="mockup-row-icon" style="background:rgba(16,185,129,0.12);color:#34D399"><i class="fas fa-car"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Toyota Hilux — DK-3421-A</span>
+                                    <span class="mockup-row-desc">Retour le 28 mars 2026</span>
+                                </div>
+                                <span class="mockup-row-price">85 000 F</span>
+                            </div>
+                            <div class="mockup-row hl-green">
+                                <div class="mockup-row-icon" style="background:rgba(16,185,129,0.12);color:#34D399"><i class="fas fa-building"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Bureau 2ème étage — Lot B</span>
+                                    <span class="mockup-row-desc">Loyer mensuel</span>
+                                </div>
+                                <span class="mockup-row-price">150 000 F</span>
+                            </div>
+                            <div class="mockup-row hl-green">
+                                <div class="mockup-row-icon" style="background:rgba(16,185,129,0.12);color:#34D399"><i class="fas fa-camera"></i></div>
+                                <div class="mockup-row-info">
+                                    <span class="mockup-row-name">Kit photo Sony A7III</span>
+                                    <span class="mockup-row-desc">Caution : 300 000 F</span>
+                                </div>
+                                <span class="mockup-row-price">25 000 F</span>
+                            </div>
+                        </div>
+                        <div class="mockup-bar">
+                            <div class="mockup-bar-item fill-green" style="flex:5"></div>
+                            <div class="mockup-bar-item" style="flex:1"></div>
+                            <div class="mockup-bar-item" style="flex:1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================================================
+     SECTION TARIFS
+================================================ -->
+<section class="pricing" id="pricing">
+    <div class="section-container">
+
+        <div class="section-header">
+            <div class="section-badge green">
+                <i class="fas fa-tag"></i> Tarifs
+            </div>
+            <h2 class="section-title">
+                Des prix simples,<br>sans mauvaise surprise
+            </h2>
+            <p class="section-sub">
+                Choisissez le plan adapté à la taille de votre commerce.
+                Tous les plans incluent 14 jours d'essai gratuit.
+            </p>
+        </div>
+
+        <!-- Toggle -->
+        <div class="pricing-toggle">
+            <span class="toggle-label active" id="lblMonthly">Mensuel</span>
+            <div class="toggle-switch" id="toggleSwitch" onclick="togglePricing()">
+                <div class="toggle-knob"></div>
+            </div>
+            <span class="toggle-label" id="lblYearly">Annuel</span>
+            <span class="toggle-save">−18%</span>
+        </div>
+
+        <!-- Grille 3 plans -->
+        <div class="pricing-grid">
+
+            <!-- STARTER -->
+            <div class="plan-card" data-reveal>
+                <div class="plan-header">
+                    <div class="plan-icon starter"><i class="fas fa-seedling"></i></div>
+                    <h3 class="plan-name">Starter</h3>
+                    <p class="plan-desc">Idéal pour démarrer un petit commerce ou tester la plateforme.</p>
+                </div>
+                <div class="plan-price">
+                    <span class="plan-amount" data-monthly="15 000" data-yearly="148 000">15 000</span>
+                    <span class="plan-currency">XOF</span>
+                    <span class="plan-period">/ <span class="period-text">mois</span></span>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check check"></i> 1 module au choix</li>
+                    <li><i class="fas fa-check check"></i> Jusqu'à 200 produits</li>
+                    <li><i class="fas fa-check check"></i> 2 utilisateurs</li>
+                    <li><i class="fas fa-check check"></i> 1 Go stockage</li>
+                    <li><i class="fas fa-check check"></i> Rapports basiques</li>
+                    <li><i class="fas fa-xmark cross"></i> Support prioritaire</li>
+                    <li><i class="fas fa-xmark cross"></i> API accès</li>
+                </ul>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="plan-cta outline">
+                        Commencer l'essai gratuit
+                    </a>
+                @endif
+            </div>
+
+            <!-- PRO (populaire) -->
+            <div class="plan-card popular" data-reveal>
+                <div class="plan-popular-badge"></div>
+                <span class="plan-popular-label"><i class="fas fa-star"></i> Le plus populaire</span>
+                <div class="plan-header">
+                    <div class="plan-icon pro"><i class="fas fa-rocket"></i></div>
+                    <h3 class="plan-name">Pro</h3>
+                    <p class="plan-desc">Pour les commerces établis qui veulent accélérer leur croissance.</p>
+                </div>
+                <div class="plan-price">
+                    <span class="plan-amount" data-monthly="30 000" data-yearly="295 000">30 000</span>
+                    <span class="plan-currency">XOF</span>
+                    <span class="plan-period">/ <span class="period-text">mois</span></span>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check check"></i> 2 modules au choix</li>
+                    <li><i class="fas fa-check check"></i> Produits illimités</li>
+                    <li><i class="fas fa-check check"></i> 5 utilisateurs</li>
+                    <li><i class="fas fa-check check"></i> 5 Go stockage</li>
+                    <li><i class="fas fa-check check"></i> Rapports avancés + PDF</li>
+                    <li><i class="fas fa-check check"></i> Support prioritaire</li>
+                    <li><i class="fas fa-xmark cross"></i> API accès</li>
+                </ul>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="plan-cta green">
+                        <i class="fas fa-rocket"></i> Commencer l'essai gratuit
+                    </a>
+                @endif
+            </div>
+
+            <!-- PREMIUM -->
+            <div class="plan-card" data-reveal>
+                <div class="plan-header">
+                    <div class="plan-icon premium"><i class="fas fa-crown"></i></div>
+                    <h3 class="plan-name">Premium</h3>
+                    <p class="plan-desc">Pour les structures multi-sites ou avec des besoins avancés.</p>
+                </div>
+                <div class="plan-price">
+                    <span class="plan-amount" data-monthly="55 000" data-yearly="540 000">55 000</span>
+                    <span class="plan-currency">XOF</span>
+                    <span class="plan-period">/ <span class="period-text">mois</span></span>
+                </div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check check"></i> Tous les modules</li>
+                    <li><i class="fas fa-check check"></i> Produits illimités</li>
+                    <li><i class="fas fa-check check"></i> Utilisateurs illimités</li>
+                    <li><i class="fas fa-check check"></i> 20 Go stockage</li>
+                    <li><i class="fas fa-check check"></i> Rapports + export + API</li>
+                    <li><i class="fas fa-check check"></i> Support prioritaire 24/7</li>
+                    <li><i class="fas fa-check check"></i> API accès complet</li>
+                </ul>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="plan-cta outline">
+                        Commencer l'essai gratuit
+                    </a>
+                @endif
+            </div>
+
+        </div>
+
+        <p class="pricing-note">
+            <i class="fas fa-shield-halved"></i>
+            14 jours d'essai gratuit · Sans engagement · Annulation en 1 clic
+        </p>
+
+    </div>
+</section>
+
+<!-- ================================================
+     TEMOIGNAGES
+================================================ -->
+<section class="testimonials-section" id="temoignages">
+    <div class="section-container">
+        <div class="section-header" data-reveal>
+            <span class="section-badge"><i class="fas fa-quote-left"></i> Témoignages</span>
+            <h2 class="section-title">Ils nous font confiance</h2>
+            <p class="section-sub">Des commerçants à travers l'Afrique de l'Ouest qui ont transformé leur activité avec Khayma.</p>
+        </div>
+
+        <div class="testimonials-grid" data-reveal>
+            <!-- Témoignage 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    « Depuis que j'utilise Khayma, je sais exactement combien me rapporte chaque plat. Mon thiéboudienne est passé de 25% à 40% de marge grâce aux rapports détaillés. »
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">AD</div>
+                    <div class="testimonial-info">
+                        <h4>Awa Diallo</h4>
+                        <span>Restaurant Le Teranga — Dakar</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Témoignage 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    « Avant Khayma, je perdais des articles sans savoir pourquoi. Le suivi des stocks en temps réel a réduit mes pertes de 60%. Je recommande à tous les commerçants. »
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">MK</div>
+                    <div class="testimonial-info">
+                        <h4>Moussa Koné</h4>
+                        <span>Boutique Élégance — Abidjan</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Témoignage 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="testimonial-text">
+                    « La gestion de mes locations de matériel était un cauchemar sur cahier. Avec Khayma, tout est suivi automatiquement : départs, retours, cautions. Un vrai gain de temps. »
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">IB</div>
+                    <div class="testimonial-info">
+                        <h4>Ibrahim Ba</h4>
+                        <span>Quincaillerie Ba & Fils — Saint-Louis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================================================
+     CTA BAND
+================================================ -->
+<section class="cta-band">
+    <div class="cta-band-content">
+        <h2>Prêt à transformer votre commerce ?</h2>
+        <p>Rejoignez les entrepreneurs qui gèrent mieux avec Khayma. Essai gratuit, sans engagement.</p>
+        <a href="/register" class="btn-cta-white">
+            Commencer gratuitement <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+<!-- ================================================
+     FOOTER
+================================================ -->
+<footer class="footer">
+    <div class="section-container">
+        <div class="footer-grid">
+            <!-- Brand -->
+            <div class="footer-brand">
+                <img src="/khayma_logo_transparent.png" alt="Khayma">
+                <p>La plateforme de gestion commerciale pensée pour les entrepreneurs d'Afrique de l'Ouest. Tenter & Estimer.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Produit -->
+            <div class="footer-col">
+                <h4>Produit</h4>
+                <ul>
+                    <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+                    <li><a href="#tarifs">Tarifs</a></li>
+                    <li><a href="#temoignages">Témoignages</a></li>
+                    <li><a href="#">Mises à jour</a></li>
+                </ul>
+            </div>
+
+            <!-- Modules -->
+            <div class="footer-col">
+                <h4>Modules</h4>
+                <ul>
+                    <li><a href="#">Restaurant</a></li>
+                    <li><a href="#">Boutique</a></li>
+                    <li><a href="#">Quincaillerie</a></li>
+                    <li><a href="#">Location</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Centre d'aide</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Documentation API</a></li>
+                    <li><a href="#">Statut système</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Khayma. Tous droits réservés.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Conditions d'utilisation</a>
+                <a href="#">Politique de confidentialité</a>
+                <a href="#">Mentions légales</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ================================================
+     SCRIPTS NAVBAR
+================================================ -->
+<script>
+    // Effet scroll navbar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+        const [s1, s2, s3] = hamburger.querySelectorAll('span');
+        if (isOpen) {
+            s1.style.transform = 'rotate(45deg) translate(5px, 5px)';
+            s2.style.opacity   = '0';
+            s3.style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+            s1.style.transform = '';
+            s2.style.opacity   = '';
+            s3.style.transform = '';
+        }
+    });
+
+    // Fermer menu mobile au clic sur un lien intérieur
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+            const [s1, s2, s3] = hamburger.querySelectorAll('span');
+            s1.style.transform = '';
+            s2.style.opacity   = '';
+            s3.style.transform = '';
+        });
+    });
+
+    // ================================================
+    // Compteur animé (stats hero)
+    // ================================================
+    function animateCounter(el, target, duration = 1800) {
+        const start = performance.now();
+        const update = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            el.textContent = Math.floor(eased * target);
+            if (progress < 1) requestAnimationFrame(update);
+            else el.textContent = target;
+        };
+        requestAnimationFrame(update);
+    }
+
+    // Déclencher les compteurs quand la section hero est visible
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(document.getElementById('stat1'), 120);
+                animateCounter(document.getElementById('stat2'), 50);
+                animateCounter(document.getElementById('stat3'), 98);
+                statsObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.4 });
+
+    const heroStat = document.querySelector('.hero-stats');
+    if (heroStat) statsObserver.observe(heroStat);
+
+    // ================================================
+    // Scroll reveal — feature cards
+    // ================================================
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                // délai en cascade selon la position dans la grille
+                const idx = Array.from(entry.target.parentElement.children).indexOf(entry.target);
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, idx * 100);
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+
+    // ================================================
+    // Module tabs switcher
+    // ================================================
+    function switchModule(id) {
+        document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById('panel-' + id).classList.add('active');
+        document.querySelectorAll('.module-tab').forEach((tab, i) => {
+            tab.classList.remove('active');
+            tab.setAttribute('aria-selected', 'false');
+        });
+        const activeTab = document.querySelector(`.module-tab[onclick="switchModule('${id}')"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+            activeTab.setAttribute('aria-selected', 'true');
+        }
+    }
+
+    // ================================================
+    // Pricing toggle (mensuel / annuel)
+    // ================================================
+    let isYearly = false;
+
+    function togglePricing() {
+        isYearly = !isYearly;
+        const sw = document.getElementById('toggleSwitch');
+        const lblM = document.getElementById('lblMonthly');
+        const lblY = document.getElementById('lblYearly');
+
+        sw.classList.toggle('on', isYearly);
+        lblM.classList.toggle('active', !isYearly);
+        lblY.classList.toggle('active', isYearly);
+
+        document.querySelectorAll('.plan-amount').forEach(el => {
+            el.textContent = isYearly ? el.dataset.yearly : el.dataset.monthly;
+        });
+
+        document.querySelectorAll('.period-text').forEach(el => {
+            el.textContent = isYearly ? 'an' : 'mois';
+        });
+    }
+
+    // ================================================
+    // Barre de progression de lecture
+    // ================================================
+    const progressBar = document.getElementById('scroll-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        }, { passive: true });
+    }
+
+    // ================================================
+    // Lien navbar actif au scroll
+    // ================================================
+    const navSections = [
+        { id: 'features',     href: '#features' },
+        { id: 'modules',      href: '#modules' },
+        { id: 'pricing',      href: '#pricing' },
+        { id: 'temoignages',  href: '#testimonials' },
+    ];
+    const navAnchors = document.querySelectorAll('.nav-links a');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const activeId = entry.target.id;
+                navAnchors.forEach(a => {
+                    const match = navSections.find(s => s.id === activeId);
+                    a.classList.toggle('active', match ? a.getAttribute('href') === match.href : false);
+                });
+            }
+        });
+    }, { threshold: 0.35 });
+
+    navSections.forEach(s => {
+        const el = document.getElementById(s.id);
+        if (el) sectionObserver.observe(el);
+    });
+
+    // ================================================
+    // Parallaxe subtil sur le hero
+    // ================================================
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            if (scrolled < window.innerHeight) {
+                heroSection.style.setProperty('--parallax-y', (scrolled * 0.25) + 'px');
+            }
+        }, { passive: true });
+    }
+</script>
+
+</body>
 </html>
