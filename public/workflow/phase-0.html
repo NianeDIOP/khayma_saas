@@ -479,19 +479,19 @@ createInertiaApp({
     <!-- ══════════════════════════════
          STEP 0.5 — Git
     ══════════════════════════════════ -->
-    <div class="kh-step step-active" id="step-05">
+    <div class="kh-step step-done" id="step-05">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num active">0.5</div>
+        <div class="kh-step-num done">0.5</div>
         <div class="kh-step-info">
           <h3>Initialisation Git &amp; Premier commit</h3>
           <p>Versionner le projet et pousser sur GitHub</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-active"><i class="fa-solid fa-circle-dot"></i> En cours</span>
-          <i class="fa-solid fa-chevron-right kh-step-chevron open"></i>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
-      <div class="kh-step-body open">
+      <div class="kh-step-body">
 
         <div class="kh-note kh-note-warning">
           <i class="fa-solid fa-triangle-exclamation"></i>
@@ -649,7 +649,7 @@ function updateStats() {
 
 async function loadProgress() {
   // Steps validés en dur (0.1 → 0.4 réellement terminés)
-  const VALIDATED_STEPS = ['tasks-01', 'tasks-02', 'tasks-03', 'tasks-04'];
+    const VALIDATED_STEPS = ['tasks-01', 'tasks-02', 'tasks-03', 'tasks-04', 'tasks-05'];
   VALIDATED_STEPS.forEach(id => {
     const ul = document.getElementById(id);
     if (!ul) return;
