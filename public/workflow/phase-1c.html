@@ -32,9 +32,9 @@
     <div class="kh-prog-chip">
       <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 1C</span>
       <div class="kh-prog-track">
-        <div class="kh-prog-fill" id="phaseFill" style="width:0%;background:#8B5CF6;"></div>
+        <div class="kh-prog-fill" id="phaseFill" style="width:100%;background:#8B5CF6;"></div>
       </div>
-      <span class="kh-prog-pct" id="phasePct">0%</span>
+      <span class="kh-prog-pct" id="phasePct">100%</span>
     </div>
   </div>
 </header>
@@ -187,15 +187,15 @@
     <!-- ══════════════════════════════
          STEP 1C.1 — ResolveTenant Middleware
     ══════════════════════════════════ -->
-    <div class="kh-step step-active" id="step-1c1">
+    <div class="kh-step" id="step-1c1">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num active" style="background:#8B5CF6;">1C.1</div>
+        <div class="kh-step-num" style="background:#8B5CF6;">1C.1</div>
         <div class="kh-step-info">
           <h3>Middleware <code>ResolveTenant</code></h3>
           <p>Résout le tenant depuis le sous-domaine (prod) ou <code>?_tenant=slug</code> (local). Injecte la company dans le conteneur IoC.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-active"><i class="fa-solid fa-circle-dot"></i> En cours</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron open"></i>
         </div>
       </div>
@@ -206,28 +206,28 @@
         </div>
         <ul class="kh-tasks" id="tasks-1c1">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/Http/Middleware/ResolveTenant.php</code> — méthode <code>handle()</code> + <code>extractSlug()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Middleware/ResolveTenant.php</code> — méthode <code>handle()</code> + <code>extractSlug()</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Résolution depuis <code>?_tenant=slug</code> sur localhost / 127.0.0.1 <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Résolution depuis <code>?_tenant=slug</code> sur localhost / 127.0.0.1 <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Résolution depuis premier segment du sous-domaine en production — rejeter les réservés <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Résolution depuis premier segment du sous-domaine en production — rejeter les réservés <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Injecter dans IoC : <code>App::instance('currentCompany', $company)</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Injecter dans IoC : <code>App::instance('currentCompany', $company)</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Partager avec Inertia : <code>inertia()->share('currentCompany', [...])</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Partager avec Inertia : <code>inertia()->share('currentCompany', [...])</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Enregistrer l'alias <code>'tenant'</code> dans <code>bootstrap/app.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Enregistrer l'alias <code>'tenant'</code> dans <code>bootstrap/app.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
         </ul>
         <pre><code>// app/Http/Middleware/ResolveTenant.php
@@ -258,7 +258,7 @@ public function handle(Request $request, Closure $next): Response
           <p>Scope global qui filtre automatiquement toutes les requêtes par <code>company_id</code>. Injection transparente à la création.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
@@ -269,24 +269,24 @@ public function handle(Request $request, Closure $next): Response
         </div>
         <ul class="kh-tasks" id="tasks-1c2">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/Models/Scopes/TenantScope.php</code> implémentant <code>Scope</code> — méthode <code>apply()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Models/Scopes/TenantScope.php</code> implémentant <code>Scope</code> — méthode <code>apply()</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text"><code>apply()</code> : vérifier <code>App::bound('currentCompany')</code>, puis filtrer par <code>table.company_id</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>apply()</code> : vérifier <code>App::bound('currentCompany')</code>, puis filtrer par <code>table.company_id</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/Models/Concerns/BelongsToTenant.php</code> — trait avec <code>bootBelongsToTenant()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Models/Concerns/BelongsToTenant.php</code> — trait avec <code>bootBelongsToTenant()</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Le trait enregistre <code>TenantScope</code> + hook <code>creating</code> qui injecte automatiquement <code>company_id</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Le trait enregistre <code>TenantScope</code> + hook <code>creating</code> qui injecte automatiquement <code>company_id</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Méthode <code>withoutTenant()</code> statique pour les requêtes admin sans filtre tenant <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Méthode <code>withoutTenant()</code> statique pour les requêtes admin sans filtre tenant <span class="kh-tag tag-dev">dev</span></span>
           </li>
         </ul>
         <pre><code>// Utilisation dans un modèle métier (ex: Product)
@@ -309,31 +309,31 @@ class Product extends Model {
           <p>Bloque l'accès selon le statut d'abonnement : trial expiré → 402, suspended → 402, grace_period → GET uniquement.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
         <ul class="kh-tasks" id="tasks-1c3">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/Http/Middleware/CheckSubscription.php</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Middleware/CheckSubscription.php</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Status <code>active</code> → passe, <code>trial</code> → vérifier <code>trial_ends_at</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Status <code>active</code> → passe, <code>trial</code> → vérifier <code>trial_ends_at</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Status <code>grace_period</code> → autoriser GET/HEAD uniquement, bloquer les mutations <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Status <code>grace_period</code> → autoriser GET/HEAD uniquement, bloquer les mutations <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Status <code>expired</code> / <code>suspended</code> / <code>cancelled</code> → JSON 402 Payment Required <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Status <code>expired</code> / <code>suspended</code> / <code>cancelled</code> → JSON 402 Payment Required <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Enregistrer l'alias <code>'subscription'</code> dans <code>bootstrap/app.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Enregistrer l'alias <code>'subscription'</code> dans <code>bootstrap/app.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
         </ul>
         <pre><code>// Statuts subscription_status
@@ -355,27 +355,27 @@ class Product extends Model {
           <p>Fonctions d'accès au tenant courant accessibles partout + factory de test avec states.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
         <ul class="kh-tasks" id="tasks-1c4">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/helpers.php</code> — fonctions <code>current_company()</code>, <code>current_company_id()</code>, <code>has_tenant()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/helpers.php</code> — fonctions <code>current_company()</code>, <code>current_company_id()</code>, <code>has_tenant()</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Enregistrer dans <code>composer.json</code> → <code>"files": ["app/helpers.php"]</code> dans autoload <span class="kh-tag tag-cfg">cfg</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Enregistrer dans <code>composer.json</code> → <code>"files": ["app/helpers.php"]</code> dans autoload <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Exécuter <code>composer dump-autoload</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Exécuter <code>composer dump-autoload</code> <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>database/factories/CompanyFactory.php</code> avec states : <code>onTrial()</code>, <code>trialExpired()</code>, <code>suspended()</code>, <code>gracePeriod()</code>, <code>inactive()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>database/factories/CompanyFactory.php</code> avec states : <code>onTrial()</code>, <code>trialExpired()</code>, <code>suspended()</code>, <code>gracePeriod()</code>, <code>inactive()</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
         </ul>
         <pre><code>// Utilisation dans un contrôleur ou vue Blade
@@ -396,35 +396,35 @@ $exists  = has_tenant();                // bool (safe, no exception)</code></pre
           <p>Groupe de routes avec les 3 middlewares et suite de tests (13 tests, 16 assertions).</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
         <ul class="kh-tasks" id="tasks-1c5">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer groupe de routes <code>['tenant', 'auth', 'subscription']</code> avec prefix <code>/app</code> dans <code>routes/web.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer groupe de routes <code>['tenant', 'auth', 'subscription']</code> avec prefix <code>/app</code> dans <code>routes/web.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>resources/views/app.blade.php</code> — root view Inertia avec <code>@inertia</code> et <code>@vite()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>resources/views/app.blade.php</code> — root view Inertia avec <code>@inertia</code> et <code>@vite()</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>tests/Feature/Tenant/ResolveTenantTest.php</code> — 9 tests avec <code>#[Test]</code> + <code>withoutVite()</code> <span class="kh-tag tag-tst">test</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>tests/Feature/Tenant/ResolveTenantTest.php</code> — 9 tests avec <code>#[Test]</code> + <code>withoutVite()</code> <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>tests/Unit/Tenant/TenantScopeTest.php</code> — 4 tests : scope, injection company_id, withoutTenant <span class="kh-tag tag-tst">test</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>tests/Unit/Tenant/TenantScopeTest.php</code> — 4 tests : scope, injection company_id, withoutTenant <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Exécuter <code>php artisan test tests/Feature/Tenant tests/Unit/Tenant</code> → <strong>13 / 13 passed</strong> <span class="kh-tag tag-tst">test</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Exécuter <code>php artisan test tests/Feature/Tenant tests/Unit/Tenant</code> → <strong>13 / 13 passed</strong> <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Commit : <code>feat(tenant): Phase 1C - ResolveTenant, TenantScope, CheckSubscription, tests</code> <span class="kh-tag tag-git">git</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Commit : <code>feat(tenant): Phase 1C - ResolveTenant, TenantScope, CheckSubscription, tests</code> <span class="kh-tag tag-git">git</span></span>
           </li>
         </ul>
         <pre><code># Résultat final
@@ -436,7 +436,7 @@ Commit: f35b3ba</code></pre>
     </div>
 
     <!-- Validation finale -->
-    <div class="kh-note kh-note-success" id="validationNote" style="display:none; margin-top:24px;">
+    <div class="kh-note kh-note-success" id="validationNote" style="margin-top:24px;">
       <i class="fa-solid fa-circle-check"></i>
       <span><strong>Phase 1C validée !</strong> Le système multi-tenant est opérationnel. Tu peux passer à la Phase 1D — Authentification &amp; Inscription.</span>
     </div>

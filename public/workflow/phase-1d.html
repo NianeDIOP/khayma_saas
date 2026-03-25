@@ -32,9 +32,9 @@
     <div class="kh-prog-chip">
       <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 1D</span>
       <div class="kh-prog-track">
-        <div class="kh-prog-fill" id="phaseFill" style="width:0%;background:#D97706;"></div>
+        <div class="kh-prog-fill" id="phaseFill" style="width:100%;background:#D97706;"></div>
       </div>
-      <span class="kh-prog-pct" id="phasePct">0%</span>
+      <span class="kh-prog-pct" id="phasePct">100%</span>
     </div>
   </div>
 </header>
@@ -187,31 +187,31 @@
     <!-- ══════════════════════════════
          STEP 1D.1 — Form Requests
     ══════════════════════════════════ -->
-    <div class="kh-step step-active" id="step-1d1">
+    <div class="kh-step" id="step-1d1">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num active" style="background:#D97706;">1D.1</div>
+        <div class="kh-step-num" style="background:#D97706;">1D.1</div>
         <div class="kh-step-info">
           <h3>Form Requests — <code>LoginRequest</code> &amp; <code>RegisterRequest</code></h3>
           <p>Validation des données d'entrée avec messages en français.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-active"><i class="fa-solid fa-circle-dot"></i> En cours</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron open"></i>
         </div>
       </div>
       <div class="kh-step-body open">
         <ul class="kh-tasks" id="tasks-1d1">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/Http/Requests/Auth/LoginRequest.php</code> — règles : email, password, remember (bool) <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Requests/Auth/LoginRequest.php</code> — règles : email, password, remember (bool) <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/Http/Requests/Auth/RegisterRequest.php</code> — règles : name, email (unique), password (confirmed, min 8), company_name, sector (enum), phone (nullable) <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Requests/Auth/RegisterRequest.php</code> — règles : name, email (unique), password (confirmed, min 8), company_name, sector (enum), phone (nullable) <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Messages d'erreur en français dans les deux Form Requests <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Messages d'erreur en français dans les deux Form Requests <span class="kh-tag tag-dev">dev</span></span>
           </li>
         </ul>
         <pre><code>// Secteurs autorisés
@@ -231,27 +231,27 @@
           <p>Connexion, tentative avec <code>Auth::attempt()</code>, redirection vers tenant ou wizard d'inscription. Déconnexion sécurisée.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
         <ul class="kh-tasks" id="tasks-1d2">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/Http/Controllers/Auth/LoginController.php</code> — méthodes <code>create()</code>, <code>store()</code>, <code>destroy()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Controllers/Auth/LoginController.php</code> — méthodes <code>create()</code>, <code>store()</code>, <code>destroy()</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text"><code>store()</code> : <code>Auth::attempt($credentials, $remember)</code> → erreur si échec <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>store()</code> : <code>Auth::attempt($credentials, $remember)</code> → erreur si échec <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Après login : chercher la company active de l'utilisateur → redirect vers <code>app.dashboard</code> avec <code>?_tenant=slug</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Après login : chercher la company active de l'utilisateur → redirect vers <code>app.dashboard</code> avec <code>?_tenant=slug</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text"><code>destroy()</code> : <code>Auth::logout()</code> + invalidate session + regenerate CSRF token <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>destroy()</code> : <code>Auth::logout()</code> + invalidate session + regenerate CSRF token <span class="kh-tag tag-dev">dev</span></span>
           </li>
         </ul>
       </div>
@@ -268,27 +268,27 @@
           <p>Inscrit l'utilisateur et crée l'entreprise en essai 14 jours dans une transaction DB. Génère un slug unique.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
         <ul class="kh-tasks" id="tasks-1d3">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>app/Http/Controllers/Auth/RegisterController.php</code> — méthodes <code>create()</code> et <code>store()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Controllers/Auth/RegisterController.php</code> — méthodes <code>create()</code> et <code>store()</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text"><code>store()</code> dans <code>DB::transaction()</code> : créer User + Company (trial, 14j) + attacher en pivot <code>role = 'owner'</code> <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>store()</code> dans <code>DB::transaction()</code> : créer User + Company (trial, 14j) + attacher en pivot <code>role = 'owner'</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Générer un slug unique via <code>Str::slug()</code> + boucle d'unicité (<code>-1</code>, <code>-2</code>…) <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Générer un slug unique via <code>Str::slug()</code> + boucle d'unicité (<code>-1</code>, <code>-2</code>…) <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Connecter l'utilisateur puis rediriger vers <code>app.dashboard</code> avec le slug de la nouvelle company <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Connecter l'utilisateur puis rediriger vers <code>app.dashboard</code> avec le slug de la nouvelle company <span class="kh-tag tag-dev">dev</span></span>
           </li>
         </ul>
         <pre><code>// Résultat en base après inscription :
@@ -309,31 +309,31 @@
           <p>Formulaire de connexion Inertia avec champs email, mot de passe, "se souvenir", gestion des erreurs.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
         <ul class="kh-tasks" id="tasks-1d4">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>resources/js/Pages/Auth/Login.vue</code> — <code>&lt;script setup&gt;</code> avec <code>useForm()</code> d'Inertia <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/Auth/Login.vue</code> — <code>&lt;script setup&gt;</code> avec <code>useForm()</code> d'Inertia <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Utiliser <code>AuthLayout.vue</code> comme wrapper — logo Khayma centré <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Utiliser <code>AuthLayout.vue</code> comme wrapper — logo Khayma centré <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Affichage inline des erreurs de validation sous chaque champ, alerte globale au-dessus du formulaire <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Affichage inline des erreurs de validation sous chaque champ, alerte globale au-dessus du formulaire <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Mettre à jour <code>AuthLayout.vue</code> — remplacer le texte "Khayma" par l'image logo réelle <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Mettre à jour <code>AuthLayout.vue</code> — remplacer le texte "Khayma" par l'image logo réelle <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Design : bouton vert <code>#10B981</code>, inputs sans border-radius, style cohérent avec la charte Khayma <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Design : bouton vert <code>#10B981</code>, inputs sans border-radius, style cohérent avec la charte Khayma <span class="kh-tag tag-fe">fe</span></span>
           </li>
         </ul>
       </div>
@@ -350,31 +350,31 @@
           <p>Étape 1 : compte utilisateur. Étape 2 : infos entreprise + choix du secteur. Progress bar animée.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
         <ul class="kh-tasks" id="tasks-1d5">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>resources/js/Pages/Auth/Register.vue</code> — wizard 2 étapes avec <code>ref(1)</code> pour l'étape courante <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/Auth/Register.vue</code> — wizard 2 étapes avec <code>ref(1)</code> pour l'étape courante <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Étape 1 : nom, email, mot de passe, confirmation — validation locale avant de passer à l'étape 2 <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Étape 1 : nom, email, mot de passe, confirmation — validation locale avant de passer à l'étape 2 <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Étape 2 : nom entreprise, secteur (grille radio visuelle), téléphone optionnel <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Étape 2 : nom entreprise, secteur (grille radio visuelle), téléphone optionnel <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Progress bar (50% → 100%) et labels "① Votre compte" / "② Votre entreprise" <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Progress bar (50% → 100%) et labels "① Votre compte" / "② Votre entreprise" <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Bouton "← Retour" sur l'étape 2 pour revenir sans perdre les données <span class="kh-tag tag-fe">fe</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Bouton "← Retour" sur l'étape 2 pour revenir sans perdre les données <span class="kh-tag tag-fe">fe</span></span>
           </li>
         </ul>
       </div>
@@ -391,31 +391,31 @@
           <p>Remplacer les routes placeholder par les vrais contrôleurs. Tests complets login/logout/register.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
         <ul class="kh-tasks" id="tasks-1d6">
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Mettre à jour <code>routes/web.php</code> — routes <code>guest</code> pour login/register + <code>POST /logout</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Mettre à jour <code>routes/web.php</code> — routes <code>guest</code> pour login/register + <code>POST /logout</code> <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Créer <code>tests/Feature/Auth/AuthTest.php</code> — 10 tests avec <code>#[Test]</code> et <code>withoutVite()</code> <span class="kh-tag tag-tst">test</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>tests/Feature/Auth/AuthTest.php</code> — 10 tests avec <code>#[Test]</code> et <code>withoutVite()</code> <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Tests : page login accessible, user connecté redirigé, login OK, login échoue, logout, page register, inscription crée User+Company+pivot owner, email dupliqué, secteur invalide, trial_ends_at = +14j <span class="kh-tag tag-tst">test</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Tests : page login accessible, user connecté redirigé, login OK, login échoue, logout, page register, inscription crée User+Company+pivot owner, email dupliqué, secteur invalide, trial_ends_at = +14j <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Exécuter <code>php artisan test tests/Feature tests/Unit</code> → <strong>25 / 25 passed</strong> <span class="kh-tag tag-tst">test</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Exécuter <code>php artisan test tests/Feature tests/Unit</code> → <strong>25 / 25 passed</strong> <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text">Commit : <code>feat(auth): Phase 1D - LoginController, RegisterController, Auth pages Vue, tests</code> <span class="kh-tag tag-git">git</span></span>
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Commit : <code>feat(auth): Phase 1D - LoginController, RegisterController, Auth pages Vue, tests</code> <span class="kh-tag tag-git">git</span></span>
           </li>
         </ul>
         <pre><code># Résultat final
@@ -427,7 +427,7 @@ Commit: 43c679b</code></pre>
     </div>
 
     <!-- Validation finale -->
-    <div class="kh-note kh-note-success" id="validationNote" style="display:none; margin-top:24px;">
+    <div class="kh-note kh-note-success" id="validationNote" style="margin-top:24px;">
       <i class="fa-solid fa-circle-check"></i>
       <span><strong>Phase 1D validée !</strong> L'authentification est opérationnelle. Tu peux passer à la Phase 1E — Backoffice Super Admin.</span>
     </div>
