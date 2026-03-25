@@ -392,6 +392,7 @@ async function loadProgress() {
   } catch(e) { console.warn('API non joignable', e); }
 
   let totalAll = 0, doneAll = 0, activeCount = 0;
+  let totalTasks = 0, doneTasks = 0;
 
   PHASES.forEach((id) => {
     const p = allData[id] || { done: 0, total: 0 };
@@ -418,15 +419,21 @@ async function loadProgress() {
       }
     }
 
-    totalAll += total;
-    doneAll  += done;
+    // KPI tâches réelles (pour affichage)
+    totalTasks += total;
+    doneTasks  += done;
+
+    // Avancement global : chaque phase = 1 unité
+    // Les phases sans données (total=0) comptent comme non faites
+    totalAll += 1;
+    doneAll  += (total > 0 && done >= total) ? 1 : (total > 0 ? done / total : 0);
   });
 
   const globalPct = totalAll > 0 ? Math.round((doneAll / totalAll) * 100) : 0;
   document.getElementById('globalFill').style.width = globalPct + '%';
   document.getElementById('globalPct').textContent  = globalPct + '%';
-  document.getElementById('kpi-total').textContent  = totalAll > 0 ? totalAll : '—';
-  document.getElementById('kpi-done').textContent   = doneAll;
+  document.getElementById('kpi-total').textContent  = totalTasks > 0 ? totalTasks : '—';
+  document.getElementById('kpi-done').textContent   = doneTasks;
   document.getElementById('kpi-active').textContent = activeCount;
 }
 
