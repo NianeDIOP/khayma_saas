@@ -1,0 +1,99 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Company extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'email',
+        'phone',
+        'address',
+        'logo_url',
+        'sector',
+        'ninea',
+        'currency',
+        'timezone',
+        'primary_color',
+        'secondary_color',
+        'subscription_status',
+        'trial_ends_at',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'trial_ends_at' => 'datetime',
+        'is_active'     => 'boolean',
+    ];
+
+    // ── Relations ─────────────────────────────────────────────
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'company_users')
+                    ->withPivot('role', 'joined_at')
+                    ->withTimestamps();
+    }
+
+    public function modules(): BelongsToMany
+    {
+        return $this->belongsToMany(Module::class, 'company_modules')
+                    ->withPivot('activated_at', 'activated_by')
+                    ->withTimestamps();
+    }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function auditLogs(): HasMany
+    {
+        return $this->hasMany(AuditLog::class);
+    }
+
+    // ── Scopes ────────────────────────────────────────────────
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeOnTrial($query)
+    {
+        return $query->where('subscription_status', 'trial')
+                     ->where('trial_ends_at', '>=', now());
+    }
+
+    // ── Helpers ───────────────────────────────────────────────
+
+    public function isOnTrial(): bool
+    {
+        return $this->subscription_status === 'trial'
+            && $this->trial_ends_at
+            && $this->trial_ends_at->isFuture();
+    }
+
+    public function hasModule(string $moduleCode): bool
+    {
+        return $this->modules()->where('code', $moduleCode)->exists();
+    }
+
+    public function activeSubscription(): ?Subscription
+    {
+        return $this->subscriptions()
+                    ->where('status', 'active')
+                    ->where('ends_at', '>=', now())
+                    ->latest()
+                    ->first();
+    }
+}

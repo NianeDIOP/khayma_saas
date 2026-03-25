@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -47,5 +48,29 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // ── Relations ─────────────────────────────────────────────
+
+    public function companies(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class, 'company_users')
+                    ->withPivot('role', 'joined_at')
+                    ->withTimestamps();
+    }
+
+    // ── Helpers ───────────────────────────────────────────────
+
+    public function currentCompany(): ?Company
+    {
+        // Récupère la première entreprise active de l'utilisateur
+        // Phase 1C ajoutera la sélection multi-entreprise via session
+        return $this->companies()->first();
+    }
+
+    public function roleInCompany(Company $company): ?string
+    {
+        $pivot = $company->users()->where('user_id', $this->id)->first();
+        return $pivot?->pivot->role;
     }
 }
