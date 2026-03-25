@@ -1,0 +1,676 @@
+/* =================================================================
+   KHAYMA WORKFLOW — Shared Styles
+   Utilisé par tous les fichiers du dossier workflow/
+================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Variables ── */
+:root {
+  --green:          #10B981;
+  --green-bg:       #ECFDF5;
+  --green-border:   #A7F3D0;
+  --green-text:     #065F46;
+
+  --orange:         #F59E0B;
+  --orange-bg:      #FFFBEB;
+  --orange-border:  #FCD34D;
+  --orange-text:    #92400E;
+
+  --blue:           #3B82F6;
+  --blue-bg:        #EFF6FF;
+  --blue-border:    #BFDBFE;
+  --blue-text:      #1E40AF;
+
+  --red:            #EF4444;
+  --red-bg:         #FEF2F2;
+  --red-border:     #FECACA;
+  --red-text:       #991B1B;
+
+  --purple-bg:      #F5F3FF;
+  --purple-text:    #5B21B6;
+
+  --bg:             #F9FAFB;
+  --white:          #FFFFFF;
+  --border:         #E5E7EB;
+  --border-dark:    #D1D5DB;
+  --text:           #111827;
+  --muted:          #6B7280;
+  --subtle:         #9CA3AF;
+  --code-bg:        #F3F4F6;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.kh-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  height: 62px;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+}
+.kh-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.kh-logo-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.kh-logo-text em { font-style: normal; color: var(--green); }
+.kh-header-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 16px;
+}
+.kh-header-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+.kh-header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── PROGRESS CHIP ── */
+.kh-prog-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 4px 10px;
+}
+.kh-prog-track {
+  width: 80px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 0;
+  overflow: hidden;
+}
+.kh-prog-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.kh-prog-pct {
+  font-weight: 700;
+  color: var(--green);
+  min-width: 30px;
+  text-align: right;
+}
+
+/* ── BREADCRUMB ── */
+.kh-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  padding: 10px 28px;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+}
+.kh-breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+.kh-breadcrumb a:hover { color: var(--text); }
+.kh-breadcrumb-current { color: var(--text); font-weight: 600; }
+
+/* ── MAIN WRAPPER ── */
+.kh-main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 28px 80px;
+}
+
+/* ── PAGE TITLE ── */
+.kh-page-title { margin-bottom: 28px; }
+.kh-page-title h1 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: var(--text);
+  margin-bottom: 8px;
+  padding-left: 14px;
+  border-left: 4px solid var(--green);
+  line-height: 1.2;
+}
+.kh-page-title p {
+  font-size: 0.9rem;
+  color: #4B5563;
+  max-width: 560px;
+  padding-left: 18px;
+}
+
+/* ── KPI BOXES ── */
+.kh-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.kh-kpi {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 16px;
+}
+.kh-kpi-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.kh-kpi-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ── CATEGORY GROUP ── */
+.kh-category { margin-bottom: 24px; }
+.kh-category-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.kh-category-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+.kh-category-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── PHASE CARD (index hub) ── */
+.kh-phase-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 0 12px;
+  align-items: center;
+  margin-bottom: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+  position: relative;
+}
+.kh-phase-card:hover { border-color: var(--border-dark); }
+.kh-phase-card.is-active  { border-left: 3px solid var(--orange); }
+.kh-phase-card.is-done    { border-left: 3px solid var(--green); }
+.kh-phase-card.is-blocked { border-left: 3px solid var(--red); }
+
+.kh-phase-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--subtle);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.kh-phase-icon.ic-active  { background: var(--orange-bg); border-color: var(--orange-border); color: var(--orange); }
+.kh-phase-icon.ic-done    { background: var(--green-bg);  border-color: var(--green-border);  color: var(--green); }
+
+.kh-phase-info h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1px;
+}
+.kh-phase-info p {
+  font-size: 0.73rem;
+  color: var(--muted);
+}
+
+.kh-phase-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.kh-phase-count {
+  font-size: 0.73rem;
+  color: var(--muted);
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+}
+.kh-phase-bar {
+  width: 56px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 0;
+  overflow: hidden;
+}
+.kh-phase-bar-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 2px;
+}
+.kh-phase-link {
+  width: 28px;
+  height: 28px;
+  border-radius: 0;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.72rem;
+  transition: all 0.15s;
+}
+.kh-phase-card:hover .kh-phase-link {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* ── STATUS BADGE ── */
+.kh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 0;
+  white-space: nowrap;
+}
+.kh-badge-todo    { background: var(--bg);        color: var(--subtle);       border: 1px solid var(--border); }
+.kh-badge-active  { background: var(--orange-bg); color: var(--orange-text);  border: 1px solid var(--orange-border); }
+.kh-badge-done    { background: var(--green-bg);  color: var(--green-text);   border: 1px solid var(--green-border); }
+.kh-badge-blocked { background: var(--red-bg);    color: var(--red-text);     border: 1px solid var(--red-border); }
+.kh-badge-info    { background: var(--blue-bg);   color: var(--blue-text);    border: 1px solid var(--blue-border); }
+
+/* ── STEP CARD (phase files) ── */
+.kh-step {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.kh-step.step-active { border-left: 3px solid var(--orange); }
+.kh-step.step-done   { border-left: 3px solid var(--green); }
+
+.kh-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.kh-step-header:hover { background: #FAFAFA; }
+
+.kh-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.kh-step-num.todo   { background: var(--bg);        color: var(--muted);        border: 1px solid var(--border); }
+.kh-step-num.active { background: var(--orange-bg); color: var(--orange-text);  border: 1px solid var(--orange-border); }
+.kh-step-num.done   { background: var(--green-bg);  color: var(--green-text);   border: 1px solid var(--green-border); }
+
+.kh-step-info { flex: 1; min-width: 0; }
+.kh-step-info h3 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1px;
+}
+.kh-step-info p {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.kh-step-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.kh-step-chevron {
+  color: var(--subtle);
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+}
+.kh-step-chevron.open { transform: rotate(90deg); }
+
+.kh-step-body {
+  display: none;
+  padding: 0 16px 16px 56px;
+  border-top: 1px solid var(--bg);
+}
+.kh-step-body.open { display: block; }
+
+/* ── TASK LIST ── */
+.kh-tasks {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.kh-task {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+.kh-task-cb {
+  width: 16px;
+  height: 16px;
+  border-radius: 0;
+  border: 1.5px solid var(--border-dark);
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  transition: all 0.15s;
+}
+.kh-task-cb:hover { border-color: var(--green); }
+.kh-task-cb.checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+.kh-task-cb.checked svg { display: block; }
+.kh-task-cb svg {
+  display: none;
+  width: 10px;
+  height: 10px;
+}
+.kh-task-text {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.5;
+  flex: 1;
+}
+.kh-task-text.done-text {
+  text-decoration: line-through;
+  color: var(--subtle);
+}
+
+/* ── INLINE TAGS ── */
+.kh-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 0;
+  margin-left: 5px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.tag-be  { background: var(--blue-bg);   color: var(--blue-text); }
+.tag-fe  { background: var(--purple-bg); color: var(--purple-text); }
+.tag-db  { background: #FFF7ED;          color: #9A3412; }
+.tag-cfg { background: var(--green-bg);  color: var(--green-text); }
+.tag-tst { background: var(--red-bg);    color: var(--red-text); }
+.tag-ui  { background: #FDF4FF;          color: #6B21A8; }
+.tag-dep { background: #F0F9FF;          color: #0C4A6E; }
+
+/* ── CODE ── */
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8em;
+  background: var(--code-bg);
+  color: #C2410C;
+  padding: 1px 5px;
+  border-radius: 0;
+  border: 1px solid var(--border);
+}
+pre {
+  background: #1E293B;
+  color: #E2E8F0;
+  border-radius: 0;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin-top: 12px;
+  border: 1px solid #334155;
+}
+pre code {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font-size: 1em;
+}
+
+/* ── NOTE BLOCKS ── */
+.kh-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 11px 13px;
+  border-radius: 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  margin-top: 14px;
+}
+.kh-note i { flex-shrink: 0; margin-top: 2px; }
+.kh-note-info    { background: var(--blue-bg);   color: var(--blue-text);   border-left: 3px solid var(--blue); }
+.kh-note-warning { background: var(--orange-bg); color: var(--orange-text); border-left: 3px solid var(--orange); }
+.kh-note-success { background: var(--green-bg);  color: var(--green-text);  border-left: 3px solid var(--green); }
+.kh-note-error   { background: var(--red-bg);    color: var(--red-text);    border-left: 3px solid var(--red); }
+
+/* ── BUTTONS ── */
+.kh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.kh-btn-primary   { background: var(--green); color: white; }
+.kh-btn-primary:hover { background: #059669; }
+.kh-btn-secondary { background: var(--white); color: var(--text); border: 1px solid var(--border); }
+.kh-btn-secondary:hover { border-color: var(--border-dark); }
+.kh-btn-ghost     { background: transparent; color: var(--muted); padding: 6px 10px; }
+.kh-btn-ghost:hover { color: var(--text); background: var(--bg); }
+
+/* ── NAV PHASE (bas de page des phase files) ── */
+.kh-phase-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+  margin-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── STATS header phase ── */
+.kh-phase-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.kh-stat {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 14px;
+}
+.kh-stat-value { font-size: 1.4rem; font-weight: 800; color: var(--text); }
+.kh-stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+
+/* ── DIVIDER ── */
+.kh-divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 3px; }
+
+/* ── SIDEBAR LAYOUT ── */
+.kh-layout {
+  display: flex;
+  min-height: calc(100vh - 62px);
+}
+
+.kh-sidebar {
+  width: 252px;
+  flex-shrink: 0;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 62px;
+  height: calc(100vh - 62px);
+  overflow-y: auto;
+  padding: 14px 0 40px;
+}
+
+.kh-sidebar-group {
+  margin-bottom: 2px;
+}
+
+.kh-sidebar-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #374151;
+  padding: 10px 16px 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3px;
+}
+
+.kh-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: #1F2937;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: background 0.1s;
+  line-height: 1.3;
+}
+.kh-sidebar-item:hover { background: var(--bg); }
+.kh-sidebar-item.is-active {
+  background: var(--green-bg);
+  color: var(--green-text);
+  font-weight: 600;
+  border-left: 3px solid var(--green);
+  padding-left: 13px;
+}
+.kh-sidebar-item.is-done { color: var(--muted); }
+
+.kh-sidebar-item .si-icon {
+  font-size: 0.85rem;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.kh-sidebar-item.is-active .si-icon { color: var(--green) !important; }
+.kh-sidebar-item.is-done .si-icon   { opacity: 0.45 !important; }
+
+.kh-sidebar-item .si-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kh-sidebar-item .si-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+}
+.si-dot-active { background: var(--orange); }
+.si-dot-done   { background: var(--green); }
+.si-dot-todo   { background: var(--border-dark); }
+
+.kh-sidebar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+
+/* ── CONTENT AREA ── */
+.kh-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 36px 80px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .kh-main { padding: 20px 16px 40px; }
+  .kh-kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .kh-phase-meta { display: none; }
+  .kh-header { padding: 0 16px; }
+  .kh-header-sub { display: none; }
+  .kh-breadcrumb { padding: 8px 16px; }
+  .kh-phase-stats { grid-template-columns: repeat(2, 1fr); }
+  .kh-sidebar { display: none; }
+  .kh-content { padding: 20px 16px 40px; }
+}

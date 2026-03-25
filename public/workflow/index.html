@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khayma — Workflow de développement</title>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .dash-section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #374151;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--green);
+      display: inline-block;
+    }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .dash-tile {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 13px 14px 11px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s;
+      display: block;
+    }
+    .dash-tile:hover { border-color: var(--border-dark); }
+    .dash-tile.is-active { border-left: 3px solid var(--orange); }
+    .dash-tile.is-done   { border-left: 3px solid var(--green); }
+    .tile-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 4px;
+    }
+    .tile-icon { font-size: 1.1rem; flex-shrink: 0; width: 18px; text-align: center; }
+    .tile-name { font-size: 0.84rem; font-weight: 700; color: var(--text); }
+    .tile-badge { margin-left: auto; }
+    .tile-desc { font-size: 0.76rem; color: #4B5563; margin-bottom: 8px; line-height: 1.4; }
+    .tile-bar { height: 3px; background: var(--border); }
+    .tile-bar-fill { height: 100%; background: var(--green); transition: width 0.4s ease; }
+    .dash-tile.is-active .tile-bar-fill { background: var(--orange); }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="kh-header">
+  <a class="kh-logo" href="index.html">
+    <img src="logo.png" alt="Khayma" style="height:46px;width:auto;display:block;" />
+  </a>
+  <div class="kh-header-sep"></div>
+  <span class="kh-header-sub" style="font-size:0.85rem;font-weight:700;color:#111827;letter-spacing:-0.2px;">Workflow de développement</span>
+  <div class="kh-header-right">
+    <div class="kh-prog-chip">
+      <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Avancement global</span>
+      <div class="kh-prog-track">
+        <div class="kh-prog-fill" id="globalFill" style="width:0%"></div>
+      </div>
+      <span class="kh-prog-pct" id="globalPct">0%</span>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="kh-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="kh-sidebar">
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Prérequis</div>
+      <a class="kh-sidebar-item is-active" href="phase-0.html">
+        <i class="fa-solid fa-gear si-icon"></i>
+        <span class="si-label">Phase 0 — Installation</span>
+        <span class="si-dot si-dot-active"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 1 — Fondations</div>
+      <a class="kh-sidebar-item" href="phase-1a.html">
+        <i class="fa-brands fa-laravel si-icon" style="color:#FF2D20"></i>
+        <span class="si-label">1A — Laravel &amp; Architecture</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1b.html">
+        <i class="fa-solid fa-database si-icon" style="color:#3B82F6"></i>
+        <span class="si-label">1B — Base de données</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1c.html">
+        <i class="fa-solid fa-building si-icon" style="color:#8B5CF6"></i>
+        <span class="si-label">1C — Multi-Tenant</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1d.html">
+        <i class="fa-solid fa-lock si-icon" style="color:#D97706"></i>
+        <span class="si-label">1D — Auth &amp; RBAC</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1e.html">
+        <i class="fa-solid fa-shield-halved si-icon" style="color:#6366F1"></i>
+        <span class="si-label">1E — Backoffice Admin</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 2 — Espace Entreprise</div>
+      <a class="kh-sidebar-item" href="phase-2a.html">
+        <i class="fa-solid fa-house si-icon" style="color:#14B8A6"></i>
+        <span class="si-label">2A — Onboarding &amp; Dashboard</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-2b.html">
+        <i class="fa-solid fa-users si-icon" style="color:#2563EB"></i>
+        <span class="si-label">2B — Clients &amp; Fournisseurs</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-2c.html">
+        <i class="fa-solid fa-boxes-stacked si-icon" style="color:#F59E0B"></i>
+        <span class="si-label">2C — Stock &amp; Caisse</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 3 — Modules métier</div>
+      <a class="kh-sidebar-item" href="phase-3a.html">
+        <i class="fa-solid fa-utensils si-icon" style="color:#EF4444"></i>
+        <span class="si-label">3A — Restaurant</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3b.html">
+        <i class="fa-solid fa-wrench si-icon" style="color:#64748B"></i>
+        <span class="si-label">3B — Quincaillerie</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3c.html">
+        <i class="fa-solid fa-cart-shopping si-icon" style="color:#10B981"></i>
+        <span class="si-label">3C — Boutique / POS</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3d.html">
+        <i class="fa-solid fa-key si-icon" style="color:#D97706"></i>
+        <span class="si-label">3D — Location</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 4 — Finalisation</div>
+      <a class="kh-sidebar-item" href="phase-4a.html">
+        <i class="fa-solid fa-flask si-icon" style="color:#8B5CF6"></i>
+        <span class="si-label">4A — Tests &amp; Sécurité</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-4b.html">
+        <i class="fa-solid fa-rocket si-icon" style="color:#3B82F6"></i>
+        <span class="si-label">4B — Déploiement OVH</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="kh-content">
+
+    <div class="kh-page-title">
+      <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #10B981;line-height:1.3;">
+        Planification complète
+        <span style="display:block;color:#10B981;font-weight:800;">du projet Khayma</span>
+      </h1>
+      <p style="font-size:0.82rem;color:#6B7280;max-width:560px;padding-left:15px;margin-top:6px;">Suivi de toutes les étapes du développement — de l'installation locale jusqu'au déploiement OVH.</p>
+    </div>
+
+    <div class="kh-kpi-row">
+      <div class="kh-kpi">
+        <div class="kh-kpi-value" id="kpi-phases">15</div>
+        <div class="kh-kpi-label">Phases</div>
+      </div>
+      <div class="kh-kpi">
+        <div class="kh-kpi-value" id="kpi-total">—</div>
+        <div class="kh-kpi-label">Tâches totales</div>
+      </div>
+      <div class="kh-kpi">
+        <div class="kh-kpi-value" id="kpi-done" style="color:var(--green);">0</div>
+        <div class="kh-kpi-label">Complétées</div>
+      </div>
+      <div class="kh-kpi">
+        <div class="kh-kpi-value" id="kpi-active" style="color:var(--orange);">1</div>
+        <div class="kh-kpi-label">En cours</div>
+      </div>
+    </div>
+
+    <div class="dash-section-title">Vue d'ensemble — 15 phases</div>
+    <div class="dash-grid">
+
+      <a class="dash-tile is-active" href="phase-0.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-gear tile-icon" style="color:#F59E0B"></i>
+          <span class="tile-name">Phase 0</span>
+          <span class="kh-badge kh-badge-active tile-badge"><i class="fa-solid fa-circle-dot"></i> En cours</span>
+        </div>
+        <div class="tile-desc">Installation &amp; Configuration locale</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase0" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-1a.html">
+        <div class="tile-head">
+          <i class="fa-brands fa-laravel tile-icon" style="color:#FF2D20"></i>
+          <span class="tile-name">Phase 1A</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Projet Laravel &amp; Architecture</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase1a" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-1b.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-database tile-icon" style="color:#3B82F6"></i>
+          <span class="tile-name">Phase 1B</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Base de données &amp; Migrations</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase1b" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-1c.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-building tile-icon" style="color:#8B5CF6"></i>
+          <span class="tile-name">Phase 1C</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Architecture Multi-Tenant</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase1c" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-1d.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-lock tile-icon" style="color:#D97706"></i>
+          <span class="tile-name">Phase 1D</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Authentification &amp; RBAC</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase1d" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-1e.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-shield-halved tile-icon" style="color:#6366F1"></i>
+          <span class="tile-name">Phase 1E</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Backoffice Super Admin</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase1e" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-2a.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-house tile-icon" style="color:#14B8A6"></i>
+          <span class="tile-name">Phase 2A</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Onboarding &amp; Dashboard</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase2a" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-2b.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-users tile-icon" style="color:#2563EB"></i>
+          <span class="tile-name">Phase 2B</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Clients, Fournisseurs &amp; Utilisateurs</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase2b" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-2c.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-boxes-stacked tile-icon" style="color:#F59E0B"></i>
+          <span class="tile-name">Phase 2C</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Stock, Caisse &amp; Fonctions communes</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase2c" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-3a.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-utensils tile-icon" style="color:#EF4444"></i>
+          <span class="tile-name">Phase 3A</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Module Restaurant / Fast-food</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase3a" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-3b.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-wrench tile-icon" style="color:#64748B"></i>
+          <span class="tile-name">Phase 3B</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Module Quincaillerie</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase3b" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-3c.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-cart-shopping tile-icon" style="color:#10B981"></i>
+          <span class="tile-name">Phase 3C</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Module Boutique / POS</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase3c" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-3d.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-key tile-icon" style="color:#D97706"></i>
+          <span class="tile-name">Phase 3D</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Module Location</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase3d" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-4a.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-flask tile-icon" style="color:#8B5CF6"></i>
+          <span class="tile-name">Phase 4A</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Tests, Sécurité &amp; QA</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase4a" style="width:0%"></div></div>
+      </a>
+
+      <a class="dash-tile" href="phase-4b.html">
+        <div class="tile-head">
+          <i class="fa-solid fa-rocket tile-icon" style="color:#3B82F6"></i>
+          <span class="tile-name">Phase 4B</span>
+          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+        </div>
+        <div class="tile-desc">Déploiement Production OVH</div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase4b" style="width:0%"></div></div>
+      </a>
+
+    </div>
+
+    <div class="kh-note kh-note-info">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Les phases sont débloquées et détaillées progressivement. Chaque phase nécessite ta validation avant de passer à la suivante. La progression est sauvegardée localement dans ton navigateur.</span>
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+const PHASES = [
+  'phase0','phase1a','phase1b','phase1c','phase1d','phase1e',
+  'phase2a','phase2b','phase2c',
+  'phase3a','phase3b','phase3c','phase3d',
+  'phase4a','phase4b'
+];
+
+function loadProgress() {
+  const data = JSON.parse(localStorage.getItem('khayma_progress') || '{}');
+  let totalAll = 0, doneAll = 0;
+
+  PHASES.forEach(id => {
+    const p = data[id] || { done: 0, total: 0 };
+    const pct = p.total > 0 ? Math.round((p.done / p.total) * 100) : 0;
+    const tile = document.getElementById('tile-' + id);
+    if (tile) tile.style.width = pct + '%';
+    totalAll += p.total;
+    doneAll  += p.done;
+  });
+
+  const globalPct = totalAll > 0 ? Math.round((doneAll / totalAll) * 100) : 0;
+  document.getElementById('globalFill').style.width = globalPct + '%';
+  document.getElementById('globalPct').textContent  = globalPct + '%';
+  document.getElementById('kpi-total').textContent  = totalAll || '—';
+  document.getElementById('kpi-done').textContent   = doneAll;
+}
+
+loadProgress();
+</script>
+
+</body>
+</html>
