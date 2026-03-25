@@ -1,14 +1,24 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-// Placeholder auth — sera remplacé par Fortify/Breeze en Phase 2
-Route::get('/login',  fn () => view('welcome'))->name('login');
-Route::get('/register', fn () => view('welcome'))->name('register');
+Route::get('/', fn () => view('welcome'))->name('home');
+
+// ── Authentification ─────────────────────────────────────────────
+Route::middleware('guest')->group(function () {
+    Route::get('/login',    [LoginController::class,    'create'])->name('login');
+    Route::post('/login',   [LoginController::class,    'store'])->name('login.store');
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register',[RegisterController::class, 'store'])->name('register.store');
+});
+
+Route::post('/logout', [LoginController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+
 // ── Espace authentifié (hors tenant) ─────────────────────────────
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', fn () => inertia('Dashboard'))->name('dashboard');
