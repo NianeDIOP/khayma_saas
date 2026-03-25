@@ -682,9 +682,10 @@ async function loadProgress() {
       });
     }
 
-    // Premier chargement : enregistrer started_at
-    if (!data.started_at) {
-      _cachedProgress.started_at = new Date().toISOString();
+    // Synchroniser si jamais démarré ou si le total des tâches a changé
+    const actualTotal = document.querySelectorAll('.kh-task-cb').length;
+    if (!data.started_at || data.total !== actualTotal) {
+      _cachedProgress.started_at = _cachedProgress.started_at || new Date().toISOString();
       await saveProgress();
     }
 
