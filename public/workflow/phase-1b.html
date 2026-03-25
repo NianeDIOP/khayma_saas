@@ -526,6 +526,27 @@ function updateDates(p) {
     ? daysDiff(p.started_at, p.ended_at) : '—';
 }
 
+function updateStepBadges() {
+  document.querySelectorAll('.kh-step').forEach(step => {
+    const cbs    = step.querySelectorAll('.kh-task-cb');
+    if (!cbs.length) return;
+    const total  = cbs.length;
+    const done   = step.querySelectorAll('.kh-task-cb.checked').length;
+    const badge  = step.querySelector('.kh-step-right .kh-badge');
+    if (!badge) return;
+    if (done === total) {
+      badge.className = 'kh-badge kh-badge-done';
+      badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Validé';
+    } else if (done > 0) {
+      badge.className = 'kh-badge kh-badge-active';
+      badge.innerHTML = '<i class="fa-solid fa-circle-dot"></i> En cours';
+    } else {
+      badge.className = 'kh-badge kh-badge-todo';
+      badge.innerHTML = '<i class="fa-regular fa-circle"></i> À faire';
+    }
+  });
+}
+
 function updateStats() {
   const checkboxes = document.querySelectorAll('.kh-task-cb');
   const total = checkboxes.length;
@@ -539,6 +560,8 @@ function updateStats() {
 
   const note = document.getElementById('validationNote');
   if (note) note.style.display = (done === total && total > 0) ? 'flex' : 'none';
+
+  updateStepBadges();
 }
 
 async function loadProgress() {
