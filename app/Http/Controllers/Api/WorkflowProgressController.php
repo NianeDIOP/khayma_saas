@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class WorkflowProgressController extends Controller
 {
+    // GET /api/workflow  — all phases in one query
+    public function index()
+    {
+        $rows = WorkflowProgress::all()->keyBy('phase');
+        return response()->json($rows);
+    }
+
     // GET /api/workflow/{phase}
     public function show(string $phase)
     {
