@@ -98,6 +98,38 @@ function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
           :class="['nav-item', { active: $page.url.includes('/expenses') && !$page.url.includes('/expense-categories') }]">
           <i class="fa-solid fa-money-bill-trend-up" style="color:#DC2626"></i> <span>Dépenses</span>
         </Link>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">Restaurant</div>
+
+        <Link :href="route('app.restaurant.orders.create', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/restaurant/orders/create') }]">
+          <i class="fa-solid fa-utensils" style="color:#EF4444"></i> <span>POS Commandes</span>
+        </Link>
+        <Link :href="route('app.restaurant.orders.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/restaurant/orders') && !$page.url.includes('/orders/create') }]">
+          <i class="fa-solid fa-clipboard-list" style="color:#F97316"></i> <span>Commandes</span>
+        </Link>
+        <Link :href="route('app.restaurant.dishes.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/restaurant/dishes') }]">
+          <i class="fa-solid fa-bowl-food" style="color:#F59E0B"></i> <span>Plats</span>
+        </Link>
+        <Link :href="route('app.restaurant.categories.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/restaurant/categories') }]">
+          <i class="fa-solid fa-layer-group" style="color:#10B981"></i> <span>Catégories Menu</span>
+        </Link>
+        <Link :href="route('app.restaurant.services.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/restaurant/services') }]">
+          <i class="fa-solid fa-clock" style="color:#3B82F6"></i> <span>Services</span>
+        </Link>
+        <Link :href="route('app.restaurant.cash-sessions.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/restaurant/cash-sessions') }]">
+          <i class="fa-solid fa-cash-register" style="color:#8B5CF6"></i> <span>Caisse</span>
+        </Link>
+        <Link :href="route('app.restaurant.reports.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/restaurant/reports') }]">
+          <i class="fa-solid fa-chart-bar" style="color:#EC4899"></i> <span>Rapports</span>
+        </Link>
       </nav>
       <div class="sidebar-footer">
         <a href="/" class="nav-item">

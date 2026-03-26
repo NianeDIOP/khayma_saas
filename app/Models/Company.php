@@ -106,6 +106,33 @@ class Company extends Model
         return $this->hasMany(Expense::class);
     }
 
+    // ── Restaurant ────────────────────────────────────────────
+
+    public function restaurantCategories(): HasMany
+    {
+        return $this->hasMany(RestaurantCategory::class);
+    }
+
+    public function dishes(): HasMany
+    {
+        return $this->hasMany(Dish::class);
+    }
+
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function cashSessions(): HasMany
+    {
+        return $this->hasMany(CashSession::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     // ── Scopes ────────────────────────────────────────────────
 
     public function scopeActive($query)

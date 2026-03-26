@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ModuleController as AdminModule;
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscription;
 use App\Http\Controllers\Admin\AuditLogController as AdminAuditLog;
 use App\Http\Controllers\Admin\SettingController as AdminSetting;
+use App\Http\Controllers\Admin\LegalPageController as AdminLegalPage;
 use App\Http\Controllers\App\DashboardController as AppDashboard;
 use App\Http\Controllers\App\OnboardingController;
 use App\Http\Controllers\App\SettingsController;
@@ -23,6 +24,12 @@ use App\Http\Controllers\App\StockController;
 use App\Http\Controllers\App\SaleController;
 use App\Http\Controllers\App\ExpenseCategoryController;
 use App\Http\Controllers\App\ExpenseController;
+use App\Http\Controllers\App\Restaurant\CategoryController as RestaurantCategoryController;
+use App\Http\Controllers\App\Restaurant\DishController;
+use App\Http\Controllers\App\Restaurant\ServiceController;
+use App\Http\Controllers\App\Restaurant\CashSessionController;
+use App\Http\Controllers\App\Restaurant\OrderController;
+use App\Http\Controllers\App\Restaurant\ReportController as RestaurantReportController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -105,6 +112,33 @@ Route::middleware(['tenant', 'auth', 'subscription'])
 
          // Dépenses
          Route::resource('expenses', ExpenseController::class);
+
+         // ── Module Restaurant ────────────────────────────────────
+         Route::prefix('restaurant')->name('restaurant.')->group(function () {
+             // Catégories de menu
+             Route::resource('categories', RestaurantCategoryController::class)->except(['show']);
+
+             // Plats
+             Route::resource('dishes', DishController::class)->except(['show']);
+
+             // Services (matin/midi/soir)
+             Route::resource('services', ServiceController::class)->except(['show']);
+
+             // Caisse (ouverture/fermeture)
+             Route::get('/cash-sessions',                    [CashSessionController::class, 'index'])->name('cash-sessions.index');
+             Route::post('/cash-sessions/open',              [CashSessionController::class, 'open'])->name('cash-sessions.open');
+             Route::post('/cash-sessions/{cashSession}/close', [CashSessionController::class, 'close'])->name('cash-sessions.close');
+
+             // Commandes
+             Route::get('/orders',          [OrderController::class, 'index'])->name('orders.index');
+             Route::get('/orders/create',   [OrderController::class, 'create'])->name('orders.create');
+             Route::post('/orders',         [OrderController::class, 'store'])->name('orders.store');
+             Route::get('/orders/{order}',  [OrderController::class, 'show'])->name('orders.show');
+             Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+
+             // Rapports
+             Route::get('/reports', [RestaurantReportController::class, 'index'])->name('reports.index');
+         });
      });
 
 // ── Backoffice Super Admin ────────────────────────────────────────
@@ -150,5 +184,9 @@ Route::middleware(['auth', 'admin'])
          // Settings
          Route::get('/settings',   [AdminSetting::class, 'index'])->name('settings.index');
          Route::put('/settings',   [AdminSetting::class, 'update'])->name('settings.update');
+
+         // Legal Pages
+         Route::get('/legal-pages',  [AdminLegalPage::class, 'index'])->name('legal-pages.index');
+         Route::put('/legal-pages',  [AdminLegalPage::class, 'update'])->name('legal-pages.update');
      });
 

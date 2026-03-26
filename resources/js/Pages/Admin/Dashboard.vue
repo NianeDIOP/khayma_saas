@@ -62,7 +62,7 @@ const STATUS_LABELS = {
 
     <!-- Revenus / KPIs -->
     <div class="stats-grid rev-grid">
-      <div v-for="card in revenueCards" :key="card.label" class="stat-card rev-card">
+      <div v-for="card in revenueCards" :key="card.label" class="stat-card rev-card" :style="{ borderLeftColor: card.color }">
         <div class="stat-icon" :style="{ background: card.color + '18', color: card.color }">
           <i :class="['fa-solid', card.icon]"></i>
         </div>
@@ -136,6 +136,9 @@ const STATUS_LABELS = {
       <Link :href="route('admin.subscriptions.index')" class="ql-btn" style="background:#10B981;">
         <i class="fa-solid fa-credit-card"></i> Abonnements
       </Link>
+      <Link :href="route('admin.legal-pages.index')" class="ql-btn" style="background:#8B5CF6;">
+        <i class="fa-solid fa-file-contract"></i> Pages légales
+      </Link>
     </div>
   </AdminLayout>
 </template>
@@ -155,7 +158,7 @@ const STATUS_LABELS = {
   background: #fff; border: 1px solid #E5E7EB;
   padding: 18px 16px; display: flex; align-items: center; gap: 14px;
 }
-.rev-card { border-left: 3px solid; border-left-color: inherit; }
+.rev-card { border-left: 3px solid; }
 .stat-icon {
   width: 42px; height: 42px; display: flex; align-items: center;
   justify-content: center; font-size: 1.05rem; flex-shrink: 0;
