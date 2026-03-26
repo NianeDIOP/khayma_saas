@@ -50,6 +50,18 @@ function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
           :class="['nav-item', { active: $page.url.includes('/settings') }]">
           <i class="fa-solid fa-gear" style="color:#8B5CF6"></i> <span>Paramètres</span>
         </Link>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">Gestion</div>
+
+        <Link :href="route('app.customers.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/customers') }]">
+          <i class="fa-solid fa-user-group" style="color:#2563EB"></i> <span>Clients</span>
+        </Link>
+        <Link :href="route('app.suppliers.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/suppliers') }]">
+          <i class="fa-solid fa-truck-field" style="color:#F59E0B"></i> <span>Fournisseurs</span>
+        </Link>
       </nav>
       <div class="sidebar-footer">
         <a href="/" class="nav-item">
@@ -127,6 +139,8 @@ function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
 .nav-item.active { background: #EEF2FF; color: #4F46E5; border-right: 3px solid #4F46E5; }
 .nav-item i { width: 20px; text-align: center; font-size: 1.05rem; flex-shrink: 0; }
 .sidebar-footer { padding: 12px 0; border-top: 1px solid #E5E7EB; }
+.nav-divider { height: 1px; background: #E5E7EB; margin: 8px 16px; }
+.nav-section-label { font-size: 0.68rem; font-weight: 700; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 16px 6px; }
 .nav-item.logout:hover { color: #EF4444; }
 
 /* ── Content ─── */

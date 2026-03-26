@@ -61,6 +61,16 @@ class Company extends Model
         return $this->hasMany(AuditLog::class);
     }
 
+    public function customers(): HasMany
+    {
+        return $this->hasMany(Customer::class);
+    }
+
+    public function suppliers(): HasMany
+    {
+        return $this->hasMany(Supplier::class);
+    }
+
     // ── Scopes ────────────────────────────────────────────────
 
     public function scopeActive($query)

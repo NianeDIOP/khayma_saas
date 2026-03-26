@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\UserController as AdminUser;
 use App\Http\Controllers\App\DashboardController as AppDashboard;
 use App\Http\Controllers\App\OnboardingController;
 use App\Http\Controllers\App\SettingsController;
+use App\Http\Controllers\App\CustomerController;
+use App\Http\Controllers\App\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -57,6 +59,12 @@ Route::middleware(['tenant', 'auth', 'subscription'])
          // Paramètres entreprise
          Route::get('/settings',     [SettingsController::class, 'index'])->name('settings');
          Route::put('/settings',     [SettingsController::class, 'update'])->name('settings.update');
+
+         // Clients
+         Route::resource('customers', CustomerController::class);
+
+         // Fournisseurs
+         Route::resource('suppliers', SupplierController::class);
      });
 
 // ── Backoffice Super Admin ────────────────────────────────────────
