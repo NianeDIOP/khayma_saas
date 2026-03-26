@@ -5,6 +5,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\CompanyController as AdminCompany;
 use App\Http\Controllers\Admin\UserController as AdminUser;
+use App\Http\Controllers\Admin\PlanController as AdminPlan;
+use App\Http\Controllers\Admin\ModuleController as AdminModule;
+use App\Http\Controllers\Admin\SubscriptionController as AdminSubscription;
+use App\Http\Controllers\Admin\AuditLogController as AdminAuditLog;
+use App\Http\Controllers\Admin\SettingController as AdminSetting;
 use App\Http\Controllers\App\DashboardController as AppDashboard;
 use App\Http\Controllers\App\OnboardingController;
 use App\Http\Controllers\App\SettingsController;
@@ -108,10 +113,42 @@ Route::middleware(['auth', 'admin'])
      ->name('admin.')
      ->group(function () {
          Route::get('/',           [AdminDashboard::class, 'index'])->name('dashboard');
+
+         // Companies
          Route::get('/companies',  [AdminCompany::class,  'index'])->name('companies.index');
+         Route::get('/companies/create', [AdminCompany::class, 'create'])->name('companies.create');
+         Route::post('/companies', [AdminCompany::class, 'store'])->name('companies.store');
          Route::get('/companies/{company}', [AdminCompany::class, 'show'])->name('companies.show');
+         Route::get('/companies/{company}/edit', [AdminCompany::class, 'edit'])->name('companies.edit');
+         Route::put('/companies/{company}', [AdminCompany::class, 'update'])->name('companies.update');
+         Route::delete('/companies/{company}', [AdminCompany::class, 'destroy'])->name('companies.destroy');
          Route::patch('/companies/{company}/toggle',       [AdminCompany::class, 'toggle'])->name('companies.toggle');
          Route::patch('/companies/{company}/subscription', [AdminCompany::class, 'updateSubscription'])->name('companies.subscription');
+         Route::patch('/companies/{company}/extend-trial', [AdminCompany::class, 'extendTrial'])->name('companies.extend-trial');
+         Route::post('/companies/{company}/modules',       [AdminCompany::class, 'syncModules'])->name('companies.modules');
+         Route::post('/companies/{company}/reset-password', [AdminCompany::class, 'resetPassword'])->name('companies.reset-password');
+
+         // Users
          Route::get('/users',      [AdminUser::class,     'index'])->name('users.index');
+         Route::get('/users/{user}', [AdminUser::class,   'show'])->name('users.show');
+         Route::patch('/users/{user}/toggle-admin', [AdminUser::class, 'toggleAdmin'])->name('users.toggle-admin');
+
+         // Plans
+         Route::resource('plans', AdminPlan::class);
+
+         // Modules
+         Route::resource('modules', AdminModule::class)->except(['show', 'destroy']);
+         Route::patch('/modules/{module}/toggle', [AdminModule::class, 'toggle'])->name('modules.toggle');
+
+         // Subscriptions
+         Route::get('/subscriptions', [AdminSubscription::class, 'index'])->name('subscriptions.index');
+         Route::get('/subscriptions/export', [AdminSubscription::class, 'export'])->name('subscriptions.export');
+
+         // Audit Logs
+         Route::get('/audit-logs', [AdminAuditLog::class, 'index'])->name('audit-logs.index');
+
+         // Settings
+         Route::get('/settings',   [AdminSetting::class, 'index'])->name('settings.index');
+         Route::put('/settings',   [AdminSetting::class, 'update'])->name('settings.update');
      });
 

@@ -39,9 +39,29 @@ function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
           :class="['nav-item', { active: $page.url.startsWith('/admin/companies') }]">
           <i class="fa-solid fa-building" style="color:#8B5CF6"></i> <span>Entreprises</span>
         </Link>
+        <Link :href="route('admin.plans.index')"
+          :class="['nav-item', { active: $page.url.startsWith('/admin/plans') }]">
+          <i class="fa-solid fa-tags" style="color:#F59E0B"></i> <span>Plans & Tarifs</span>
+        </Link>
+        <Link :href="route('admin.modules.index')"
+          :class="['nav-item', { active: $page.url.startsWith('/admin/modules') }]">
+          <i class="fa-solid fa-puzzle-piece" style="color:#EC4899"></i> <span>Modules</span>
+        </Link>
+        <Link :href="route('admin.subscriptions.index')"
+          :class="['nav-item', { active: $page.url.startsWith('/admin/subscriptions') }]">
+          <i class="fa-solid fa-credit-card" style="color:#10B981"></i> <span>Abonnements</span>
+        </Link>
         <Link :href="route('admin.users.index')"
           :class="['nav-item', { active: $page.url.startsWith('/admin/users') }]">
           <i class="fa-solid fa-users" style="color:#3B82F6"></i> <span>Utilisateurs</span>
+        </Link>
+        <Link :href="route('admin.audit-logs.index')"
+          :class="['nav-item', { active: $page.url.startsWith('/admin/audit-logs') }]">
+          <i class="fa-solid fa-clipboard-list" style="color:#EF4444"></i> <span>Logs</span>
+        </Link>
+        <Link :href="route('admin.settings.index')"
+          :class="['nav-item', { active: $page.url.startsWith('/admin/settings') }]">
+          <i class="fa-solid fa-cog" style="color:#6B7280"></i> <span>Paramètres</span>
         </Link>
       </nav>
       <div class="sidebar-footer">

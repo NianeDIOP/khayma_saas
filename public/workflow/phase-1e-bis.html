@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phase 1E-bis — Admin Backoffice Complet · Khayma</title>
+  <meta name="csrf-token" content="" />
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .date-band {
+      display: flex; align-items: center; gap: 20px;
+      background: #EEF2FF; border: 1px solid #A5B4FC;
+      border-left: 3px solid #6366F1;
+      padding: 8px 14px; font-size: 0.78rem; color: #3730A3; margin-bottom: 20px;
+    }
+    .date-band i { color: #6366F1; }
+    .date-item { display: flex; align-items: center; gap: 6px; }
+    .date-item strong { color: #111827; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="kh-header">
+  <a class="kh-logo" href="index.html">
+    <img src="logo.png" alt="Khayma" style="height:46px;width:auto;display:block;" />
+  </a>
+  <div class="kh-header-sep"></div>
+  <span class="kh-header-sub" style="font-size:0.85rem;font-weight:700;color:#111827;">Workflow de développement</span>
+  <div class="kh-header-right">
+    <div class="kh-prog-chip">
+      <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 1E-bis</span>
+      <div class="kh-prog-track">
+        <div class="kh-prog-fill" id="phaseFill" style="width:100%;background:#6366F1;"></div>
+      </div>
+      <span class="kh-prog-pct" id="phasePct">100%</span>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="kh-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="kh-sidebar">
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Prérequis</div>
+      <a class="kh-sidebar-item" href="phase-0.html">
+        <i class="fa-solid fa-gear si-icon" style="color:#F59E0B"></i>
+        <span class="si-label">Phase 0 — Installation</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+    </div>
+    <div class="kh-sidebar-divider"></div>
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 1 — Fondations</div>
+      <a class="kh-sidebar-item" href="phase-1a.html">
+        <i class="fa-brands fa-laravel si-icon" style="color:#FF2D20"></i>
+        <span class="si-label">1A — Laravel &amp; Architecture</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1b.html">
+        <i class="fa-solid fa-database si-icon" style="color:#3B82F6"></i>
+        <span class="si-label">1B — Base de données</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1c.html">
+        <i class="fa-solid fa-building si-icon" style="color:#8B5CF6"></i>
+        <span class="si-label">1C — Multi-Tenant</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1d.html">
+        <i class="fa-solid fa-lock si-icon" style="color:#D97706"></i>
+        <span class="si-label">1D — Auth &amp; RBAC</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1e.html">
+        <i class="fa-solid fa-shield-halved si-icon" style="color:#6366F1"></i>
+        <span class="si-label">1E — Backoffice Admin</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item is-active" href="phase-1e-bis.html">
+        <i class="fa-solid fa-screwdriver-wrench si-icon" style="color:#6366F1"></i>
+        <span class="si-label">1E-bis — Admin Complet</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+    </div>
+    <div class="kh-sidebar-divider"></div>
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 2 — Espace Entreprise</div>
+      <a class="kh-sidebar-item" href="phase-2a.html">
+        <i class="fa-solid fa-house si-icon" style="color:#14B8A6"></i>
+        <span class="si-label">2A — Onboarding &amp; Dashboard</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-2b.html">
+        <i class="fa-solid fa-users si-icon" style="color:#2563EB"></i>
+        <span class="si-label">2B — Clients &amp; Fournisseurs</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-2c.html">
+        <i class="fa-solid fa-boxes-stacked si-icon" style="color:#F59E0B"></i>
+        <span class="si-label">2C — Stock &amp; Caisse</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+    </div>
+    <div class="kh-sidebar-divider"></div>
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 3 — Modules métier</div>
+      <a class="kh-sidebar-item" href="phase-3a.html">
+        <i class="fa-solid fa-utensils si-icon" style="color:#EF4444"></i>
+        <span class="si-label">3A — Restaurant</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3b.html">
+        <i class="fa-solid fa-wrench si-icon" style="color:#64748B"></i>
+        <span class="si-label">3B — Quincaillerie</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3c.html">
+        <i class="fa-solid fa-cart-shopping si-icon" style="color:#10B981"></i>
+        <span class="si-label">3C — Boutique / POS</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3d.html">
+        <i class="fa-solid fa-key si-icon" style="color:#D97706"></i>
+        <span class="si-label">3D — Location</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+    <div class="kh-sidebar-divider"></div>
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 4 — Finalisation</div>
+      <a class="kh-sidebar-item" href="phase-4a.html">
+        <i class="fa-solid fa-flask si-icon" style="color:#8B5CF6"></i>
+        <span class="si-label">4A — Tests &amp; Sécurité</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-4b.html">
+        <i class="fa-solid fa-rocket si-icon" style="color:#3B82F6"></i>
+        <span class="si-label">4B — Déploiement OVH</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="kh-content">
+
+    <!-- Breadcrumb -->
+    <div class="kh-breadcrumb">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Hub</a>
+      <i class="fa-solid fa-chevron-right" style="font-size:0.6rem;"></i>
+      <span class="kh-breadcrumb-current">Phase 1E-bis — Admin Backoffice Complet (CDC §8)</span>
+    </div>
+
+    <!-- Page title -->
+    <div class="kh-page-title" style="margin-top:20px;">
+      <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #6366F1;line-height:1.3;">
+        Phase 1E-bis
+        <span style="display:block;color:#6366F1;font-weight:800;">Admin Backoffice Complet</span>
+      </h1>
+      <p style="font-size:0.82rem;color:#6B7280;max-width:560px;padding-left:15px;margin-top:6px;">
+        Compléter le backoffice admin pour couvrir l'intégralité du CDC Section 8 : Plans &amp; Tarifs, Modules, Abonnements, Entreprises CRUD avancé, Utilisateurs avancé, Logs d'audit, Paramètres plateforme, Dashboard KPI, 34 routes, 38 tests.
+      </p>
+    </div>
+
+    <!-- Date de début / fin -->
+    <div class="date-band">
+      <div class="date-item"><i class="fa-solid fa-calendar-day"></i> Début : <strong id="dateStart">—</strong></div>
+      <div class="date-item"><i class="fa-solid fa-calendar-check"></i> Validation : <strong id="dateEnd">—</strong></div>
+      <div class="date-item" style="margin-left:auto;"><i class="fa-solid fa-clock"></i> Durée : <strong id="dateDuration">—</strong></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="kh-phase-stats">
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-done">0</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-check" style="color:#10B981"></i> Tâches complétées</div>
+      </div>
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-total">0</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-list-check" style="color:#6366F1"></i> Tâches totales</div>
+      </div>
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-pct" style="color:#6366F1;">0%</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-percent" style="color:#6366F1"></i> Progression</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.1 — Infrastructure
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis1">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.1</div>
+        <div class="kh-step-info">
+          <h3>Infrastructure — Migration &amp; Modèle <code>PlatformSetting</code></h3>
+          <p>Table key-value pour les paramètres globaux de la plateforme + modèle avec helpers statiques.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron open"></i>
+        </div>
+      </div>
+      <div class="kh-step-body open">
+        <ul class="kh-tasks" id="tasks-1ebis1">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer la migration <code>create_platform_settings_table</code> — colonnes : <code>id</code>, <code>key</code> (string unique), <code>value</code> (text nullable), <code>timestamps</code> <span class="kh-tag tag-cfg">cfg</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Exécuter <code>php artisan migrate</code> → table <code>platform_settings</code> créée en base <span class="kh-tag tag-cfg">cfg</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Models/PlatformSetting.php</code> — helpers statiques : <code>get(key, default)</code>, <code>set(key, value)</code>, <code>getMany(keys)</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Ajouter <code>HasFactory</code> aux modèles <code>Plan</code>, <code>Module</code>, <code>Subscription</code>, <code>AuditLog</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer les factories : <code>PlanFactory</code>, <code>ModuleFactory</code>, <code>SubscriptionFactory</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+        </ul>
+        <pre><code>// PlatformSetting helpers
+PlatformSetting::get('app_name', 'Khayma');
+PlatformSetting::set('trial_duration_days', 14);
+PlatformSetting::getMany(['app_name', 'default_currency']);</code></pre>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.2 — Plans & Tarifs
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis2">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.2</div>
+        <div class="kh-step-info">
+          <h3>Plans &amp; Tarifs — CRUD complet (CDC §8.5)</h3>
+          <p>Gestion complète des plans d'abonnement : création, édition, suppression (blocage si abonnements actifs), tarification multi-période.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1ebis2">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin\PlanController</code> — CRUD complet : <code>index</code> (withCount subscriptions), <code>create</code>, <code>store</code>, <code>edit</code>, <code>update</code>, <code>destroy</code> (blocage si abonnements actifs) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Validation : <code>name</code>, <code>code</code> (unique), <code>max_products/users/storage/transactions</code>, <code>api_rate_limit</code>, prix mensuel/trimestriel/annuel, <code>is_active</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Plans/Index.vue</code> — grille de cartes : nom, prix, limites, nombre d'abonnés, boutons éditer/supprimer <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Plans/Form.vue</code> — formulaire create/edit : infos générales, tarification (3 prix), limites (5 champs), toggle actif <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.3 — Modules
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis3">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.3</div>
+        <div class="kh-step-info">
+          <h3>Modules — CRUD + Toggle (CDC §8.5)</h3>
+          <p>Gestion des modules métier disponibles : nom, code unique, icône Font Awesome, frais d'installation, activation/désactivation.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1ebis3">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin\ModuleController</code> — CRUD + toggle : <code>index</code> (withCount companies), <code>create</code>, <code>store</code>, <code>edit</code>, <code>update</code>, <code>toggle</code> is_active <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Validation : <code>name</code>, <code>code</code> (unique), <code>description</code>, <code>icon</code>, <code>installation_fee</code>, <code>is_active</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Modules/Index.vue</code> — liste avec icône FA, frais, nb entreprises, bouton toggle, lien éditer <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Modules/Form.vue</code> — formulaire create/edit : nom, code, description, prévisualisation icône, frais d'installation <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.4 — Entreprises avancé
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis4">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.4</div>
+        <div class="kh-step-info">
+          <h3>Entreprises — CRUD avancé (CDC §8.3)</h3>
+          <p>Refonte complète : création avec propriétaire, édition, suppression (soft-delete), extension trial, synchronisation modules, reset mot de passe.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1ebis4">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Refondre <code>Admin\CompanyController</code> — CRUD complet : <code>index</code> (withCount modules, withTrashed), <code>create</code> (plans+modules), <code>store</code> (crée Company+User owner+pivot), <code>show</code>, <code>edit</code>, <code>update</code>, <code>destroy</code> (soft-delete) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Actions avancées : <code>toggle()</code> flip is_active, <code>extendTrial()</code> 1-90 jours, <code>syncModules()</code> array de module_ids, <code>resetPassword()</code> du propriétaire <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Companies/Create.vue</code> — formulaire : infos entreprise + infos propriétaire + statut abonnement + checkboxes modules <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Companies/Edit.vue</code> — édition : nom, email, téléphone, secteur, adresse, NINEA <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Mettre à jour <code>Admin/Companies/Show.vue</code> — boutons edit/delete, formulaire extension trial, checkboxes sync modules, reset password, historique abonnements, champ NINEA <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Mettre à jour <code>Admin/Companies/Index.vue</code> — bouton « Créer », colonne <code>modules_count</code> <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.5 — Abonnements
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis5">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.5</div>
+        <div class="kh-step-info">
+          <h3>Abonnements — Liste, filtres &amp; export CSV (CDC §8.4)</h3>
+          <p>Vue d'ensemble des abonnements avec stats (total, actifs, revenu), filtres recherche/statut/période et export CSV.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1ebis5">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin\SubscriptionController</code> — <code>index()</code> avec recherche, filtre statut/période, stats globales (total/active/revenu), <code>export()</code> CSV <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Subscriptions/Index.vue</code> — 3 cartes stats + filtres (recherche/statut/période) + tableau paginé + bouton export CSV <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.6 — Utilisateurs avancé
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis6">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.6</div>
+        <div class="kh-step-info">
+          <h3>Utilisateurs — show &amp; toggleAdmin (CDC §8.3)</h3>
+          <p>Page détail utilisateur, toggle rôle admin (avec protection self-toggle), filtre par rôle.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1ebis6">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Ajouter <code>show()</code> et <code>toggleAdmin()</code> dans <code>Admin\UserController</code> — toggle bloqué sur soi-même, filtre rôle admin <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Users/Show.vue</code> — carte profil + tableau entreprises + bouton toggle admin <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Mettre à jour <code>Admin/Users/Index.vue</code> — filtre dropdown rôle, lien « Voir » vers show, pagination <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.7 — Logs & Paramètres
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis7">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.7</div>
+        <div class="kh-step-info">
+          <h3>Logs d'audit &amp; Paramètres plateforme (CDC §8.10 + §8.1)</h3>
+          <p>Consultation des logs d'audit avec filtres + page paramètres globaux (général, abonnements, maintenance).</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1ebis7">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin\AuditLogController</code> — <code>index()</code> avec recherche, filtre action (dropdown dynamique), pagination 30/page <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/AuditLogs/Index.vue</code> — filtres (recherche + dropdown action) + tableau : utilisateur, entreprise, action, modèle, date, IP <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin\SettingController</code> — clés : <code>app_name</code>, <code>default_currency</code>, <code>trial_duration_days</code>, <code>grace_period_days</code>, <code>data_retention_days</code>, <code>maintenance_mode</code>, <code>support_email</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>Admin/Settings/Index.vue</code> — 3 sections : Général (nom, devise, email support), Abonnements (trial/grâce/rétention), Maintenance (toggle) <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.8 — Navigation & Dashboard
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis8">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.8</div>
+        <div class="kh-step-info">
+          <h3>Navigation AdminLayout &amp; Dashboard KPI (CDC §8.2 + §8.7)</h3>
+          <p>Sidebar 8 entrées + Dashboard avancé : MRR, taux de conversion, modules populaires, entreprises/abonnements récents.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1ebis8">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Mettre à jour <code>AdminLayout.vue</code> — sidebar avec 8 liens : Dashboard, Entreprises, Plans &amp; Tarifs, Modules, Abonnements, Utilisateurs, Logs, Paramètres <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Enrichir <code>Admin\DashboardController</code> — MRR, <code>new_this_week</code>, <code>conversionRate</code>, <code>popularModules</code> (top 5), <code>recentSubscriptions</code> (5 derniers), <code>recentCompanies</code> (5 dernières) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Refondre <code>Admin/Dashboard.vue</code> — 6 stat cards + 3 cartes revenu + modules populaires + entreprises récentes + abonnements récents + quick links <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1Ebis.9 — Routes & Tests
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1ebis9">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1Ebis.9</div>
+        <div class="kh-step-info">
+          <h3>34 routes admin + 38 tests PHPUnit (198 assertions)</h3>
+          <p>Routes resource pour Plans, Modules, Companies, Users, Subscriptions, AuditLogs, Settings. Tests exhaustifs : CRUD, accès, contrôle, export.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1ebis9">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Ajouter 5 <code>use</code> statements dans <code>web.php</code> : PlanController, ModuleController, SubscriptionController, AuditLogController, SettingController <span class="kh-tag tag-cfg">cfg</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Enregistrer 34 routes admin : Plans resource, Modules resource + toggle, Subscriptions index + export, Companies CRUD + extend-trial + modules + reset-password, Users show + toggle-admin, AuditLogs index, Settings index + update <span class="kh-tag tag-cfg">cfg</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>tests/Feature/Admin/AdminBackofficeTest.php</code> — 38 tests couvrant : Plans CRUD (8), Modules (4), Subscriptions (3), Audit Logs (2), Settings (3), Company extended (9), Users extended (4), Access Control (5) <span class="kh-tag tag-tst">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Exécuter <code>php artisan test</code> → <strong>183 tests, 962 assertions — ALL PASS</strong> (0 regressions) <span class="kh-tag tag-tst">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Commit : <code>Phase 1E-bis : Admin backoffice complet (CDC §8)</code> <span class="kh-tag tag-git">git</span></span>
+          </li>
+        </ul>
+        <pre><code># 34 routes admin vérifiées :
+php artisan route:list --name=admin
+
+# Résultat tests :
+Tests:    183 passed (962 assertions)
+Duration: ~3s</code></pre>
+      </div>
+    </div>
+
+    <!-- Validation finale -->
+    <div class="kh-note kh-note-success" id="validationNote" style="margin-top:24px;">
+      <i class="fa-solid fa-circle-check"></i>
+      <span><strong>Phase 1E-bis validée !</strong> Le backoffice admin est désormais conforme au CDC Section 8 : Plans, Modules, Abonnements, Entreprises CRUD avancé, Utilisateurs, Logs d'audit, Paramètres, Dashboard KPI. 34 routes, 38 nouveaux tests (183 total, 962 assertions).</span>
+    </div>
+
+    <!-- CDC Coverage -->
+    <div class="kh-note kh-note-info" style="margin-top:12px;">
+      <i class="fa-solid fa-clipboard-list"></i>
+      <span>
+        <strong>Couverture CDC Section 8 :</strong><br>
+        8.1 Accès ✅ &nbsp; 8.2 Dashboard ✅ &nbsp; 8.3 Entreprises ✅ &nbsp; 8.4 Abonnements ✅ &nbsp; 8.5 Plans &amp; prix ✅<br>
+        8.6 Support ⏳ (Phase 2+) &nbsp; 8.7 Statistiques ✅ &nbsp; 8.8 Annonces ⏳ &nbsp; 8.9 CMS ⏳ &nbsp; 8.10 Logs ✅
+      </span>
+    </div>
+
+    <!-- Nav bas de page -->
+    <div class="kh-phase-nav">
+      <a href="phase-1e.html" class="kh-btn kh-btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Phase 1E
+      </a>
+      <a href="phase-2a.html" class="kh-btn kh-btn-primary">
+        Phase 2A <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const PHASE_KEY = 'phase1ebis';
+
+function fmt(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+function daysDiff(a, b) {
+  const d = Math.round((new Date(b) - new Date(a)) / 86400000);
+  return d <= 0 ? 'Même jour' : d + ' jour' + (d > 1 ? 's' : '');
+}
+function toggleStep(header) {
+  const body    = header.nextElementSibling;
+  const chevron = header.querySelector('.kh-step-chevron');
+  const isOpen  = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+function toggleTask(cb) {
+  cb.classList.toggle('checked');
+  cb.nextElementSibling.classList.toggle('done-text', cb.classList.contains('checked'));
+  saveProgress();
+  updateStats();
+}
+let _cachedProgress = {};
+async function saveProgress() {
+  const checkboxes = document.querySelectorAll('.kh-task-cb');
+  const stepStates = {};
+  document.querySelectorAll('ul[id^="tasks-"]').forEach(ul => {
+    stepStates[ul.id] = Array.from(ul.querySelectorAll('.kh-task-cb')).map(cb => cb.classList.contains('checked'));
+  });
+  const done  = document.querySelectorAll('.kh-task-cb.checked').length;
+  const total = checkboxes.length;
+  if (!_cachedProgress.started_at) _cachedProgress.started_at = new Date().toISOString();
+  if (done === total && total > 0 && !_cachedProgress.ended_at) _cachedProgress.ended_at = new Date().toISOString();
+  const payload = { step_states: stepStates, done, total, started_at: _cachedProgress.started_at || null, ended_at: _cachedProgress.ended_at || null };
+  try {
+    const res = await fetch(`/api/workflow/${PHASE_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    _cachedProgress = data;
+    updateDates(data);
+  } catch(e) {
+    console.warn('API non joignable.', e);
+    localStorage.setItem('khayma_fallback_' + PHASE_KEY, JSON.stringify(payload));
+  }
+}
+function updateDates(p) {
+  document.getElementById('dateStart').textContent    = p.started_at ? fmt(p.started_at) : '—';
+  document.getElementById('dateEnd').textContent      = p.ended_at   ? fmt(p.ended_at)   : '—';
+  document.getElementById('dateDuration').textContent = (p.started_at && p.ended_at) ? daysDiff(p.started_at, p.ended_at) : '—';
+}
+function updateStepBadges() {
+  document.querySelectorAll('.kh-step').forEach(step => {
+    const cbs  = step.querySelectorAll('.kh-task-cb');
+    if (!cbs.length) return;
+    const done  = step.querySelectorAll('.kh-task-cb.checked').length;
+    const badge = step.querySelector('.kh-step-right .kh-badge');
+    if (!badge) return;
+    if (done === cbs.length) { badge.className = 'kh-badge kh-badge-done'; badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Validé'; }
+    else if (done > 0)       { badge.className = 'kh-badge kh-badge-active'; badge.innerHTML = '<i class="fa-solid fa-circle-dot"></i> En cours'; }
+    else                     { badge.className = 'kh-badge kh-badge-todo'; badge.innerHTML = '<i class="fa-regular fa-circle"></i> À faire'; }
+  });
+}
+function updateStats() {
+  const checkboxes = document.querySelectorAll('.kh-task-cb');
+  const total = checkboxes.length;
+  const done  = document.querySelectorAll('.kh-task-cb.checked').length;
+  const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('stat-done').textContent  = done;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-pct').textContent   = pct + '%';
+  document.getElementById('phaseFill').style.width  = pct + '%';
+  document.getElementById('phasePct').textContent   = pct + '%';
+  const note = document.getElementById('validationNote');
+  if (note) note.style.display = (done === total && total > 0) ? 'flex' : 'none';
+  updateStepBadges();
+}
+async function loadProgress() {
+  try {
+    const res  = await fetch(`/api/workflow/${PHASE_KEY}`, { headers: { 'Accept': 'application/json' } });
+    const data = await res.json();
+    _cachedProgress = data;
+    if (data.step_states) {
+      Object.entries(data.step_states).forEach(([ulId, states]) => {
+        const ul = document.getElementById(ulId);
+        if (!ul) return;
+        ul.querySelectorAll('.kh-task-cb').forEach((cb, i) => {
+          if (states[i]) { cb.classList.add('checked'); cb.nextElementSibling.classList.add('done-text'); }
+        });
+      });
+    }
+    const actualTotal = document.querySelectorAll('.kh-task-cb').length;
+    if (!data.started_at || data.total !== actualTotal) {
+      _cachedProgress.started_at = _cachedProgress.started_at || new Date().toISOString();
+      await saveProgress();
+    }
+    updateDates(data);
+  } catch(e) { console.warn('API non joignable.', e); }
+  updateStats();
+}
+loadProgress();
+</script>
+</body>
+</html>

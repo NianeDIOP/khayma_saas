@@ -33,7 +33,12 @@ function applyFilters() {
     <Head title="Admin · Entreprises" />
 
     <div class="toolbar">
-      <h1 class="page-title">Entreprises</h1>
+      <div class="toolbar-left">
+        <h1 class="page-title">Entreprises</h1>
+        <Link :href="route('admin.companies.create')" class="kh-btn-create">
+          <i class="fa-solid fa-plus"></i> Créer
+        </Link>
+      </div>
       <div class="filters">
         <input v-model="search" @keyup.enter="applyFilters" type="text"
           class="kh-input" placeholder="Rechercher…" />
@@ -55,6 +60,7 @@ function applyFilters() {
             <th>Entreprise</th>
             <th>Secteur</th>
             <th>Statut</th>
+            <th>Modules</th>
             <th>Active</th>
             <th>Créée le</th>
             <th></th>
@@ -62,7 +68,7 @@ function applyFilters() {
         </thead>
         <tbody>
           <tr v-if="!companies.data.length">
-            <td colspan="7" class="empty">Aucune entreprise trouvée.</td>
+            <td colspan="8" class="empty">Aucune entreprise trouvée.</td>
           </tr>
           <tr v-for="c in companies.data" :key="c.id">
             <td>{{ c.id }}</td>
@@ -77,6 +83,9 @@ function applyFilters() {
                           color: STATUS_LABELS[c.subscription_status]?.color || '#6B7280' }">
                 {{ STATUS_LABELS[c.subscription_status]?.label || c.subscription_status }}
               </span>
+            </td>
+            <td>
+              <span class="mod-count">{{ c.modules_count || 0 }}</span>
             </td>
             <td>
               <span :style="{ color: c.is_active ? '#10B981' : '#EF4444' }">
@@ -106,7 +115,9 @@ function applyFilters() {
 
 <style scoped>
 .toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.toolbar-left { display: flex; align-items: center; gap: 12px; }
 .page-title { font-size: 1.1rem; font-weight: 700; color: #111827; padding-left: 12px; border-left: 3px solid #6366F1; }
+.kh-btn-create { background: #6366F1; color: #fff; padding: 6px 14px; font-size: 0.78rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
 .filters { display: flex; gap: 8px; align-items: center; }
 .kh-input { padding: 7px 10px; border: 1px solid #D1D5DB; font-size: 0.82rem; outline: none; background: #fff; }
 .kh-input:focus { border-color: #6366F1; }
@@ -121,6 +132,7 @@ function applyFilters() {
 .badge { display: inline-block; padding: 2px 8px; font-size: 0.72rem; font-weight: 600; }
 .link-btn { color: #6366F1; font-size: 0.78rem; font-weight: 600; text-decoration: none; }
 .link-btn:hover { text-decoration: underline; }
+.mod-count { background: #EEF2FF; color: #6366F1; padding: 2px 8px; font-size: 0.72rem; font-weight: 600; }
 .empty { text-align: center; color: #9CA3AF; padding: 32px; }
 .pagination { display: flex; gap: 4px; margin-top: 16px; flex-wrap: wrap; }
 .page-btn { padding: 5px 10px; border: 1px solid #D1D5DB; font-size: 0.78rem; text-decoration: none; color: #374151; }
