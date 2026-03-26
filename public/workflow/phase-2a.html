@@ -32,9 +32,9 @@
     <div class="kh-prog-chip">
       <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 2A</span>
       <div class="kh-prog-track">
-        <div class="kh-prog-fill" id="phaseFill" style="width:100%;background:#14B8A6;"></div>
+        <div class="kh-prog-fill" id="phaseFill" style="width:0%;background:#14B8A6;"></div>
       </div>
-      <span class="kh-prog-pct" id="phasePct">100%</span>
+      <span class="kh-prog-pct" id="phasePct">0%</span>
     </div>
   </div>
 </header>
@@ -148,105 +148,393 @@
     </div>
   </nav>
 
-  <!-- MAIN CONTENT -->
+  <!-- CONTENT -->
   <main class="kh-content">
 
-    <div class="kh-page-title">
+    <!-- Breadcrumb -->
+    <div class="kh-breadcrumb">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Hub</a>
+      <i class="fa-solid fa-chevron-right" style="font-size:0.6rem;"></i>
+      <span class="kh-breadcrumb-current">Phase 2A — Onboarding &amp; Dashboard</span>
+    </div>
+
+    <!-- Page title -->
+    <div class="kh-page-title" style="margin-top:20px;">
       <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #14B8A6;line-height:1.3;">
         Phase 2A
         <span style="display:block;color:#14B8A6;font-weight:800;">Onboarding &amp; Dashboard tenant</span>
       </h1>
-      <p style="font-size:0.82rem;color:#6B7280;max-width:560px;padding-left:15px;margin-top:6px;">Espace entreprise : profil d'onboarding, tableau de bord tenant avec stats, paramètres et gestion du layout.</p>
+      <p style="font-size:0.82rem;color:#6B7280;max-width:560px;padding-left:15px;margin-top:6px;">
+        Espace entreprise : layout tenant <code>AppLayout</code>, tableau de bord avec stats, onboarding profil, paramètres entreprise et 12 tests PHPUnit.
+      </p>
     </div>
 
+    <!-- Date de début / fin -->
     <div class="date-band">
-      <div class="date-item"><i class="fa-regular fa-calendar"></i> Démarré : <strong>26 mars 2026</strong></div>
-      <div class="date-item"><i class="fa-regular fa-calendar-check"></i> Terminé : <strong>26 mars 2026</strong></div>
+      <div class="date-item"><i class="fa-solid fa-calendar-day"></i> Début : <strong id="dateStart">—</strong></div>
+      <div class="date-item"><i class="fa-solid fa-calendar-check"></i> Validation : <strong id="dateEnd">—</strong></div>
+      <div class="date-item" style="margin-left:auto;"><i class="fa-solid fa-clock"></i> Durée : <strong id="dateDuration">—</strong></div>
     </div>
 
-    <!-- STEPS -->
-    <div class="kh-checklist">
+    <!-- Stats -->
+    <div class="kh-phase-stats">
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-done">0</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-check" style="color:#10B981"></i> Tâches complétées</div>
+      </div>
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-total">0</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-list-check" style="color:#14B8A6"></i> Tâches totales</div>
+      </div>
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-pct" style="color:#14B8A6;">0%</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-percent" style="color:#14B8A6"></i> Progression</div>
+      </div>
+    </div>
 
-      <div class="kh-step is-done">
-        <div class="step-head">
-          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
-          <span class="step-num">Étape 1</span>
-          <span class="step-title">AppLayout — Layout tenant (topbar + sidebar + hamburger)</span>
-          <span class="step-badge badge-done">Validé</span>
+    <!-- ══════════════════════════════
+         STEP 2A.1 — AppLayout
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-2a1">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#14B8A6;">2A.1</div>
+        <div class="kh-step-info">
+          <h3><code>AppLayout.vue</code> — Layout tenant (topbar + sidebar + hamburger)</h3>
+          <p>Layout identique au design Admin : topbar transparente pleine largeur, sidebar collapsible, icônes colorées, nom entreprise + badge abonnement.</p>
         </div>
-        <div class="step-detail">
-          <code>resources/js/Layouts/AppLayout.vue</code> — Même design que AdminLayout : topbar transparent, sidebar collapsible, icônes colorées, nom entreprise + badge abonnement dans la topbar.
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron open"></i>
         </div>
       </div>
+      <div class="kh-step-body open">
+        <ul class="kh-tasks" id="tasks-2a1">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Layouts/AppLayout.vue</code> — topbar transparent, logo Khayma + tagline, nom entreprise + badge statut <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Sidebar 220px collapsible avec hamburger (<code>fa-bars</code>/<code>fa-xmark</code>), liens : Dashboard, Onboarding, Paramètres <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Icônes colorées par item : Dashboard <span style="color:#10B981">●</span>, Onboarding <span style="color:#F59E0B">●</span>, Paramètres <span style="color:#8B5CF6">●</span> <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Badges abonnement colorés : <code>.badge-trial</code> (jaune), <code>.badge-active</code> (vert), <code>.badge-expired</code> (rouge) <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-      <div class="kh-step is-done">
-        <div class="step-head">
-          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
-          <span class="step-num">Étape 2</span>
-          <span class="step-title">Tenant Dashboard — Controller + Vue page</span>
-          <span class="step-badge badge-done">Validé</span>
+    <!-- ══════════════════════════════
+         STEP 2A.2 — Tenant Dashboard
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-2a2">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#14B8A6;">2A.2</div>
+        <div class="kh-step-info">
+          <h3>Tenant Dashboard — Controller + Vue page</h3>
+          <p>Tableau de bord entreprise avec statistiques, liste des membres récents et modules actifs.</p>
         </div>
-        <div class="step-detail">
-          <code>App\Http\Controllers\App\DashboardController</code> — Stats (utilisateurs, modules, abonnement, plan), liste des membres récents, modules actifs.<br>
-          <code>resources/js/Pages/App/Dashboard.vue</code> — 4 cartes stats, bannière trial, équipe récente, modules actifs.
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-2a2">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Controllers/App/DashboardController.php</code> — stats : <code>users_count</code>, <code>modules_count</code>, <code>subscription</code>, <code>trial_days_left</code>, <code>active_plan</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Retourner <code>recentUsers</code> (5 derniers, avec rôle pivot) et <code>activeModules</code> (nom, code, icône) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/App/Dashboard.vue</code> — 4 cartes stats, bannière trial avec jours restants, sections modules actifs + équipe récente <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+        <pre><code>// Stats retournées :
+{ users_count, modules_count, subscription, trial_days_left, active_plan }
 
-      <div class="kh-step is-done">
-        <div class="step-head">
-          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
-          <span class="step-num">Étape 3</span>
-          <span class="step-title">Onboarding — Controller + Vue page</span>
-          <span class="step-badge badge-done">Validé</span>
+// Props Inertia :
+{ stats, recentUsers, activeModules }</code></pre>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 2A.3 — Onboarding
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-2a3">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#14B8A6;">2A.3</div>
+        <div class="kh-step-info">
+          <h3>Onboarding — Controller + Vue page</h3>
+          <p>Complétion du profil entreprise après inscription : checklist d'étapes, barre de progression, formulaire de mise à jour.</p>
         </div>
-        <div class="step-detail">
-          <code>App\Http\Controllers\App\OnboardingController</code> — Affiche le profil entreprise, calcule les étapes (email, téléphone, adresse, secteur, module), permet la mise à jour.<br>
-          <code>resources/js/Pages/App/Onboarding.vue</code> — Barre de progression, checklist visuelle, formulaire de complétion profil.
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-2a3">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Controllers/App/OnboardingController.php</code> — <code>index()</code> retourne company + steps calculés, <code>update()</code> valide et met à jour <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Méthode <code>computeSteps()</code> — 4 étapes : profil (email+phone), adresse, secteur, module activé <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/App/Onboarding.vue</code> — barre de progression, checklist visuelle, formulaire (email, phone, address, sector, ninea), flash success <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-      <div class="kh-step is-done">
-        <div class="step-head">
-          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
-          <span class="step-num">Étape 4</span>
-          <span class="step-title">Settings — Controller + Vue page</span>
-          <span class="step-badge badge-done">Validé</span>
+    <!-- ══════════════════════════════
+         STEP 2A.4 — Settings
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-2a4">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#14B8A6;">2A.4</div>
+        <div class="kh-step-info">
+          <h3>Settings — Controller + Vue page</h3>
+          <p>Paramètres complets de l'entreprise : identité, coordonnées, devise, fuseau horaire et couleurs personnalisées.</p>
         </div>
-        <div class="step-detail">
-          <code>App\Http\Controllers\App\SettingsController</code> — Lecture/mise à jour de tous les champs (nom, contact, devise, timezone, couleurs).<br>
-          <code>resources/js/Pages/App/Settings.vue</code> — Formulaire 2 sections (Identité + Préférences), color pickers, flash messages.
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-2a4">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Controllers/App/SettingsController.php</code> — <code>index()</code> retourne tous les champs, <code>update()</code> valide name requis, email, currency, timezone, couleurs <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/App/Settings.vue</code> — 2 fieldsets (Identité + Préférences), color pickers, select devise/timezone, flash success <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-      <div class="kh-step is-done">
-        <div class="step-head">
-          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
-          <span class="step-num">Étape 5</span>
-          <span class="step-title">Routes tenant enrichies</span>
-          <span class="step-badge badge-done">Validé</span>
+    <!-- ══════════════════════════════
+         STEP 2A.5 — Routes
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-2a5">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#14B8A6;">2A.5</div>
+        <div class="kh-step-info">
+          <h3>Routes tenant enrichies</h3>
+          <p>5 routes sous <code>/app</code> avec middleware <code>tenant + auth + subscription</code>.</p>
         </div>
-        <div class="step-detail">
-          <code>routes/web.php</code> — <code>app.dashboard</code>, <code>app.onboarding</code>, <code>app.onboarding.update</code>, <code>app.settings</code>, <code>app.settings.update</code>. Middleware : <code>tenant + auth + subscription</code>.
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-2a5">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Ajouter les imports <code>AppDashboard</code>, <code>OnboardingController</code>, <code>SettingsController</code> dans <code>routes/web.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Routes : <code>GET /app</code> → dashboard, <code>GET|PUT /app/onboarding</code>, <code>GET|PUT /app/settings</code> — middleware <code>tenant + auth + subscription</code> <span class="kh-tag tag-cfg">cfg</span></span>
+          </li>
+        </ul>
+        <pre><code># Routes enregistrées :
+GET  /app                app.dashboard
+GET  /app/onboarding     app.onboarding
+PUT  /app/onboarding     app.onboarding.update
+GET  /app/settings       app.settings
+PUT  /app/settings       app.settings.update</code></pre>
+      </div>
+    </div>
 
-      <div class="kh-step is-done">
-        <div class="step-head">
-          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
-          <span class="step-num">Étape 6</span>
-          <span class="step-title">Tests — 12 tests, 46+ assertions</span>
-          <span class="step-badge badge-done">Validé</span>
+    <!-- ══════════════════════════════
+         STEP 2A.6 — Tests
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-2a6">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#14B8A6;">2A.6</div>
+        <div class="kh-step-info">
+          <h3>Tests PHPUnit — 12 tests, 46+ assertions</h3>
+          <p>Couverture complète : dashboard, onboarding, settings, résolution tenant, abonnement expiré.</p>
         </div>
-        <div class="step-detail">
-          <code>tests/Feature/App/TenantTest.php</code> — Dashboard (chargement, stats, auth), Onboarding (lecture, mise à jour, validation), Settings (lecture, mise à jour, validation), résolution tenant (404 invalide/inactif), abonnement expiré (402).<br>
-          <strong>Suite complète : 46 tests, 206 assertions — PASS</strong>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-2a6">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>tests/Feature/App/TenantTest.php</code> — <code>setUp()</code> crée Company + User owner avec <code>company_users</code> pivot <span class="kh-tag tag-tst">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Tests Dashboard : charge la page, stats correctes (users_count=1, modules_count=0, subscription=trial), auth requise → redirect login <span class="kh-tag tag-tst">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Tests Onboarding : page charge, mise à jour profil (email, phone, address, sector, ninea), validation email invalide <span class="kh-tag tag-tst">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Tests Settings : page charge avec company data, mise à jour complète (name, currency, timezone, couleurs), validation name obligatoire <span class="kh-tag tag-tst">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Tests Tenant : slug invalide → 404, entreprise inactive → 404, trial expiré → 402 <span class="kh-tag tag-tst">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Exécuter <code>php artisan test</code> → <strong>46 / 46 passed (206 assertions)</strong> — suite complète verte <span class="kh-tag tag-tst">test</span></span>
+          </li>
+        </ul>
+        <pre><code>  Tests:    46 passed (206 assertions)
+  Duration: 1.15s</code></pre>
+      </div>
+    </div>
 
+    <!-- Validation finale -->
+    <div class="kh-note kh-note-success" id="validationNote" style="margin-top:24px;">
+      <i class="fa-solid fa-circle-check"></i>
+      <span><strong>Phase 2A validée !</strong> L'espace entreprise est opérationnel : dashboard, onboarding, paramètres. Tu peux passer à la Phase 2B — Clients &amp; Fournisseurs.</span>
+    </div>
+
+    <!-- Nav bas de page -->
+    <div class="kh-phase-nav">
+      <a href="phase-1e.html" class="kh-btn kh-btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Phase 1E
+      </a>
+      <a href="phase-2b.html" class="kh-btn kh-btn-primary">
+        Phase 2B <i class="fa-solid fa-arrow-right"></i>
+      </a>
     </div>
 
   </main>
 </div>
 
+<script>
+const PHASE_KEY = 'phase2a';
+
+function fmt(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+function daysDiff(a, b) {
+  const d = Math.round((new Date(b) - new Date(a)) / 86400000);
+  return d <= 0 ? 'Même jour' : d + ' jour' + (d > 1 ? 's' : '');
+}
+function toggleStep(header) {
+  const body    = header.nextElementSibling;
+  const chevron = header.querySelector('.kh-step-chevron');
+  const isOpen  = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+function toggleTask(cb) {
+  cb.classList.toggle('checked');
+  cb.nextElementSibling.classList.toggle('done-text', cb.classList.contains('checked'));
+  saveProgress();
+  updateStats();
+}
+let _cachedProgress = {};
+async function saveProgress() {
+  const checkboxes = document.querySelectorAll('.kh-task-cb');
+  const stepStates = {};
+  document.querySelectorAll('ul[id^="tasks-"]').forEach(ul => {
+    stepStates[ul.id] = Array.from(ul.querySelectorAll('.kh-task-cb')).map(cb => cb.classList.contains('checked'));
+  });
+  const done  = document.querySelectorAll('.kh-task-cb.checked').length;
+  const total = checkboxes.length;
+  if (!_cachedProgress.started_at) _cachedProgress.started_at = new Date().toISOString();
+  if (done === total && total > 0 && !_cachedProgress.ended_at) _cachedProgress.ended_at = new Date().toISOString();
+  const payload = { step_states: stepStates, done, total, started_at: _cachedProgress.started_at || null, ended_at: _cachedProgress.ended_at || null };
+  try {
+    const res = await fetch(`/api/workflow/${PHASE_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    _cachedProgress = data;
+    updateDates(data);
+  } catch(e) {
+    console.warn('API non joignable.', e);
+    localStorage.setItem('khayma_fallback_' + PHASE_KEY, JSON.stringify(payload));
+  }
+}
+function updateDates(p) {
+  document.getElementById('dateStart').textContent    = p.started_at ? fmt(p.started_at) : '—';
+  document.getElementById('dateEnd').textContent      = p.ended_at   ? fmt(p.ended_at)   : '—';
+  document.getElementById('dateDuration').textContent = (p.started_at && p.ended_at) ? daysDiff(p.started_at, p.ended_at) : '—';
+}
+function updateStepBadges() {
+  document.querySelectorAll('.kh-step').forEach(step => {
+    const cbs  = step.querySelectorAll('.kh-task-cb');
+    if (!cbs.length) return;
+    const done  = step.querySelectorAll('.kh-task-cb.checked').length;
+    const badge = step.querySelector('.kh-step-right .kh-badge');
+    if (!badge) return;
+    if (done === cbs.length) { badge.className = 'kh-badge kh-badge-done'; badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Validé'; }
+    else if (done > 0)       { badge.className = 'kh-badge kh-badge-active'; badge.innerHTML = '<i class="fa-solid fa-circle-dot"></i> En cours'; }
+    else                     { badge.className = 'kh-badge kh-badge-todo'; badge.innerHTML = '<i class="fa-regular fa-circle"></i> À faire'; }
+  });
+}
+function updateStats() {
+  const checkboxes = document.querySelectorAll('.kh-task-cb');
+  const total = checkboxes.length;
+  const done  = document.querySelectorAll('.kh-task-cb.checked').length;
+  const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('stat-done').textContent  = done;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-pct').textContent   = pct + '%';
+  document.getElementById('phaseFill').style.width  = pct + '%';
+  document.getElementById('phasePct').textContent   = pct + '%';
+  const note = document.getElementById('validationNote');
+  if (note) note.style.display = (done === total && total > 0) ? 'flex' : 'none';
+  updateStepBadges();
+}
+async function loadProgress() {
+  try {
+    const res  = await fetch(`/api/workflow/${PHASE_KEY}`, { headers: { 'Accept': 'application/json' } });
+    const data = await res.json();
+    _cachedProgress = data;
+    if (data.step_states) {
+      Object.entries(data.step_states).forEach(([ulId, states]) => {
+        const ul = document.getElementById(ulId);
+        if (!ul) return;
+        ul.querySelectorAll('.kh-task-cb').forEach((cb, i) => {
+          if (states[i]) { cb.classList.add('checked'); cb.nextElementSibling.classList.add('done-text'); }
+        });
+      });
+    }
+    const actualTotal = document.querySelectorAll('.kh-task-cb').length;
+    if (!data.started_at || data.total !== actualTotal) {
+      _cachedProgress.started_at = _cachedProgress.started_at || new Date().toISOString();
+      await saveProgress();
+    }
+    updateDates(data);
+  } catch(e) { console.warn('API non joignable.', e); }
+  updateStats();
+}
+loadProgress();
+</script>
 </body>
 </html>
