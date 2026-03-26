@@ -1,20 +1,20 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phase 1C — Multi-Tenant Middleware · Khayma</title>
+  <title>Phase 1E — Backoffice Super Admin · Khayma</title>
   <meta name="csrf-token" content="" />
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .date-band {
       display: flex; align-items: center; gap: 20px;
-      background: #F5F3FF; border: 1px solid #DDD6FE;
-      border-left: 3px solid #8B5CF6;
-      padding: 8px 14px; font-size: 0.78rem; color: #5B21B6; margin-bottom: 20px;
+      background: #EEF2FF; border: 1px solid #A5B4FC;
+      border-left: 3px solid #6366F1;
+      padding: 8px 14px; font-size: 0.78rem; color: #3730A3; margin-bottom: 20px;
     }
-    .date-band i { color: #8B5CF6; }
+    .date-band i { color: #6366F1; }
     .date-item { display: flex; align-items: center; gap: 6px; }
     .date-item strong { color: #111827; }
   </style>
@@ -30,9 +30,9 @@
   <span class="kh-header-sub" style="font-size:0.85rem;font-weight:700;color:#111827;">Workflow de développement</span>
   <div class="kh-header-right">
     <div class="kh-prog-chip">
-      <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 1C</span>
+      <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 1E</span>
       <div class="kh-prog-track">
-        <div class="kh-prog-fill" id="phaseFill" style="width:100%;background:#8B5CF6;"></div>
+        <div class="kh-prog-fill" id="phaseFill" style="width:100%;background:#6366F1;"></div>
       </div>
       <span class="kh-prog-pct" id="phasePct">100%</span>
     </div>
@@ -65,20 +65,20 @@
         <span class="si-label">1B — Base de données</span>
         <span class="si-dot si-dot-done"></span>
       </a>
-      <a class="kh-sidebar-item is-active" href="phase-1c.html">
+      <a class="kh-sidebar-item" href="phase-1c.html">
         <i class="fa-solid fa-building si-icon" style="color:#8B5CF6"></i>
         <span class="si-label">1C — Multi-Tenant</span>
-        <span class="si-dot si-dot-active"></span>
+        <span class="si-dot si-dot-done"></span>
       </a>
       <a class="kh-sidebar-item" href="phase-1d.html">
         <i class="fa-solid fa-lock si-icon" style="color:#D97706"></i>
         <span class="si-label">1D — Auth &amp; RBAC</span>
         <span class="si-dot si-dot-done"></span>
       </a>
-      <a class="kh-sidebar-item" href="phase-1e.html">
+      <a class="kh-sidebar-item is-active" href="phase-1e.html">
         <i class="fa-solid fa-shield-halved si-icon" style="color:#6366F1"></i>
         <span class="si-label">1E — Backoffice Admin</span>
-        <span class="si-dot si-dot-done"></span>
+        <span class="si-dot si-dot-active"></span>
       </a>
     </div>
     <div class="kh-sidebar-divider"></div>
@@ -147,17 +147,17 @@
     <div class="kh-breadcrumb">
       <a href="index.html"><i class="fa-solid fa-house"></i> Hub</a>
       <i class="fa-solid fa-chevron-right" style="font-size:0.6rem;"></i>
-      <span class="kh-breadcrumb-current">Phase 1C — Architecture Multi-Tenant</span>
+      <span class="kh-breadcrumb-current">Phase 1E — Backoffice Super Admin</span>
     </div>
 
     <!-- Page title -->
     <div class="kh-page-title" style="margin-top:20px;">
-      <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #8B5CF6;line-height:1.3;">
-        Phase 1C
-        <span style="display:block;color:#8B5CF6;font-weight:800;">Architecture Multi-Tenant</span>
+      <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #6366F1;line-height:1.3;">
+        Phase 1E
+        <span style="display:block;color:#6366F1;font-weight:800;">Backoffice Super Admin</span>
       </h1>
       <p style="font-size:0.82rem;color:#6B7280;max-width:560px;padding-left:15px;margin-top:6px;">
-        Mettre en place l'isolation des données par entreprise : middleware <code>ResolveTenant</code>, scope Eloquent <code>TenantScope</code>, trait <code>BelongsToTenant</code>, middleware <code>CheckSubscription</code> et helpers globaux.
+        Créer l'espace d'administration centrale : middleware <code>IsAdmin</code>, contrôleurs Admin (Dashboard, Entreprises, Utilisateurs), layout Vue dédié et 9 tests PHPUnit.
       </p>
     </div>
 
@@ -176,23 +176,23 @@
       </div>
       <div class="kh-stat">
         <div class="kh-stat-value" id="stat-total">0</div>
-        <div class="kh-stat-label"><i class="fa-solid fa-list-check" style="color:#8B5CF6"></i> Tâches totales</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-list-check" style="color:#6366F1"></i> Tâches totales</div>
       </div>
       <div class="kh-stat">
-        <div class="kh-stat-value" id="stat-pct" style="color:#8B5CF6;">0%</div>
-        <div class="kh-stat-label"><i class="fa-solid fa-percent" style="color:#8B5CF6"></i> Progression</div>
+        <div class="kh-stat-value" id="stat-pct" style="color:#6366F1;">0%</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-percent" style="color:#6366F1"></i> Progression</div>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 1C.1 — ResolveTenant Middleware
+         STEP 1E.1 — Migration is_super_admin
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-1c1">
+    <div class="kh-step" id="step-1e1">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">1C.1</div>
+        <div class="kh-step-num" style="background:#6366F1;">1E.1</div>
         <div class="kh-step-info">
-          <h3>Middleware <code>ResolveTenant</code></h3>
-          <p>Résout le tenant depuis le sous-domaine (prod) ou <code>?_tenant=slug</code> (local). Injecte la company dans le conteneur IoC.</p>
+          <h3>Migration <code>is_super_admin</code> + mise à jour du modèle <code>User</code></h3>
+          <p>Ajouter la colonne booléenne <code>is_super_admin</code> sur la table <code>users</code> et exposer le champ dans le modèle.</p>
         </div>
         <div class="kh-step-right">
           <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
@@ -200,62 +200,84 @@
         </div>
       </div>
       <div class="kh-step-body open">
-        <div class="kh-note kh-note-info">
-          <i class="fa-solid fa-circle-info"></i>
-          <span>En production : <code>{slug}.khayma.com</code>. En développement local : <code>localhost/app?_tenant=monrestaurant</code>. Les sous-domaines réservés (www, admin, api, staging, mail, smtp) sont rejetés.</span>
-        </div>
-        <ul class="kh-tasks" id="tasks-1c1">
+        <ul class="kh-tasks" id="tasks-1e1">
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>app/Http/Middleware/ResolveTenant.php</code> — méthode <code>handle()</code> + <code>extractSlug()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Créer la migration <code>2026_03_25_223712_add_is_super_admin_to_users_table.php</code> — ajoute <code>boolean is_super_admin default false</code> après <code>remember_token</code> <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Résolution depuis <code>?_tenant=slug</code> sur localhost / 127.0.0.1 <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Exécuter <code>php artisan migrate</code> → colonne ajoutée en base <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Résolution depuis premier segment du sous-domaine en production — rejeter les réservés <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Ajouter <code>is_super_admin</code> dans <code>$fillable</code> du modèle <code>app/Models/User.php</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Injecter dans IoC : <code>App::instance('currentCompany', $company)</code> <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Partager avec Inertia : <code>inertia()->share('currentCompany', [...])</code> <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Enregistrer l'alias <code>'tenant'</code> dans <code>bootstrap/app.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <span class="kh-task-text done-text">Ajouter le cast <code>'is_super_admin' =&gt; 'boolean'</code> dans la méthode <code>casts()</code> du modèle <span class="kh-tag tag-dev">dev</span></span>
           </li>
         </ul>
-        <pre><code>// app/Http/Middleware/ResolveTenant.php
+        <pre><code>// migration
+$table->boolean('is_super_admin')->default(false)->after('remember_token');
+
+// User model — fillable
+'is_super_admin',
+
+// User model — casts()
+'is_super_admin' => 'boolean',</code></pre>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 1E.2 — Middleware IsAdmin
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-1e2">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#6366F1;">1E.2</div>
+        <div class="kh-step-info">
+          <h3>Middleware <code>IsAdmin</code> + alias <code>'admin'</code></h3>
+          <p>Protéger toutes les routes <code>/admin</code> — aborte 403 si l'utilisateur n'est pas super admin.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-1e2">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Middleware/IsAdmin.php</code> — vérifie <code>Auth::check()</code> et <code>Auth::user()-&gt;is_super_admin</code>, sinon <code>abort(403)</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Enregistrer l'alias <code>'admin' =&gt; \App\Http\Middleware\IsAdmin::class</code> dans <code>bootstrap/app.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
+          </li>
+        </ul>
+        <pre><code>// app/Http/Middleware/IsAdmin.php
 public function handle(Request $request, Closure $next): Response
 {
-    $slug = $this->extractSlug($request);
-    if (! $slug) abort(404);
-
-    $company = Company::where('slug', $slug)->where('is_active', true)->first();
-    if (! $company) abort(404);
-
-    App::instance('currentCompany', $company);
-    inertia()->share('currentCompany', ['id' => $company->id, ...]);
-
+    if (! Auth::check() || ! Auth::user()->is_super_admin) {
+        abort(403, 'Accès réservé aux super admins.');
+    }
     return $next($request);
-}</code></pre>
+}
+
+// bootstrap/app.php — alias
+'admin' => \App\Http\Middleware\IsAdmin::class,</code></pre>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 1C.2 — TenantScope + BelongsToTenant
+         STEP 1E.3 — AdminSeeder
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-1c2">
+    <div class="kh-step" id="step-1e3">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">1C.2</div>
+        <div class="kh-step-num" style="background:#6366F1;">1E.3</div>
         <div class="kh-step-info">
-          <h3>Eloquent — <code>TenantScope</code> + trait <code>BelongsToTenant</code></h3>
-          <p>Scope global qui filtre automatiquement toutes les requêtes par <code>company_id</code>. Injection transparente à la création.</p>
+          <h3>Seeder <code>AdminSeeder</code></h3>
+          <p>Créer le compte super admin de test via <code>firstOrCreate</code> — idempotent et sûr en CI.</p>
         </div>
         <div class="kh-step-right">
           <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
@@ -263,50 +285,33 @@ public function handle(Request $request, Closure $next): Response
         </div>
       </div>
       <div class="kh-step-body">
-        <div class="kh-note kh-note-warning">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          <span>Le scope doit être ignoré si <code>App::bound('currentCompany')</code> est faux — sinon les commandes artisan et les tests échouent.</span>
-        </div>
-        <ul class="kh-tasks" id="tasks-1c2">
+        <ul class="kh-tasks" id="tasks-1e3">
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>app/Models/Scopes/TenantScope.php</code> implémentant <code>Scope</code> — méthode <code>apply()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Créer <code>database/seeders/AdminSeeder.php</code> — <code>User::firstOrCreate(['email' =&gt; 'admin@khayma.com'], [...])</code> avec <code>is_super_admin =&gt; true</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>apply()</code> : vérifier <code>App::bound('currentCompany')</code>, puis filtrer par <code>table.company_id</code> <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>app/Models/Concerns/BelongsToTenant.php</code> — trait avec <code>bootBelongsToTenant()</code> <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Le trait enregistre <code>TenantScope</code> + hook <code>creating</code> qui injecte automatiquement <code>company_id</code> <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Méthode <code>withoutTenant()</code> statique pour les requêtes admin sans filtre tenant <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Mot de passe : <code>Admin@1234!</code> (hashé via <code>Hash::make()</code>) <span class="kh-tag tag-dev">dev</span></span>
           </li>
         </ul>
-        <pre><code>// Utilisation dans un modèle métier (ex: Product)
-class Product extends Model {
-    use BelongsToTenant;
-    // company_id injecté automatiquement à la création
-    // toutes les requêtes filtrées par la company courante
-}</code></pre>
+        <pre><code>// Résultat en base :
+// email: admin@khayma.com
+// password: Admin@1234! (hashé)
+// is_super_admin: true
+// name: Super Admin</code></pre>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 1C.3 — CheckSubscription Middleware
+         STEP 1E.4 — 3 contrôleurs Admin
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-1c3">
+    <div class="kh-step" id="step-1e4">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">1C.3</div>
+        <div class="kh-step-num" style="background:#6366F1;">1E.4</div>
         <div class="kh-step-info">
-          <h3>Middleware <code>CheckSubscription</code></h3>
-          <p>Bloque l'accès selon le statut d'abonnement : trial expiré → 402, suspended → 402, grace_period → GET uniquement.</p>
+          <h3>3 contrôleurs Admin — Dashboard, Company, User</h3>
+          <p>Statistiques globales, CRUD entreprises (toggle actif, mise à jour abonnement), liste utilisateurs avec pagination et recherche.</p>
         </div>
         <div class="kh-step-right">
           <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
@@ -314,45 +319,34 @@ class Product extends Model {
         </div>
       </div>
       <div class="kh-step-body">
-        <ul class="kh-tasks" id="tasks-1c3">
+        <ul class="kh-tasks" id="tasks-1e4">
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>app/Http/Middleware/CheckSubscription.php</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Controllers/Admin/DashboardController.php</code> — stats : <code>companies_total</code> (withTrashed), <code>companies_active</code> (subscription_status='active'), <code>companies_trial</code>, <code>companies_expired</code>, <code>users_total</code>, <code>users_admin</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Status <code>active</code> → passe, <code>trial</code> → vérifier <code>trial_ends_at</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Controllers/Admin/CompanyController.php</code> — <code>index()</code> paginate(20) + search + status filter, <code>show()</code> avec users+subscriptions, <code>toggle()</code> flip is_active, <code>updateSubscription()</code> valide enum <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Status <code>grace_period</code> → autoriser GET/HEAD uniquement, bloquer les mutations <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Status <code>expired</code> / <code>suspended</code> / <code>cancelled</code> → JSON 402 Payment Required <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Enregistrer l'alias <code>'subscription'</code> dans <code>bootstrap/app.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <span class="kh-task-text done-text">Créer <code>app/Http/Controllers/Admin/UserController.php</code> — <code>index()</code> paginate(20) avec recherche sur name/email, eager-load companies <span class="kh-tag tag-dev">dev</span></span>
           </li>
         </ul>
-        <pre><code>// Statuts subscription_status
-// active     → accès total
-// trial      → accès si trial_ends_at > now(), sinon → 402
-// grace_period → GET/HEAD OK, POST/PUT/PATCH/DELETE → 403
-// expired|suspended|cancelled → 402</code></pre>
+        <pre><code>// Statuts abonnement acceptés :
+// trial | active | grace_period | expired | suspended | cancelled</code></pre>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 1C.4 — Helpers + CompanyFactory
+         STEP 1E.5 — Vue Pages Admin
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-1c4">
+    <div class="kh-step" id="step-1e5">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">1C.4</div>
+        <div class="kh-step-num" style="background:#6366F1;">1E.5</div>
         <div class="kh-step-info">
-          <h3>Helpers globaux + <code>CompanyFactory</code></h3>
-          <p>Fonctions d'accès au tenant courant accessibles partout + factory de test avec states.</p>
+          <h3><code>AdminLayout.vue</code> + 4 pages Vue Admin</h3>
+          <p>Layout sidebar sombre + topbar. Pages : Dashboard (stats), Companies/Index (table+filtres), Companies/Show (détail+actions), Users/Index.</p>
         </div>
         <div class="kh-step-right">
           <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
@@ -360,40 +354,40 @@ class Product extends Model {
         </div>
       </div>
       <div class="kh-step-body">
-        <ul class="kh-tasks" id="tasks-1c4">
+        <ul class="kh-tasks" id="tasks-1e5">
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>app/helpers.php</code> — fonctions <code>current_company()</code>, <code>current_company_id()</code>, <code>has_tenant()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Layouts/AdminLayout.vue</code> — sidebar fixe 220px (<code>#111827</code>), topbar 52px, nav : Dashboard / Entreprises / Utilisateurs + liens Retour/Déconnexion <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Enregistrer dans <code>composer.json</code> → <code>"files": ["app/helpers.php"]</code> dans autoload <span class="kh-tag tag-cfg">cfg</span></span>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/Admin/Dashboard.vue</code> — grille de 6 stat cards + quick-links vers companies et users <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Exécuter <code>composer dump-autoload</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/Admin/Companies/Index.vue</code> — input recherche + select statut, table avec badge coloré par statut, pagination <code>companies.links</code>, lien vers show <span class="kh-tag tag-fe">fe</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>database/factories/CompanyFactory.php</code> avec states : <code>onTrial()</code>, <code>trialExpired()</code>, <code>suspended()</code>, <code>gracePeriod()</code>, <code>inactive()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/Admin/Companies/Show.vue</code> — infos générales + formulaire mise à jour abonnement (<code>subForm.patch()</code>) + bouton toggle actif (<code>router.patch()</code>) + tableau users avec rôle pivot <span class="kh-tag tag-fe">fe</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Créer <code>resources/js/Pages/Admin/Users/Index.vue</code> — filtre recherche, table : id / nom / email / is_super_admin (icône bouclier) / nb entreprises / date <span class="kh-tag tag-fe">fe</span></span>
           </li>
         </ul>
-        <pre><code>// Utilisation dans un contrôleur ou vue Blade
-$company = current_company();           // Company instance
-$id      = current_company_id();        // int
-$exists  = has_tenant();                // bool (safe, no exception)</code></pre>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 1C.5 — Routes + Tests
+         STEP 1E.6 — Routes + Tests
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-1c5">
+    <div class="kh-step" id="step-1e6">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">1C.5</div>
+        <div class="kh-step-num" style="background:#6366F1;">1E.6</div>
         <div class="kh-step-info">
-          <h3>Routes tenant + Tests PHPUnit</h3>
-          <p>Groupe de routes avec les 3 middlewares et suite de tests (13 tests, 16 assertions).</p>
+          <h3>Routes groupe <code>/admin</code> + Tests PHPUnit (9 tests, 67 assertions)</h3>
+          <p>Groupe de routes protégé par <code>['auth','admin']</code>. Tests couvrant accès guest, non-admin 403, toutes les actions admin et les stats du dashboard.</p>
         </div>
         <div class="kh-step-right">
           <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
@@ -401,53 +395,55 @@ $exists  = has_tenant();                // bool (safe, no exception)</code></pre
         </div>
       </div>
       <div class="kh-step-body">
-        <ul class="kh-tasks" id="tasks-1c5">
+        <ul class="kh-tasks" id="tasks-1e6">
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer groupe de routes <code>['tenant', 'auth', 'subscription']</code> avec prefix <code>/app</code> dans <code>routes/web.php</code> <span class="kh-tag tag-cfg">cfg</span></span>
+            <span class="kh-task-text done-text">Ajouter dans <code>routes/web.php</code> le groupe <code>middleware(['auth','admin'])</code>, prefix <code>admin</code>, name <code>admin.</code> — routes GET/PATCH pour dashboard, companies (index, show, toggle, subscription), users <span class="kh-tag tag-cfg">cfg</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>resources/views/app.blade.php</code> — root view Inertia avec <code>@inertia</code> et <code>@vite()</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Créer <code>tests/Feature/Admin/AdminTest.php</code> — 9 tests avec <code>#[Test]</code>, <code>withoutVite()</code>, SQLite in-memory <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>tests/Feature/Tenant/ResolveTenantTest.php</code> — 9 tests avec <code>#[Test]</code> + <code>withoutVite()</code> <span class="kh-tag tag-tst">test</span></span>
+            <span class="kh-task-text done-text">Tests : guest→redirect login, non-admin→403, admin dashboard Inertia, list companies, view company, toggle is_active, update subscription_status, list users, stats <code>companies_active</code>/<code>trial</code> corrects <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Créer <code>tests/Unit/Tenant/TenantScopeTest.php</code> — 4 tests : scope, injection company_id, withoutTenant <span class="kh-tag tag-tst">test</span></span>
+            <span class="kh-task-text done-text">Exécuter <code>php artisan test</code> → <strong>34 / 34 passed (130 assertions)</strong> — suite complète verte <span class="kh-tag tag-tst">test</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Exécuter <code>php artisan test tests/Feature/Tenant tests/Unit/Tenant</code> → <strong>13 / 13 passed</strong> <span class="kh-tag tag-tst">test</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Commit : <code>feat(tenant): Phase 1C - ResolveTenant, TenantScope, CheckSubscription, tests</code> <span class="kh-tag tag-git">git</span></span>
+            <span class="kh-task-text done-text">Commit : <code>feat(admin): Phase 1E - IsAdmin middleware, Admin controllers, Vue pages, 9 tests passing</code> <span class="kh-tag tag-git">git</span></span>
           </li>
         </ul>
-        <pre><code># Résultat final
-Tests:    13 passed (16 assertions)
-Duration: 0.54s
+        <pre><code># Routes enregistrées :
+GET  /admin                          admin.dashboard
+GET  /admin/companies                admin.companies.index
+GET  /admin/companies/{company}      admin.companies.show
+PATCH /admin/companies/{company}/toggle       admin.companies.toggle
+PATCH /admin/companies/{company}/subscription admin.companies.subscription
+GET  /admin/users                    admin.users.index
 
-Commit: f35b3ba</code></pre>
+# Résultat tests :
+Tests:    34 passed (130 assertions)
+Duration: 0.86s</code></pre>
       </div>
     </div>
 
     <!-- Validation finale -->
     <div class="kh-note kh-note-success" id="validationNote" style="margin-top:24px;">
       <i class="fa-solid fa-circle-check"></i>
-      <span><strong>Phase 1C validée !</strong> Le système multi-tenant est opérationnel. Tu peux passer à la Phase 1D — Authentification &amp; Inscription.</span>
+      <span><strong>Phase 1E validée !</strong> Le backoffice Super Admin est opérationnel. Tu peux passer à la Phase 2A — Onboarding &amp; Dashboard tenant.</span>
     </div>
 
     <!-- Nav bas de page -->
     <div class="kh-phase-nav">
-      <a href="phase-1b.html" class="kh-btn kh-btn-secondary">
-        <i class="fa-solid fa-arrow-left"></i> Phase 1B
+      <a href="phase-1d.html" class="kh-btn kh-btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Phase 1D
       </a>
-      <a href="phase-1d.html" class="kh-btn kh-btn-primary">
-        Phase 1D <i class="fa-solid fa-arrow-right"></i>
+      <a href="phase-2a.html" class="kh-btn kh-btn-primary">
+        Phase 2A <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
 
@@ -455,7 +451,7 @@ Commit: f35b3ba</code></pre>
 </div>
 
 <script>
-const PHASE_KEY = 'phase1c';
+const PHASE_KEY = 'phase1e';
 
 function fmt(iso) {
   if (!iso) return '—';

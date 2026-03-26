@@ -272,7 +272,7 @@
           <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
         </div>
         <div class="tile-desc">Backoffice Super Admin</div>
-        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase1e" style="width:0%"></div></div>
+        <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase1e" style="width:100%"></div></div>
       </a>
 
       <a class="dash-tile" href="phase-2a.html">
@@ -385,7 +385,7 @@ const PHASES = [
 ];
 
 // Phases définitivement terminées — ignorent l'API, toujours 100% / is-done
-const DONE_PHASES = new Set(['phase0','phase1a','phase1b','phase1c','phase1d']);
+const DONE_PHASES = new Set(['phase0','phase1a','phase1b','phase1c','phase1d','phase1e']);
 
 async function loadProgress() {
   let allData = {};

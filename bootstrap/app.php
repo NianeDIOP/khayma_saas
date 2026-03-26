@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'tenant'       => \App\Http\Middleware\ResolveTenant::class,
             'subscription' => \App\Http\Middleware\CheckSubscription::class,
+            'admin'        => \App\Http\Middleware\IsAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
