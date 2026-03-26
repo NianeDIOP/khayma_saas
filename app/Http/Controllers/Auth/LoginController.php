@@ -36,8 +36,14 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+
+        // Super admin → backoffice
+        if ($user->is_super_admin) {
+            return redirect()->route('admin.dashboard');
+        }
+
         // Rediriger vers le tenant si l'utilisateur a une entreprise
-        $user    = Auth::user();
         $company = $user->companies()->where('is_active', true)->first();
 
         if ($company) {

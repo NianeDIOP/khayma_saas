@@ -1,84 +1,125 @@
 <script setup>
+import { ref } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 
 defineProps({ title: { type: String, default: 'Admin' } })
 
 const page = usePage()
+const sidebarOpen = ref(true)
+function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
 </script>
 
 <template>
-  <div class="admin-shell">
-    <!-- Sidebar -->
-    <aside class="admin-sidebar">
-      <div class="sidebar-logo">
-        <img src="/khayma_logo_transparent.png" alt="Khayma" style="height:36px;" />
-        <span class="admin-tag">Admin</span>
+  <div class="admin-shell" :class="{ 'sidebar-collapsed': !sidebarOpen }">
+    <!-- TOPBAR pleine largeur -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="hamburger" @click="toggleSidebar" title="Menu">
+          <i :class="sidebarOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+        </button>
+        <a href="/" class="topbar-logo-link">
+          <img src="/khayma_logo_transparent.png" alt="Khayma" class="topbar-logo" />
+          <span class="topbar-tagline">Tenter<br>&amp; Estimer</span>
+        </a>
       </div>
+      <div class="topbar-right">
+        <i class="fa-solid fa-user-shield" style="color:#6366F1;"></i>
+        {{ $page.props.auth?.user?.name || 'Admin' }}
+      </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" v-show="sidebarOpen">
       <nav class="sidebar-nav">
         <Link :href="route('admin.dashboard')"
-          :class="['nav-item', { active: $page.url.startsWith('/admin') && $page.url === '/admin' }]">
-          <i class="fa-solid fa-gauge-high"></i> Dashboard
+          :class="['nav-item', { active: $page.url === '/admin' }]">
+          <i class="fa-solid fa-gauge-high" style="color:#10B981"></i> <span>Dashboard</span>
         </Link>
         <Link :href="route('admin.companies.index')"
           :class="['nav-item', { active: $page.url.startsWith('/admin/companies') }]">
-          <i class="fa-solid fa-building"></i> Entreprises
+          <i class="fa-solid fa-building" style="color:#8B5CF6"></i> <span>Entreprises</span>
         </Link>
         <Link :href="route('admin.users.index')"
           :class="['nav-item', { active: $page.url.startsWith('/admin/users') }]">
-          <i class="fa-solid fa-users"></i> Utilisateurs
+          <i class="fa-solid fa-users" style="color:#3B82F6"></i> <span>Utilisateurs</span>
         </Link>
       </nav>
       <div class="sidebar-footer">
         <Link href="/" class="nav-item">
-          <i class="fa-solid fa-arrow-left"></i> Retour au site
+          <i class="fa-solid fa-arrow-left" style="color:#6B7280"></i> <span>Retour au site</span>
         </Link>
-        <Link href="/logout" method="post" as="button" class="nav-item logout">
-          <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+        <Link :href="route('logout')" method="post" as="button" class="nav-item logout">
+          <i class="fa-solid fa-right-from-bracket" style="color:#EF4444"></i> <span>Déconnexion</span>
         </Link>
       </div>
     </aside>
 
-    <!-- Main -->
-    <div class="admin-main">
-      <header class="admin-topbar">
-        <div class="topbar-title">{{ title }}</div>
-        <div class="topbar-user">
-          <i class="fa-solid fa-user-shield" style="color:#6366F1;"></i>
-          {{ $page.props.auth?.user?.name || 'Admin' }}
-        </div>
-      </header>
-      <main class="admin-content">
-        <slot />
-      </main>
-    </div>
+    <!-- CONTENT -->
+    <main class="admin-content">
+      <slot />
+    </main>
   </div>
 </template>
 
 <style scoped>
-.admin-shell { display: flex; min-height: 100vh; background: #F9FAFB; font-family: 'Inter', sans-serif; }
-.admin-sidebar {
-  width: 220px; flex-shrink: 0; background: #111827; display: flex;
-  flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10;
+.admin-shell { min-height: 100vh; background: #F9FAFB; font-family: 'Inter', sans-serif; }
+
+/* ── Topbar pleine largeur ─── */
+.admin-topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  height: 60px; background: transparent; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid #E5E7EB;
 }
-.sidebar-logo { padding: 18px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #1F2937; }
-.admin-tag { background: #6366F1; color: #fff; font-size: 0.62rem; font-weight: 700; padding: 1px 6px; letter-spacing: 0.05em; }
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+
+/* Hamburger */
+.hamburger {
+  background: none; border: none; color: #6B7280; font-size: 1.2rem;
+  cursor: pointer; padding: 6px 8px; transition: color 0.15s;
+}
+.hamburger:hover { color: #111827; }
+
+/* Logo comme la landing */
+.topbar-logo-link {
+  display: flex; align-items: center; gap: 0.6rem; text-decoration: none;
+}
+.topbar-logo {
+  height: 44px; width: auto; display: block; object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(16,185,129,0.25));
+}
+.topbar-tagline {
+  font-size: 0.65rem; color: #374151; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-left: 2px solid #10B981; padding-left: 0.6rem;
+  line-height: 1.3; white-space: nowrap;
+}
+
+.topbar-right { font-size: 0.82rem; color: #374151; display: flex; align-items: center; gap: 8px; }
+
+/* ── Sidebar ─── */
+.admin-sidebar {
+  width: 220px; position: fixed; top: 60px; left: 0; bottom: 0; z-index: 10;
+  background: transparent; border-right: 1px solid #E5E7EB;
+  display: flex; flex-direction: column; transition: transform 0.2s ease;
+}
 .sidebar-nav { flex: 1; padding: 12px 0; }
 .nav-item {
-  display: flex; align-items: center; gap: 10px; padding: 10px 16px;
-  color: #9CA3AF; font-size: 0.82rem; font-weight: 500; text-decoration: none;
-  transition: background 0.15s; cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  color: #374151; font-size: 0.88rem; font-weight: 600; text-decoration: none;
+  transition: background 0.15s, color 0.15s; cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+  letter-spacing: -0.01em;
 }
-.nav-item:hover, .nav-item.active { background: #1F2937; color: #F9FAFB; }
-.nav-item.active { color: #A5B4FC; }
-.nav-item i { width: 16px; text-align: center; }
-.sidebar-footer { padding: 12px 0; border-top: 1px solid #1F2937; }
-.nav-item.logout:hover { color: #FCA5A5; }
-.admin-main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-.admin-topbar {
-  background: #fff; border-bottom: 1px solid #E5E7EB; padding: 0 24px;
-  height: 52px; display: flex; align-items: center; justify-content: space-between;
+.nav-item:hover { background: #F3F4F6; color: #111827; }
+.nav-item.active { background: #EEF2FF; color: #4F46E5; border-right: 3px solid #4F46E5; }
+.nav-item i { width: 20px; text-align: center; font-size: 1.05rem; flex-shrink: 0; }
+.sidebar-footer { padding: 12px 0; border-top: 1px solid #E5E7EB; }
+.nav-item.logout:hover { color: #EF4444; }
+
+/* ── Content ─── */
+.admin-content {
+  margin-left: 220px; margin-top: 60px; padding: 24px;
+  min-height: calc(100vh - 60px); transition: margin-left 0.2s ease;
 }
-.topbar-title { font-size: 0.9rem; font-weight: 700; color: #111827; }
-.topbar-user { font-size: 0.8rem; color: #6B7280; display: flex; align-items: center; gap: 6px; }
-.admin-content { padding: 24px; flex: 1; }
+.sidebar-collapsed .admin-content { margin-left: 0; }
 </style>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phase 2A — Onboarding &amp; Dashboard · Khayma</title>
+  <meta name="csrf-token" content="" />
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .date-band {
+      display: flex; align-items: center; gap: 20px;
+      background: #F0FDFA; border: 1px solid #99F6E4;
+      border-left: 3px solid #14B8A6;
+      padding: 8px 14px; font-size: 0.78rem; color: #0F766E; margin-bottom: 20px;
+    }
+    .date-band i { color: #14B8A6; }
+    .date-item { display: flex; align-items: center; gap: 6px; }
+    .date-item strong { color: #111827; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="kh-header">
+  <a class="kh-logo" href="index.html">
+    <img src="logo.png" alt="Khayma" style="height:46px;width:auto;display:block;" />
+  </a>
+  <div class="kh-header-sep"></div>
+  <span class="kh-header-sub" style="font-size:0.85rem;font-weight:700;color:#111827;">Workflow de développement</span>
+  <div class="kh-header-right">
+    <div class="kh-prog-chip">
+      <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 2A</span>
+      <div class="kh-prog-track">
+        <div class="kh-prog-fill" id="phaseFill" style="width:100%;background:#14B8A6;"></div>
+      </div>
+      <span class="kh-prog-pct" id="phasePct">100%</span>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="kh-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="kh-sidebar">
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Prérequis</div>
+      <a class="kh-sidebar-item" href="phase-0.html">
+        <i class="fa-solid fa-gear si-icon" style="color:#F59E0B"></i>
+        <span class="si-label">Phase 0 — Installation</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 1 — Fondations</div>
+      <a class="kh-sidebar-item" href="phase-1a.html">
+        <i class="fa-brands fa-laravel si-icon" style="color:#FF2D20"></i>
+        <span class="si-label">1A — Laravel &amp; Architecture</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1b.html">
+        <i class="fa-solid fa-database si-icon" style="color:#3B82F6"></i>
+        <span class="si-label">1B — Base de données</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1c.html">
+        <i class="fa-solid fa-building si-icon" style="color:#8B5CF6"></i>
+        <span class="si-label">1C — Multi-Tenant</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1d.html">
+        <i class="fa-solid fa-lock si-icon" style="color:#D97706"></i>
+        <span class="si-label">1D — Auth &amp; RBAC</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1e.html">
+        <i class="fa-solid fa-shield-halved si-icon" style="color:#6366F1"></i>
+        <span class="si-label">1E — Backoffice Admin</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 2 — Espace Entreprise</div>
+      <a class="kh-sidebar-item is-active" href="phase-2a.html">
+        <i class="fa-solid fa-house si-icon" style="color:#14B8A6"></i>
+        <span class="si-label">2A — Onboarding &amp; Dashboard</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-2b.html">
+        <i class="fa-solid fa-users si-icon" style="color:#2563EB"></i>
+        <span class="si-label">2B — Clients &amp; Fournisseurs</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-2c.html">
+        <i class="fa-solid fa-boxes-stacked si-icon" style="color:#F59E0B"></i>
+        <span class="si-label">2C — Stock &amp; Caisse</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 3 — Modules métier</div>
+      <a class="kh-sidebar-item" href="phase-3a.html">
+        <i class="fa-solid fa-utensils si-icon" style="color:#EF4444"></i>
+        <span class="si-label">3A — Restaurant</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3b.html">
+        <i class="fa-solid fa-wrench si-icon" style="color:#64748B"></i>
+        <span class="si-label">3B — Quincaillerie</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3c.html">
+        <i class="fa-solid fa-cart-shopping si-icon" style="color:#10B981"></i>
+        <span class="si-label">3C — Boutique / POS</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3d.html">
+        <i class="fa-solid fa-key si-icon" style="color:#D97706"></i>
+        <span class="si-label">3D — Location</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 4 — Finalisation</div>
+      <a class="kh-sidebar-item" href="phase-4a.html">
+        <i class="fa-solid fa-flask si-icon" style="color:#8B5CF6"></i>
+        <span class="si-label">4A — Tests &amp; Sécurité</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-4b.html">
+        <i class="fa-solid fa-rocket si-icon" style="color:#3B82F6"></i>
+        <span class="si-label">4B — Déploiement OVH</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="kh-content">
+
+    <div class="kh-page-title">
+      <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #14B8A6;line-height:1.3;">
+        Phase 2A
+        <span style="display:block;color:#14B8A6;font-weight:800;">Onboarding &amp; Dashboard tenant</span>
+      </h1>
+      <p style="font-size:0.82rem;color:#6B7280;max-width:560px;padding-left:15px;margin-top:6px;">Espace entreprise : profil d'onboarding, tableau de bord tenant avec stats, paramètres et gestion du layout.</p>
+    </div>
+
+    <div class="date-band">
+      <div class="date-item"><i class="fa-regular fa-calendar"></i> Démarré : <strong>26 mars 2026</strong></div>
+      <div class="date-item"><i class="fa-regular fa-calendar-check"></i> Terminé : <strong>26 mars 2026</strong></div>
+    </div>
+
+    <!-- STEPS -->
+    <div class="kh-checklist">
+
+      <div class="kh-step is-done">
+        <div class="step-head">
+          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
+          <span class="step-num">Étape 1</span>
+          <span class="step-title">AppLayout — Layout tenant (topbar + sidebar + hamburger)</span>
+          <span class="step-badge badge-done">Validé</span>
+        </div>
+        <div class="step-detail">
+          <code>resources/js/Layouts/AppLayout.vue</code> — Même design que AdminLayout : topbar transparent, sidebar collapsible, icônes colorées, nom entreprise + badge abonnement dans la topbar.
+        </div>
+      </div>
+
+      <div class="kh-step is-done">
+        <div class="step-head">
+          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
+          <span class="step-num">Étape 2</span>
+          <span class="step-title">Tenant Dashboard — Controller + Vue page</span>
+          <span class="step-badge badge-done">Validé</span>
+        </div>
+        <div class="step-detail">
+          <code>App\Http\Controllers\App\DashboardController</code> — Stats (utilisateurs, modules, abonnement, plan), liste des membres récents, modules actifs.<br>
+          <code>resources/js/Pages/App/Dashboard.vue</code> — 4 cartes stats, bannière trial, équipe récente, modules actifs.
+        </div>
+      </div>
+
+      <div class="kh-step is-done">
+        <div class="step-head">
+          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
+          <span class="step-num">Étape 3</span>
+          <span class="step-title">Onboarding — Controller + Vue page</span>
+          <span class="step-badge badge-done">Validé</span>
+        </div>
+        <div class="step-detail">
+          <code>App\Http\Controllers\App\OnboardingController</code> — Affiche le profil entreprise, calcule les étapes (email, téléphone, adresse, secteur, module), permet la mise à jour.<br>
+          <code>resources/js/Pages/App/Onboarding.vue</code> — Barre de progression, checklist visuelle, formulaire de complétion profil.
+        </div>
+      </div>
+
+      <div class="kh-step is-done">
+        <div class="step-head">
+          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
+          <span class="step-num">Étape 4</span>
+          <span class="step-title">Settings — Controller + Vue page</span>
+          <span class="step-badge badge-done">Validé</span>
+        </div>
+        <div class="step-detail">
+          <code>App\Http\Controllers\App\SettingsController</code> — Lecture/mise à jour de tous les champs (nom, contact, devise, timezone, couleurs).<br>
+          <code>resources/js/Pages/App/Settings.vue</code> — Formulaire 2 sections (Identité + Préférences), color pickers, flash messages.
+        </div>
+      </div>
+
+      <div class="kh-step is-done">
+        <div class="step-head">
+          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
+          <span class="step-num">Étape 5</span>
+          <span class="step-title">Routes tenant enrichies</span>
+          <span class="step-badge badge-done">Validé</span>
+        </div>
+        <div class="step-detail">
+          <code>routes/web.php</code> — <code>app.dashboard</code>, <code>app.onboarding</code>, <code>app.onboarding.update</code>, <code>app.settings</code>, <code>app.settings.update</code>. Middleware : <code>tenant + auth + subscription</code>.
+        </div>
+      </div>
+
+      <div class="kh-step is-done">
+        <div class="step-head">
+          <span class="step-check"><i class="fa-solid fa-circle-check"></i></span>
+          <span class="step-num">Étape 6</span>
+          <span class="step-title">Tests — 12 tests, 46+ assertions</span>
+          <span class="step-badge badge-done">Validé</span>
+        </div>
+        <div class="step-detail">
+          <code>tests/Feature/App/TenantTest.php</code> — Dashboard (chargement, stats, auth), Onboarding (lecture, mise à jour, validation), Settings (lecture, mise à jour, validation), résolution tenant (404 invalide/inactif), abonnement expiré (402).<br>
+          <strong>Suite complète : 46 tests, 206 assertions — PASS</strong>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

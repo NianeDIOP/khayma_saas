@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\CompanyController as AdminCompany;
 use App\Http\Controllers\Admin\UserController as AdminUser;
+use App\Http\Controllers\App\DashboardController as AppDashboard;
+use App\Http\Controllers\App\OnboardingController;
+use App\Http\Controllers\App\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -23,8 +26,18 @@ Route::post('/logout', [LoginController::class, 'destroy'])
     ->name('logout');
 
 // ── Espace authentifié (hors tenant) ─────────────────────────────
+// Redirige /dashboard vers admin ou accueil selon le rôle
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', fn () => inertia('Dashboard'))->name('dashboard');
+    Route::get('/dashboard', function () {
+        if (auth()->user()->is_super_admin) {
+            return redirect()->route('admin.dashboard');
+        }
+        $company = auth()->user()->companies()->where('is_active', true)->first();
+        if ($company) {
+            return redirect()->route('app.dashboard', ['_tenant' => $company->slug]);
+        }
+        return redirect()->route('register');
+    })->name('dashboard');
 });
 
 // ── Espace tenant (sous-domaine résolu) ──────────────────────────
@@ -35,7 +48,15 @@ Route::middleware(['tenant', 'auth', 'subscription'])
      ->name('app.')
      ->group(function () {
          // Tableau de bord tenant
-         Route::get('/', fn () => inertia('App/Dashboard'))->name('dashboard');
+         Route::get('/',             [AppDashboard::class,    'index'])->name('dashboard');
+
+         // Onboarding (compléter le profil entreprise)
+         Route::get('/onboarding',   [OnboardingController::class, 'index'])->name('onboarding');
+         Route::put('/onboarding',   [OnboardingController::class, 'update'])->name('onboarding.update');
+
+         // Paramètres entreprise
+         Route::get('/settings',     [SettingsController::class, 'index'])->name('settings');
+         Route::put('/settings',     [SettingsController::class, 'update'])->name('settings.update');
      });
 
 // ── Backoffice Super Admin ────────────────────────────────────────

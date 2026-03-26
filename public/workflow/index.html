@@ -113,7 +113,7 @@
       <a class="kh-sidebar-item" href="phase-1e.html">
         <i class="fa-solid fa-shield-halved si-icon" style="color:#6366F1"></i>
         <span class="si-label">1E — Backoffice Admin</span>
-        <span class="si-dot si-dot-todo"></span>
+        <span class="si-dot si-dot-done"></span>
       </a>
     </div>
 
@@ -121,10 +121,10 @@
 
     <div class="kh-sidebar-group">
       <div class="kh-sidebar-title">Phase 2 — Espace Entreprise</div>
-      <a class="kh-sidebar-item" href="phase-2a.html">
+      <a class="kh-sidebar-item is-active" href="phase-2a.html">
         <i class="fa-solid fa-house si-icon" style="color:#14B8A6"></i>
         <span class="si-label">2A — Onboarding &amp; Dashboard</span>
-        <span class="si-dot si-dot-todo"></span>
+        <span class="si-dot si-dot-done"></span>
       </a>
       <a class="kh-sidebar-item" href="phase-2b.html">
         <i class="fa-solid fa-users si-icon" style="color:#2563EB"></i>
@@ -385,7 +385,7 @@ const PHASES = [
 ];
 
 // Phases définitivement terminées — ignorent l'API, toujours 100% / is-done
-const DONE_PHASES = new Set(['phase0','phase1a','phase1b','phase1c','phase1d','phase1e']);
+const DONE_PHASES = new Set(['phase0','phase1a','phase1b','phase1c','phase1d','phase1e','phase2a']);
 
 async function loadProgress() {
   let allData = {};
