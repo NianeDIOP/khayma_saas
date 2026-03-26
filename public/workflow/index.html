@@ -134,7 +134,7 @@
       <a class="kh-sidebar-item" href="phase-2c.html">
         <i class="fa-solid fa-boxes-stacked si-icon" style="color:#F59E0B"></i>
         <span class="si-label">2C — Stock &amp; Caisse</span>
-        <span class="si-dot si-dot-todo"></span>
+        <span class="si-dot si-dot-done"></span>
       </a>
     </div>
 
@@ -385,7 +385,7 @@ const PHASES = [
 ];
 
 // Phases définitivement terminées — ignorent l'API, toujours 100% / is-done
-const DONE_PHASES = new Set(['phase0','phase1a','phase1b','phase1c','phase1d','phase1e','phase2a','phase2b']);
+const DONE_PHASES = new Set(['phase0','phase1a','phase1b','phase1c','phase1d','phase1e','phase2a','phase2b','phase2c']);
 
 async function loadProgress() {
   let allData = {};

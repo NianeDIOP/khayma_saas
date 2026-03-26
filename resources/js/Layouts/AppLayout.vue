@@ -62,6 +62,42 @@ function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
           :class="['nav-item', { active: $page.url.includes('/suppliers') }]">
           <i class="fa-solid fa-truck-field" style="color:#F59E0B"></i> <span>Fournisseurs</span>
         </Link>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">Catalogue</div>
+
+        <Link :href="route('app.products.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/products') }]">
+          <i class="fa-solid fa-box" style="color:#10B981"></i> <span>Produits</span>
+        </Link>
+        <Link :href="route('app.categories.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/categories') }]">
+          <i class="fa-solid fa-folder-tree" style="color:#8B5CF6"></i> <span>Catégories</span>
+        </Link>
+        <Link :href="route('app.units.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/units') }]">
+          <i class="fa-solid fa-ruler" style="color:#0891B2"></i> <span>Unités</span>
+        </Link>
+        <Link :href="route('app.depots.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/depots') }]">
+          <i class="fa-solid fa-warehouse" style="color:#6366F1"></i> <span>Dépôts</span>
+        </Link>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">Commerce</div>
+
+        <Link :href="route('app.stock.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/stock') }]">
+          <i class="fa-solid fa-boxes-stacked" style="color:#EF4444"></i> <span>Stock</span>
+        </Link>
+        <Link :href="route('app.sales.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/sales') }]">
+          <i class="fa-solid fa-cash-register" style="color:#F59E0B"></i> <span>Ventes</span>
+        </Link>
+        <Link :href="route('app.expenses.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/expenses') && !$page.url.includes('/expense-categories') }]">
+          <i class="fa-solid fa-money-bill-trend-up" style="color:#DC2626"></i> <span>Dépenses</span>
+        </Link>
       </nav>
       <div class="sidebar-footer">
         <a href="/" class="nav-item">

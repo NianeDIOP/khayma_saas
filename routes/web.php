@@ -10,6 +10,14 @@ use App\Http\Controllers\App\OnboardingController;
 use App\Http\Controllers\App\SettingsController;
 use App\Http\Controllers\App\CustomerController;
 use App\Http\Controllers\App\SupplierController;
+use App\Http\Controllers\App\CategoryController;
+use App\Http\Controllers\App\UnitController;
+use App\Http\Controllers\App\ProductController;
+use App\Http\Controllers\App\DepotController;
+use App\Http\Controllers\App\StockController;
+use App\Http\Controllers\App\SaleController;
+use App\Http\Controllers\App\ExpenseCategoryController;
+use App\Http\Controllers\App\ExpenseController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -65,6 +73,33 @@ Route::middleware(['tenant', 'auth', 'subscription'])
 
          // Fournisseurs
          Route::resource('suppliers', SupplierController::class);
+
+         // Catégories
+         Route::resource('categories', CategoryController::class)->except(['show']);
+
+         // Unités de mesure
+         Route::resource('units', UnitController::class)->except(['show']);
+
+         // Produits
+         Route::resource('products', ProductController::class);
+
+         // Dépôts
+         Route::resource('depots', DepotController::class)->except(['show']);
+
+         // Stock
+         Route::get('/stock',                   [StockController::class, 'index'])->name('stock.index');
+         Route::get('/stock/movements',          [StockController::class, 'movements'])->name('stock.movements');
+         Route::get('/stock/movements/create',   [StockController::class, 'createMovement'])->name('stock.create-movement');
+         Route::post('/stock/movements',         [StockController::class, 'storeMovement'])->name('stock.store-movement');
+
+         // Ventes
+         Route::resource('sales', SaleController::class)->except(['edit', 'update']);
+
+         // Catégories de dépenses
+         Route::resource('expense-categories', ExpenseCategoryController::class)->except(['show']);
+
+         // Dépenses
+         Route::resource('expenses', ExpenseController::class);
      });
 
 // ── Backoffice Super Admin ────────────────────────────────────────
