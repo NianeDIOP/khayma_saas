@@ -57,7 +57,7 @@ class User extends Authenticatable
     public function companies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class, 'company_users')
-                    ->withPivot('role', 'joined_at')
+                    ->withPivot('role', 'permissions', 'joined_at')
                     ->withTimestamps();
     }
 
@@ -74,5 +74,15 @@ class User extends Authenticatable
     {
         $pivot = $company->users()->where('user_id', $this->id)->first();
         return $pivot?->pivot->role;
+    }
+
+    public function permissionsInCompany(Company $company): ?array
+    {
+        $pivot = $company->users()->where('user_id', $this->id)->first();
+        $perms = $pivot?->pivot->permissions;
+        if (is_string($perms)) {
+            return json_decode($perms, true);
+        }
+        return $perms;
     }
 }

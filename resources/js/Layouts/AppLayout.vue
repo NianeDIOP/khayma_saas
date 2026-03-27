@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, nextTick, watch } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { Link, usePage, router } from '@inertiajs/vue3'
 
 defineProps({ title: { type: String, default: 'Espace entreprise' } })
@@ -30,12 +30,27 @@ onMounted(restoreSidebarScroll)
 router.on('before', saveSidebarScroll)
 router.on('navigate', restoreSidebarScroll)
 
+// ── Collapsible sections ──
+function loadSections() {
+    try { return JSON.parse(sessionStorage.getItem('sidebar-sections') || '{}') } catch { return {} }
+}
+function saveSections() {
+    sessionStorage.setItem('sidebar-sections', JSON.stringify(openSections.value))
+}
+const openSections = ref(loadSections())
+function toggleSection(key) {
+    openSections.value[key] = !openSections.value[key]
+    saveSections()
+}
+function isOpen(key) {
+    return openSections.value[key] !== false // open by default
+}
+
 // ── Detect user role in current company ──
 const userRole = computed(() => {
     const u = user.value
     if (!u) return null
     if (u.is_super_admin) return 'super_admin'
-    // Role comes from the pivot — shared via HandleInertiaRequests
     return u.company_role || 'owner'
 })
 
@@ -45,57 +60,30 @@ function hasModule(code) {
     return activeModules.value.some(m => m.code === code)
 }
 
-// ── Permission checks per role ──
+// ── Permission checks ──
+// Owner & super_admin see everything.
+// Other roles: check explicit permissions array from pivot.
+// If permissions is null (legacy), fall back to role defaults.
+const userPermissions = computed(() => user.value?.company_permissions || null)
+
+const roleDefaults = {
+    manager:    ['dashboard','customers','suppliers','products','categories','units','depots','stock','sales','expenses',
+                 'restaurant.pos','restaurant.orders','restaurant.dishes','restaurant.categories','restaurant.services','restaurant.cash','restaurant.reports',
+                 'quinc.pos','quinc.quotes','quinc.purchase-orders','quinc.supplier-payments','quinc.supplier-returns','quinc.credits','quinc.inventories','quinc.reports',
+                 'boutique.pos','boutique.variants','boutique.promotions','boutique.loyalty','boutique.transfers','boutique.reports',
+                 'location.assets','location.contracts','location.payments','location.calendar','location.reports'],
+    caissier:   ['dashboard','customers','sales','restaurant.pos','restaurant.orders','restaurant.cash','quinc.pos','quinc.credits','boutique.pos','location.payments'],
+    magasinier: ['dashboard','suppliers','products','categories','units','depots','stock','quinc.inventories','boutique.transfers'],
+}
+
 function can(section) {
     const r = userRole.value
     if (!r) return false
     if (r === 'super_admin' || r === 'owner') return true
-
-    const map = {
-        dashboard:    ['manager', 'caissier', 'magasinier'],
-        onboarding:   [],
-        settings:     [],
-        customers:    ['manager', 'caissier'],
-        suppliers:    ['manager', 'magasinier'],
-        products:     ['manager', 'magasinier'],
-        categories:   ['manager', 'magasinier'],
-        units:        ['manager', 'magasinier'],
-        depots:       ['manager', 'magasinier'],
-        stock:        ['manager', 'magasinier'],
-        sales:        ['manager', 'caissier'],
-        expenses:     ['manager'],
-        // Restaurant
-        'restaurant.pos':       ['manager', 'caissier'],
-        'restaurant.orders':    ['manager', 'caissier'],
-        'restaurant.dishes':    ['manager'],
-        'restaurant.categories':['manager'],
-        'restaurant.services':  ['manager'],
-        'restaurant.cash':      ['manager', 'caissier'],
-        'restaurant.reports':   ['manager'],
-        // Quincaillerie
-        'quinc.quotes':           ['manager'],
-        'quinc.purchase-orders':  ['manager'],
-        'quinc.supplier-payments':['manager'],
-        'quinc.supplier-returns': ['manager'],
-        'quinc.credits':          ['manager', 'caissier'],
-        'quinc.inventories':      ['manager', 'magasinier'],
-        'quinc.reports':          ['manager'],
-        // Boutique
-        'boutique.pos':        ['manager', 'caissier'],
-        'boutique.variants':   ['manager'],
-        'boutique.promotions': ['manager'],
-        'boutique.loyalty':    ['manager'],
-        'boutique.transfers':  ['manager', 'magasinier'],
-        'boutique.reports':    ['manager'],
-        // Location
-        'location.assets':    ['manager'],
-        'location.contracts': ['manager'],
-        'location.payments':  ['manager', 'caissier'],
-        'location.calendar':  ['manager'],
-        'location.reports':   ['manager'],
-        team:                 [],
-    }
-    return (map[section] || []).includes(r)
+    // If explicit permissions set by owner, use them
+    if (userPermissions.value) return userPermissions.value.includes(section)
+    // Fallback to role defaults
+    return (roleDefaults[r] || []).includes(section)
 }
 </script>
 
@@ -119,14 +107,21 @@ function can(section) {
         </span>
       </div>
       <div class="topbar-right">
-        <i class="fa-solid fa-user-circle" style="color:#6366F1;"></i>
-        {{ $page.props.auth?.user?.name || 'Utilisateur' }}
+        <span class="topbar-user">
+          <i class="fa-solid fa-user-circle" style="color:#6366F1;"></i>
+          {{ user?.name || 'Utilisateur' }}
+          <small class="role-tag">{{ userRole }}</small>
+        </span>
+        <a href="/" class="topbar-home" title="Retour au site">
+          <i class="fa-solid fa-house"></i>
+        </a>
       </div>
     </header>
 
     <!-- SIDEBAR -->
     <aside class="app-sidebar" v-show="sidebarOpen">
       <nav ref="sidebarNavRef" class="sidebar-nav">
+        <!-- Top-level links -->
         <Link v-if="can('dashboard')" :href="route('app.dashboard', { _tenant: company?.slug })"
           :class="['nav-item', { active: $page.url.endsWith('/app') || $page.url.endsWith('/app/') || $page.url.match(/\/app\?/) }]">
           <i class="fa-solid fa-gauge-high" style="color:#10B981"></i> <span>Dashboard</span>
@@ -144,194 +139,218 @@ function can(section) {
           <i class="fa-solid fa-users" style="color:#6366F1"></i> <span>Équipe</span>
         </Link>
 
-        <!-- Gestion -->
+        <!-- ── Gestion ── -->
         <template v-if="can('customers') || can('suppliers')">
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Gestion</div>
-          <Link v-if="can('customers')" :href="route('app.customers.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/customers') }]">
-            <i class="fa-solid fa-user-group" style="color:#2563EB"></i> <span>Clients</span>
-          </Link>
-          <Link v-if="can('suppliers')" :href="route('app.suppliers.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/suppliers') }]">
-            <i class="fa-solid fa-truck-field" style="color:#F59E0B"></i> <span>Fournisseurs</span>
-          </Link>
+          <button class="section-toggle" @click="toggleSection('gestion')">
+            <span class="section-label">Gestion</span>
+            <i :class="isOpen('gestion') ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right'" class="section-arrow"></i>
+          </button>
+          <div v-show="isOpen('gestion')" class="section-links">
+            <Link v-if="can('customers')" :href="route('app.customers.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/customers') }]">
+              <i class="fa-solid fa-user-group" style="color:#2563EB"></i> <span>Clients</span>
+            </Link>
+            <Link v-if="can('suppliers')" :href="route('app.suppliers.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/suppliers') }]">
+              <i class="fa-solid fa-truck-field" style="color:#F59E0B"></i> <span>Fournisseurs</span>
+            </Link>
+          </div>
         </template>
 
-        <!-- Catalogue -->
+        <!-- ── Catalogue ── -->
         <template v-if="can('products') || can('categories') || can('units') || can('depots')">
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Catalogue</div>
-          <Link v-if="can('products')" :href="route('app.products.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/products') }]">
-            <i class="fa-solid fa-box" style="color:#10B981"></i> <span>Produits</span>
-          </Link>
-          <Link v-if="can('categories')" :href="route('app.categories.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/categories') }]">
-            <i class="fa-solid fa-folder-tree" style="color:#8B5CF6"></i> <span>Catégories</span>
-          </Link>
-          <Link v-if="can('units')" :href="route('app.units.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/units') }]">
-            <i class="fa-solid fa-ruler" style="color:#0891B2"></i> <span>Unités</span>
-          </Link>
-          <Link v-if="can('depots')" :href="route('app.depots.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/depots') }]">
-            <i class="fa-solid fa-warehouse" style="color:#6366F1"></i> <span>Dépôts</span>
-          </Link>
+          <button class="section-toggle" @click="toggleSection('catalogue')">
+            <span class="section-label">Catalogue</span>
+            <i :class="isOpen('catalogue') ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right'" class="section-arrow"></i>
+          </button>
+          <div v-show="isOpen('catalogue')" class="section-links">
+            <Link v-if="can('products')" :href="route('app.products.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/products') }]">
+              <i class="fa-solid fa-box" style="color:#10B981"></i> <span>Produits</span>
+            </Link>
+            <Link v-if="can('categories')" :href="route('app.categories.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/categories') }]">
+              <i class="fa-solid fa-folder-tree" style="color:#8B5CF6"></i> <span>Catégories</span>
+            </Link>
+            <Link v-if="can('units')" :href="route('app.units.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/units') }]">
+              <i class="fa-solid fa-ruler" style="color:#0891B2"></i> <span>Unités</span>
+            </Link>
+            <Link v-if="can('depots')" :href="route('app.depots.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/depots') }]">
+              <i class="fa-solid fa-warehouse" style="color:#6366F1"></i> <span>Dépôts</span>
+            </Link>
+          </div>
         </template>
 
-        <!-- Commerce -->
+        <!-- ── Commerce ── -->
         <template v-if="can('stock') || can('sales') || can('expenses')">
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Commerce</div>
-          <Link v-if="can('stock')" :href="route('app.stock.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/stock') }]">
-            <i class="fa-solid fa-boxes-stacked" style="color:#EF4444"></i> <span>Stock</span>
-          </Link>
-          <Link v-if="can('sales')" :href="route('app.sales.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/sales') }]">
-            <i class="fa-solid fa-cash-register" style="color:#F59E0B"></i> <span>Ventes</span>
-          </Link>
-          <Link v-if="can('expenses')" :href="route('app.expenses.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/expenses') && !$page.url.includes('/expense-categories') }]">
-            <i class="fa-solid fa-money-bill-trend-up" style="color:#DC2626"></i> <span>Dépenses</span>
-          </Link>
+          <button class="section-toggle" @click="toggleSection('commerce')">
+            <span class="section-label">Commerce</span>
+            <i :class="isOpen('commerce') ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right'" class="section-arrow"></i>
+          </button>
+          <div v-show="isOpen('commerce')" class="section-links">
+            <Link v-if="can('stock')" :href="route('app.stock.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/stock') }]">
+              <i class="fa-solid fa-boxes-stacked" style="color:#EF4444"></i> <span>Stock</span>
+            </Link>
+            <Link v-if="can('sales')" :href="route('app.sales.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/sales') }]">
+              <i class="fa-solid fa-cash-register" style="color:#F59E0B"></i> <span>Ventes</span>
+            </Link>
+            <Link v-if="can('expenses')" :href="route('app.expenses.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/expenses') && !$page.url.includes('/expense-categories') }]">
+              <i class="fa-solid fa-money-bill-trend-up" style="color:#DC2626"></i> <span>Dépenses</span>
+            </Link>
+          </div>
         </template>
 
-        <!-- Restaurant -->
+        <!-- ── Restaurant ── -->
         <template v-if="hasModule('restaurant') && (can('restaurant.pos') || can('restaurant.orders'))">
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Restaurant</div>
-          <Link v-if="can('restaurant.pos')" :href="route('app.restaurant.orders.create', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/restaurant/orders/create') }]">
-            <i class="fa-solid fa-utensils" style="color:#EF4444"></i> <span>POS Commandes</span>
-          </Link>
-          <Link v-if="can('restaurant.orders')" :href="route('app.restaurant.orders.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/restaurant/orders') && !$page.url.includes('/orders/create') }]">
-            <i class="fa-solid fa-clipboard-list" style="color:#F97316"></i> <span>Commandes</span>
-          </Link>
-          <Link v-if="can('restaurant.dishes')" :href="route('app.restaurant.dishes.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/restaurant/dishes') }]">
-            <i class="fa-solid fa-bowl-food" style="color:#F59E0B"></i> <span>Plats</span>
-          </Link>
-          <Link v-if="can('restaurant.categories')" :href="route('app.restaurant.categories.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/restaurant/categories') }]">
-            <i class="fa-solid fa-layer-group" style="color:#10B981"></i> <span>Catégories Menu</span>
-          </Link>
-          <Link v-if="can('restaurant.services')" :href="route('app.restaurant.services.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/restaurant/services') }]">
-            <i class="fa-solid fa-clock" style="color:#3B82F6"></i> <span>Services</span>
-          </Link>
-          <Link v-if="can('restaurant.cash')" :href="route('app.restaurant.cash-sessions.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/restaurant/cash-sessions') }]">
-            <i class="fa-solid fa-cash-register" style="color:#8B5CF6"></i> <span>Caisse</span>
-          </Link>
-          <Link v-if="can('restaurant.reports')" :href="route('app.restaurant.reports.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/restaurant/reports') }]">
-            <i class="fa-solid fa-chart-bar" style="color:#EC4899"></i> <span>Rapports</span>
-          </Link>
+          <button class="section-toggle" @click="toggleSection('restaurant')">
+            <span class="section-label">Restaurant</span>
+            <i :class="isOpen('restaurant') ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right'" class="section-arrow"></i>
+          </button>
+          <div v-show="isOpen('restaurant')" class="section-links">
+            <Link v-if="can('restaurant.pos')" :href="route('app.restaurant.orders.create', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/restaurant/orders/create') }]">
+              <i class="fa-solid fa-utensils" style="color:#EF4444"></i> <span>POS Commandes</span>
+            </Link>
+            <Link v-if="can('restaurant.orders')" :href="route('app.restaurant.orders.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/restaurant/orders') && !$page.url.includes('/orders/create') }]">
+              <i class="fa-solid fa-clipboard-list" style="color:#F97316"></i> <span>Commandes</span>
+            </Link>
+            <Link v-if="can('restaurant.dishes')" :href="route('app.restaurant.dishes.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/restaurant/dishes') }]">
+              <i class="fa-solid fa-bowl-food" style="color:#F59E0B"></i> <span>Plats</span>
+            </Link>
+            <Link v-if="can('restaurant.categories')" :href="route('app.restaurant.categories.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/restaurant/categories') }]">
+              <i class="fa-solid fa-layer-group" style="color:#10B981"></i> <span>Catégories Menu</span>
+            </Link>
+            <Link v-if="can('restaurant.services')" :href="route('app.restaurant.services.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/restaurant/services') }]">
+              <i class="fa-solid fa-clock" style="color:#3B82F6"></i> <span>Services</span>
+            </Link>
+            <Link v-if="can('restaurant.cash')" :href="route('app.restaurant.cash-sessions.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/restaurant/cash-sessions') }]">
+              <i class="fa-solid fa-cash-register" style="color:#8B5CF6"></i> <span>Caisse</span>
+            </Link>
+            <Link v-if="can('restaurant.reports')" :href="route('app.restaurant.reports.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/restaurant/reports') }]">
+              <i class="fa-solid fa-chart-bar" style="color:#EC4899"></i> <span>Rapports</span>
+            </Link>
+          </div>
         </template>
 
-        <!-- Quincaillerie -->
-        <template v-if="hasModule('quincaillerie') && (can('quinc.quotes') || can('quinc.inventories'))">
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Quincaillerie</div>
-          <Link v-if="can('quinc.quotes')" :href="route('app.quincaillerie.quotes.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/quincaillerie/quotes') }]">
-            <i class="fa-solid fa-file-invoice" style="color:#6366F1"></i> <span>Devis</span>
-          </Link>
-          <Link v-if="can('quinc.purchase-orders')" :href="route('app.quincaillerie.purchase-orders.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/quincaillerie/purchase-orders') }]">
-            <i class="fa-solid fa-truck" style="color:#0EA5E9"></i> <span>Bons de commande</span>
-          </Link>
-          <Link v-if="can('quinc.supplier-payments')" :href="route('app.quincaillerie.supplier-payments.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/quincaillerie/supplier-payments') }]">
-            <i class="fa-solid fa-money-check-dollar" style="color:#10B981"></i> <span>Paiements fourn.</span>
-          </Link>
-          <Link v-if="can('quinc.supplier-returns')" :href="route('app.quincaillerie.supplier-returns.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/quincaillerie/supplier-returns') }]">
-            <i class="fa-solid fa-rotate-left" style="color:#EF4444"></i> <span>Retours fourn.</span>
-          </Link>
-          <Link v-if="can('quinc.credits')" :href="route('app.quincaillerie.credits.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/quincaillerie/credits') }]">
-            <i class="fa-solid fa-hand-holding-dollar" style="color:#F59E0B"></i> <span>Crédits clients</span>
-          </Link>
-          <Link v-if="can('quinc.inventories')" :href="route('app.quincaillerie.inventories.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/quincaillerie/inventories') }]">
-            <i class="fa-solid fa-clipboard-check" style="color:#8B5CF6"></i> <span>Inventaires</span>
-          </Link>
-          <Link v-if="can('quinc.reports')" :href="route('app.quincaillerie.reports.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/quincaillerie/reports') }]">
-            <i class="fa-solid fa-chart-bar" style="color:#EC4899"></i> <span>Rapports Quinc.</span>
-          </Link>
+        <!-- ── Quincaillerie ── -->
+        <template v-if="hasModule('quincaillerie') && (can('quinc.pos') || can('quinc.quotes') || can('quinc.inventories'))">
+          <button class="section-toggle" @click="toggleSection('quincaillerie')">
+            <span class="section-label">Quincaillerie</span>
+            <i :class="isOpen('quincaillerie') ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right'" class="section-arrow"></i>
+          </button>
+          <div v-show="isOpen('quincaillerie')" class="section-links">
+            <Link v-if="can('quinc.pos')" :href="route('app.quincaillerie.pos.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/quincaillerie/pos') }]">
+              <i class="fa-solid fa-cash-register" style="color:#10B981"></i> <span>Caisse POS</span>
+            </Link>
+            <Link v-if="can('quinc.quotes')" :href="route('app.quincaillerie.quotes.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/quincaillerie/quotes') }]">
+              <i class="fa-solid fa-file-invoice" style="color:#6366F1"></i> <span>Devis</span>
+            </Link>
+            <Link v-if="can('quinc.purchase-orders')" :href="route('app.quincaillerie.purchase-orders.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/quincaillerie/purchase-orders') }]">
+              <i class="fa-solid fa-truck" style="color:#0EA5E9"></i> <span>Bons de commande</span>
+            </Link>
+            <Link v-if="can('quinc.supplier-payments')" :href="route('app.quincaillerie.supplier-payments.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/quincaillerie/supplier-payments') }]">
+              <i class="fa-solid fa-money-check-dollar" style="color:#10B981"></i> <span>Paiements fourn.</span>
+            </Link>
+            <Link v-if="can('quinc.supplier-returns')" :href="route('app.quincaillerie.supplier-returns.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/quincaillerie/supplier-returns') }]">
+              <i class="fa-solid fa-rotate-left" style="color:#EF4444"></i> <span>Retours fourn.</span>
+            </Link>
+            <Link v-if="can('quinc.credits')" :href="route('app.quincaillerie.credits.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/quincaillerie/credits') }]">
+              <i class="fa-solid fa-hand-holding-dollar" style="color:#F59E0B"></i> <span>Crédits clients</span>
+            </Link>
+            <Link v-if="can('quinc.inventories')" :href="route('app.quincaillerie.inventories.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/quincaillerie/inventories') }]">
+              <i class="fa-solid fa-clipboard-check" style="color:#8B5CF6"></i> <span>Inventaires</span>
+            </Link>
+            <Link v-if="can('quinc.reports')" :href="route('app.quincaillerie.reports.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/quincaillerie/reports') }]">
+              <i class="fa-solid fa-chart-bar" style="color:#EC4899"></i> <span>Rapports Quinc.</span>
+            </Link>
+          </div>
         </template>
 
-        <!-- Boutique -->
+        <!-- ── Boutique ── -->
         <template v-if="hasModule('boutique') && (can('boutique.pos') || can('boutique.transfers'))">
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Boutique</div>
-          <Link v-if="can('boutique.pos')" :href="route('app.boutique.pos.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/boutique/pos') }]">
-            <i class="fa-solid fa-cash-register" style="color:#10B981"></i> <span>Caisse POS</span>
-          </Link>
-          <Link v-if="can('boutique.variants')" :href="route('app.boutique.variants.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/boutique/variants') }]">
-            <i class="fa-solid fa-swatchbook" style="color:#6366F1"></i> <span>Variantes</span>
-          </Link>
-          <Link v-if="can('boutique.promotions')" :href="route('app.boutique.promotions.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/boutique/promotions') }]">
-            <i class="fa-solid fa-tags" style="color:#F59E0B"></i> <span>Promotions</span>
-          </Link>
-          <Link v-if="can('boutique.loyalty')" :href="route('app.boutique.loyalty.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/boutique/loyalty') }]">
-            <i class="fa-solid fa-heart" style="color:#EC4899"></i> <span>Fidélité</span>
-          </Link>
-          <Link v-if="can('boutique.transfers')" :href="route('app.boutique.transfers.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/boutique/transfers') }]">
-            <i class="fa-solid fa-right-left" style="color:#0EA5E9"></i> <span>Transferts</span>
-          </Link>
-          <Link v-if="can('boutique.reports')" :href="route('app.boutique.reports.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/boutique/reports') }]">
-            <i class="fa-solid fa-chart-pie" style="color:#8B5CF6"></i> <span>Rapports Boutique</span>
-          </Link>
+          <button class="section-toggle" @click="toggleSection('boutique')">
+            <span class="section-label">Boutique</span>
+            <i :class="isOpen('boutique') ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right'" class="section-arrow"></i>
+          </button>
+          <div v-show="isOpen('boutique')" class="section-links">
+            <Link v-if="can('boutique.pos')" :href="route('app.boutique.pos.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/boutique/pos') }]">
+              <i class="fa-solid fa-cash-register" style="color:#10B981"></i> <span>Caisse POS</span>
+            </Link>
+            <Link v-if="can('boutique.variants')" :href="route('app.boutique.variants.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/boutique/variants') }]">
+              <i class="fa-solid fa-swatchbook" style="color:#6366F1"></i> <span>Variantes</span>
+            </Link>
+            <Link v-if="can('boutique.promotions')" :href="route('app.boutique.promotions.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/boutique/promotions') }]">
+              <i class="fa-solid fa-tags" style="color:#F59E0B"></i> <span>Promotions</span>
+            </Link>
+            <Link v-if="can('boutique.loyalty')" :href="route('app.boutique.loyalty.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/boutique/loyalty') }]">
+              <i class="fa-solid fa-heart" style="color:#EC4899"></i> <span>Fidélité</span>
+            </Link>
+            <Link v-if="can('boutique.transfers')" :href="route('app.boutique.transfers.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/boutique/transfers') }]">
+              <i class="fa-solid fa-right-left" style="color:#0EA5E9"></i> <span>Transferts</span>
+            </Link>
+            <Link v-if="can('boutique.reports')" :href="route('app.boutique.reports.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/boutique/reports') }]">
+              <i class="fa-solid fa-chart-pie" style="color:#8B5CF6"></i> <span>Rapports Boutique</span>
+            </Link>
+          </div>
         </template>
 
-        <!-- Location -->
+        <!-- ── Location ── -->
         <template v-if="hasModule('location') && (can('location.assets') || can('location.payments'))">
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Location</div>
-          <Link v-if="can('location.assets')" :href="route('app.location.assets.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/location/assets') }]">
-            <i class="fa-solid fa-building" style="color:#0EA5E9"></i> <span>Biens</span>
-          </Link>
-          <Link v-if="can('location.contracts')" :href="route('app.location.contracts.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/location/contracts') }]">
-            <i class="fa-solid fa-file-contract" style="color:#10B981"></i> <span>Contrats</span>
-          </Link>
-          <Link v-if="can('location.payments')" :href="route('app.location.payments.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/location/payments') }]">
-            <i class="fa-solid fa-money-bill-wave" style="color:#F59E0B"></i> <span>Paiements</span>
-          </Link>
-          <Link v-if="can('location.calendar')" :href="route('app.location.calendar.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/location/calendar') }]">
-            <i class="fa-solid fa-calendar-days" style="color:#8B5CF6"></i> <span>Calendrier</span>
-          </Link>
-          <Link v-if="can('location.reports')" :href="route('app.location.reports.index', { _tenant: company?.slug })"
-            :class="['nav-item', { active: $page.url.includes('/location/reports') }]">
-            <i class="fa-solid fa-chart-line" style="color:#EC4899"></i> <span>Rapports Location</span>
-          </Link>
+          <button class="section-toggle" @click="toggleSection('location')">
+            <span class="section-label">Location</span>
+            <i :class="isOpen('location') ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right'" class="section-arrow"></i>
+          </button>
+          <div v-show="isOpen('location')" class="section-links">
+            <Link v-if="can('location.assets')" :href="route('app.location.assets.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/location/assets') }]">
+              <i class="fa-solid fa-building" style="color:#0EA5E9"></i> <span>Biens</span>
+            </Link>
+            <Link v-if="can('location.contracts')" :href="route('app.location.contracts.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/location/contracts') }]">
+              <i class="fa-solid fa-file-contract" style="color:#10B981"></i> <span>Contrats</span>
+            </Link>
+            <Link v-if="can('location.payments')" :href="route('app.location.payments.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/location/payments') }]">
+              <i class="fa-solid fa-money-bill-wave" style="color:#F59E0B"></i> <span>Paiements</span>
+            </Link>
+            <Link v-if="can('location.calendar')" :href="route('app.location.calendar.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/location/calendar') }]">
+              <i class="fa-solid fa-calendar-days" style="color:#8B5CF6"></i> <span>Calendrier</span>
+            </Link>
+            <Link v-if="can('location.reports')" :href="route('app.location.reports.index', { _tenant: company?.slug })"
+              :class="['nav-item', { active: $page.url.includes('/location/reports') }]">
+              <i class="fa-solid fa-chart-line" style="color:#EC4899"></i> <span>Rapports Location</span>
+            </Link>
+          </div>
         </template>
       </nav>
 
       <div class="sidebar-footer">
-        <Link :href="route('app.dashboard', { _tenant: company?.slug })" class="nav-item user-info">
-          <i class="fa-solid fa-user-circle" style="color:#6366F1"></i>
-          <span>{{ user?.name || 'Profil' }}</span>
-          <small class="role-badge">{{ userRole }}</small>
-        </Link>
-        <a href="/" class="nav-item">
-          <i class="fa-solid fa-arrow-left" style="color:#6B7280"></i> <span>Retour au site</span>
-        </a>
         <Link :href="route('logout')" method="post" as="button" class="nav-item logout">
           <i class="fa-solid fa-right-from-bracket" style="color:#EF4444"></i> <span>Déconnexion</span>
         </Link>
@@ -384,7 +403,18 @@ function can(section) {
 .badge-expired, .badge-suspended, .badge-cancelled { background: #FEE2E2; color: #991B1B; }
 .badge-grace_period { background: #FEF3C7; color: #92400E; }
 
-.topbar-right { font-size: 0.82rem; color: #374151; display: flex; align-items: center; gap: 8px; }
+.topbar-right { display: flex; align-items: center; gap: 14px; }
+.topbar-user { font-size: 0.82rem; color: #374151; display: flex; align-items: center; gap: 8px; }
+.role-tag {
+  font-size: 0.6rem; font-weight: 700; padding: 1px 6px; border-radius: 3px;
+  background: #EEF2FF; color: #4F46E5; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.topbar-home {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%; color: #6B7280;
+  text-decoration: none; transition: all 0.15s; font-size: 0.9rem;
+}
+.topbar-home:hover { background: #F3F4F6; color: #111827; }
 
 /* ── Sidebar ─── */
 .app-sidebar {
@@ -393,27 +423,35 @@ function can(section) {
   display: flex; flex-direction: column; transition: transform 0.2s ease;
   overflow: hidden;
 }
-.sidebar-nav { flex: 1; padding: 12px 0; overflow-y: auto; min-height: 0; }
+.sidebar-nav { flex: 1; padding: 8px 0; overflow-y: auto; min-height: 0; }
 .nav-item {
-  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
-  color: #374151; font-size: 0.88rem; font-weight: 600; text-decoration: none;
+  display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+  color: #374151; font-size: 0.82rem; font-weight: 600; text-decoration: none;
   transition: background 0.15s, color 0.15s; cursor: pointer;
   border: none; background: none; width: 100%; text-align: left;
   letter-spacing: -0.01em;
 }
 .nav-item:hover { background: #F3F4F6; color: #111827; }
 .nav-item.active { background: #EEF2FF; color: #4F46E5; border-right: 3px solid #4F46E5; }
-.nav-item i { width: 20px; text-align: center; font-size: 1.05rem; flex-shrink: 0; }
-.sidebar-footer { padding: 12px 0; border-top: 1px solid #E5E7EB; }
-.nav-divider { height: 1px; background: #E5E7EB; margin: 8px 16px; }
-.nav-section-label { font-size: 0.68rem; font-weight: 700; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 16px 6px; }
-.nav-item.logout:hover { color: #EF4444; }
-.user-info { flex-wrap: wrap; }
-.role-badge {
-  display: inline-block; font-size: 0.6rem; font-weight: 700; padding: 1px 6px;
-  border-radius: 3px; background: #EEF2FF; color: #4F46E5; text-transform: uppercase;
-  letter-spacing: 0.04em; margin-left: auto;
+.nav-item i { width: 18px; text-align: center; font-size: 0.95rem; flex-shrink: 0; }
+
+/* ── Collapsible sections ─── */
+.section-toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 8px 16px; margin-top: 6px;
+  background: none; border: none; border-top: 1px solid #F3F4F6;
+  cursor: pointer; transition: background 0.15s;
 }
+.section-toggle:hover { background: #F9FAFB; }
+.section-label {
+  font-size: 0.68rem; font-weight: 700; color: #9CA3AF;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.section-arrow { font-size: 0.55rem; color: #9CA3AF; transition: transform 0.15s; }
+.section-links { /* no extra styling needed, just a wrapper */ }
+
+.sidebar-footer { padding: 8px 0; border-top: 1px solid #E5E7EB; }
+.nav-item.logout:hover { color: #EF4444; }
 
 /* ── Content ─── */
 .app-content {

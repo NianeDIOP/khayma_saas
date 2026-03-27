@@ -45,6 +45,7 @@ class HandleInertiaRequests extends Middleware
             if (App::bound('currentCompany')) {
                 $company = App::make('currentCompany');
                 $userData['company_role'] = $user->roleInCompany($company);
+                $userData['company_permissions'] = $user->permissionsInCompany($company);
             }
         }
 

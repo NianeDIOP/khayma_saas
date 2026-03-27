@@ -37,6 +37,7 @@ use App\Http\Controllers\App\Quincaillerie\SupplierReturnController;
 use App\Http\Controllers\App\Quincaillerie\CreditController;
 use App\Http\Controllers\App\Quincaillerie\InventoryController;
 use App\Http\Controllers\App\Quincaillerie\ReportController as QuincaillerieReportController;
+use App\Http\Controllers\App\Quincaillerie\PosController as QuincailleriePosController;
 use App\Http\Controllers\App\Boutique\PosController;
 use App\Http\Controllers\App\Boutique\VariantController;
 use App\Http\Controllers\App\Boutique\PromotionController;
@@ -168,7 +169,10 @@ Route::middleware(['tenant', 'auth', 'subscription'])
          });
 
          // ── Module Quincaillerie ─────────────────────────────────
-         Route::prefix('quincaillerie')->name('quincaillerie.')->group(function () {
+         Route::prefix('quincaillerie')->name('quincaillerie.')->group(function () {             // POS (point de vente)
+             Route::get('/pos',                [QuincailleriePosController::class, 'index'])->name('pos.index');
+             Route::post('/pos',               [QuincailleriePosController::class, 'store'])->name('pos.store');
+             Route::get('/pos/{sale}/receipt',  [QuincailleriePosController::class, 'receipt'])->name('pos.receipt');
              // Devis
              Route::resource('quotes', QuoteController::class);
              Route::patch('/quotes/{quote}/status', [QuoteController::class, 'updateStatus'])->name('quotes.update-status');

@@ -1,10 +1,13 @@
 <script setup>
 import { useForm, Link, usePage } from '@inertiajs/vue3'
+import { computed } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 
 const props = defineProps({
     member: Object,
     roles: Array,
+    allPermissions: Array,
+    activeModuleCodes: Array,
 })
 
 const page = usePage()
@@ -12,17 +15,50 @@ const company = page.props.currentCompany
 const isEdit = !!props.member
 
 const form = useForm({
-    name:     props.member?.name     || '',
-    email:    props.member?.email    || '',
-    phone:    props.member?.phone    || '',
-    password: '',
-    role:     props.member?.role     || 'manager',
+    name:        props.member?.name        || '',
+    email:       props.member?.email       || '',
+    phone:       props.member?.phone       || '',
+    password:    '',
+    role:        props.member?.role        || 'manager',
+    permissions: props.member?.permissions || [],
 })
 
 const roleLabels = {
-    manager: 'Manager — Gestion opérationnelle complète',
-    caissier: 'Caissier — Encaissements, ventes, commandes',
+    manager:    'Manager — Gestion opérationnelle complète',
+    caissier:   'Caissier — Encaissements, ventes, commandes',
     magasinier: 'Magasinier — Stocks, inventaires, réceptions',
+}
+
+// Filter permission groups by active modules
+const visibleGroups = computed(() => {
+    return (props.allPermissions || []).filter(g => {
+        if (!g.module) return true
+        return (props.activeModuleCodes || []).includes(g.module)
+    })
+})
+
+function togglePermission(key) {
+    const idx = form.permissions.indexOf(key)
+    if (idx >= 0) form.permissions.splice(idx, 1)
+    else form.permissions.push(key)
+}
+
+function toggleGroup(group) {
+    const keys = group.items.map(i => i.key)
+    const allChecked = keys.every(k => form.permissions.includes(k))
+    if (allChecked) {
+        form.permissions = form.permissions.filter(p => !keys.includes(p))
+    } else {
+        keys.forEach(k => { if (!form.permissions.includes(k)) form.permissions.push(k) })
+    }
+}
+
+function isGroupChecked(group) {
+    return group.items.every(i => form.permissions.includes(i.key))
+}
+function isGroupPartial(group) {
+    const some = group.items.some(i => form.permissions.includes(i.key))
+    return some && !isGroupChecked(group)
 }
 
 function submit() {
@@ -97,6 +133,26 @@ function submit() {
                     <p v-if="form.errors.role" class="field-error">{{ form.errors.role }}</p>
                 </div>
 
+                <!-- Permissions granulaires -->
+                <div class="field perm-section">
+                    <label class="perm-main-label">Autorisations <span class="perm-hint">(cocher les accès autorisés)</span></label>
+                    <div v-for="group in visibleGroups" :key="group.group" class="perm-group">
+                        <label class="perm-group-header" @click.prevent="toggleGroup(group)">
+                            <input type="checkbox" :checked="isGroupChecked(group)" :indeterminate="isGroupPartial(group)"
+                                   @click.stop="toggleGroup(group)" class="perm-cb" />
+                            <span class="perm-group-name">{{ group.group }}</span>
+                        </label>
+                        <div class="perm-items">
+                            <label v-for="item in group.items" :key="item.key" class="perm-item">
+                                <input type="checkbox" :checked="form.permissions.includes(item.key)"
+                                       @change="togglePermission(item.key)" class="perm-cb" />
+                                <span>{{ item.label }}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <p v-if="form.errors.permissions" class="field-error">{{ form.errors.permissions }}</p>
+                </div>
+
                 <!-- Actions -->
                 <div class="form-actions">
                     <Link :href="route('app.team.index', { _tenant: company.slug })" class="btn-secondary">Annuler</Link>
@@ -110,7 +166,7 @@ function submit() {
 </template>
 
 <style scoped>
-.form-page { max-width: 580px; }
+.form-page { max-width: 640px; }
 .page-header { margin-bottom: 28px; }
 .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; color: #6B7280; text-decoration: none; margin-bottom: 12px; }
 .back-link:hover { color: #111827; }
@@ -145,6 +201,24 @@ function submit() {
 .role-name { font-size: 0.88rem; font-weight: 700; color: #111827; }
 .role-desc { font-size: 0.78rem; color: #6B7280; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+/* ── Permissions ── */
+.perm-section { margin-top: 8px; }
+.perm-main-label { font-size: 0.88rem !important; font-weight: 700 !important; color: #111827 !important; }
+.perm-hint { font-size: 0.75rem; font-weight: 400; color: #9CA3AF; }
+.perm-group { margin-top: 12px; border: 1px solid #E5E7EB; background: #FAFAFA; }
+.perm-group-header {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+    background: #F3F4F6; cursor: pointer; font-size: 0.82rem; font-weight: 700; color: #374151;
+}
+.perm-items { padding: 8px 14px 10px 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.perm-item {
+    display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #374151;
+    cursor: pointer; padding: 3px 0;
+}
+.perm-item:hover { color: #111827; }
+.perm-cb { width: 16px; height: 16px; accent-color: #4F46E5; cursor: pointer; flex-shrink: 0; }
+.perm-group-name { font-weight: 700; }
 
 .form-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px; }
 .btn-primary {

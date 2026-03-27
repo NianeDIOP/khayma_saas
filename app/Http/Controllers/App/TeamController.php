@@ -26,6 +26,58 @@ class TeamController extends Controller
         }
     }
 
+    private function allPermissions(): array
+    {
+        return [
+            ['group' => 'Général',        'items' => [
+                ['key' => 'dashboard',  'label' => 'Tableau de bord'],
+                ['key' => 'customers',  'label' => 'Clients'],
+                ['key' => 'suppliers',  'label' => 'Fournisseurs'],
+                ['key' => 'products',   'label' => 'Produits'],
+                ['key' => 'categories', 'label' => 'Catégories'],
+                ['key' => 'units',      'label' => 'Unités'],
+                ['key' => 'depots',     'label' => 'Dépôts'],
+                ['key' => 'stock',      'label' => 'Stock'],
+                ['key' => 'sales',      'label' => 'Ventes'],
+                ['key' => 'expenses',   'label' => 'Dépenses'],
+            ]],
+            ['group' => 'Restaurant', 'module' => 'restaurant', 'items' => [
+                ['key' => 'restaurant.pos',        'label' => 'POS Commandes'],
+                ['key' => 'restaurant.orders',     'label' => 'Commandes'],
+                ['key' => 'restaurant.dishes',     'label' => 'Plats'],
+                ['key' => 'restaurant.categories', 'label' => 'Catégories Menu'],
+                ['key' => 'restaurant.services',   'label' => 'Services'],
+                ['key' => 'restaurant.cash',       'label' => 'Caisse'],
+                ['key' => 'restaurant.reports',    'label' => 'Rapports'],
+            ]],
+            ['group' => 'Quincaillerie', 'module' => 'quincaillerie', 'items' => [
+                ['key' => 'quinc.pos',              'label' => 'Caisse POS'],
+                ['key' => 'quinc.quotes',           'label' => 'Devis'],
+                ['key' => 'quinc.purchase-orders',  'label' => 'Bons de commande'],
+                ['key' => 'quinc.supplier-payments', 'label' => 'Paiements fournisseur'],
+                ['key' => 'quinc.supplier-returns',  'label' => 'Retours fournisseur'],
+                ['key' => 'quinc.credits',           'label' => 'Crédits clients'],
+                ['key' => 'quinc.inventories',       'label' => 'Inventaires'],
+                ['key' => 'quinc.reports',           'label' => 'Rapports'],
+            ]],
+            ['group' => 'Boutique', 'module' => 'boutique', 'items' => [
+                ['key' => 'boutique.pos',        'label' => 'Caisse POS'],
+                ['key' => 'boutique.variants',   'label' => 'Variantes'],
+                ['key' => 'boutique.promotions', 'label' => 'Promotions'],
+                ['key' => 'boutique.loyalty',    'label' => 'Fidélité'],
+                ['key' => 'boutique.transfers',  'label' => 'Transferts'],
+                ['key' => 'boutique.reports',    'label' => 'Rapports'],
+            ]],
+            ['group' => 'Location', 'module' => 'location', 'items' => [
+                ['key' => 'location.assets',    'label' => 'Biens'],
+                ['key' => 'location.contracts', 'label' => 'Contrats'],
+                ['key' => 'location.payments',  'label' => 'Paiements'],
+                ['key' => 'location.calendar',  'label' => 'Calendrier'],
+                ['key' => 'location.reports',   'label' => 'Rapports'],
+            ]],
+        ];
+    }
+
     public function index()
     {
         $company = $this->company();
@@ -34,12 +86,13 @@ class TeamController extends Controller
             ->orderByPivot('joined_at', 'desc')
             ->get()
             ->map(fn (User $u) => [
-                'id'        => $u->id,
-                'name'      => $u->name,
-                'email'     => $u->email,
-                'phone'     => $u->phone,
-                'role'      => $u->pivot->role,
-                'joined_at' => $u->pivot->joined_at,
+                'id'          => $u->id,
+                'name'        => $u->name,
+                'email'       => $u->email,
+                'phone'       => $u->phone,
+                'role'        => $u->pivot->role,
+                'permissions' => is_string($u->pivot->permissions) ? json_decode($u->pivot->permissions, true) : ($u->pivot->permissions ?? []),
+                'joined_at'   => $u->pivot->joined_at,
             ]);
 
         return inertia('App/Team/Index', [
@@ -53,8 +106,10 @@ class TeamController extends Controller
         $this->authorizeOwner();
 
         return inertia('App/Team/Form', [
-            'member' => null,
-            'roles'  => ['manager', 'caissier', 'magasinier'],
+            'member'            => null,
+            'roles'             => ['manager', 'caissier', 'magasinier'],
+            'allPermissions'    => $this->allPermissions(),
+            'activeModuleCodes' => $this->company()->modules()->pluck('code')->toArray(),
         ]);
     }
 
@@ -64,11 +119,13 @@ class TeamController extends Controller
         $company = $this->company();
 
         $validated = $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'max:255'],
-            'phone'    => ['nullable', 'string', 'max:20'],
-            'password' => ['required', 'string', 'min:8'],
-            'role'     => ['required', Rule::in(['manager', 'caissier', 'magasinier'])],
+            'name'          => ['required', 'string', 'max:255'],
+            'email'         => ['required', 'email', 'max:255'],
+            'phone'         => ['nullable', 'string', 'max:20'],
+            'password'      => ['required', 'string', 'min:8'],
+            'role'          => ['required', Rule::in(['manager', 'caissier', 'magasinier'])],
+            'permissions'   => ['nullable', 'array'],
+            'permissions.*' => ['string'],
         ]);
 
         // Check if user with this email already exists
@@ -89,9 +146,10 @@ class TeamController extends Controller
         }
 
         $company->users()->attach($user->id, [
-            'role'       => $validated['role'],
-            'joined_at'  => now(),
-            'invited_by' => auth()->id(),
+            'role'        => $validated['role'],
+            'permissions' => json_encode($validated['permissions'] ?? []),
+            'joined_at'   => now(),
+            'invited_by'  => auth()->id(),
         ]);
 
         // Assign Spatie role
@@ -118,13 +176,16 @@ class TeamController extends Controller
 
         return inertia('App/Team/Form', [
             'member' => [
-                'id'    => $user->id,
-                'name'  => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'role'  => $user->pivot->role,
+                'id'          => $user->id,
+                'name'        => $user->name,
+                'email'       => $user->email,
+                'phone'       => $user->phone,
+                'role'        => $user->pivot->role,
+                'permissions' => is_string($user->pivot->permissions) ? json_decode($user->pivot->permissions, true) : ($user->pivot->permissions ?? []),
             ],
-            'roles' => ['manager', 'caissier', 'magasinier'],
+            'roles'             => ['manager', 'caissier', 'magasinier'],
+            'allPermissions'    => $this->allPermissions(),
+            'activeModuleCodes' => $this->company()->modules()->pluck('code')->toArray(),
         ]);
     }
 
@@ -140,10 +201,12 @@ class TeamController extends Controller
         }
 
         $validated = $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'phone'    => ['nullable', 'string', 'max:20'],
-            'password' => ['nullable', 'string', 'min:8'],
-            'role'     => ['required', Rule::in(['manager', 'caissier', 'magasinier'])],
+            'name'          => ['required', 'string', 'max:255'],
+            'phone'         => ['nullable', 'string', 'max:20'],
+            'password'      => ['nullable', 'string', 'min:8'],
+            'role'          => ['required', Rule::in(['manager', 'caissier', 'magasinier'])],
+            'permissions'   => ['nullable', 'array'],
+            'permissions.*' => ['string'],
         ]);
 
         $user->update([
@@ -155,9 +218,10 @@ class TeamController extends Controller
             $user->update(['password' => Hash::make($validated['password'])]);
         }
 
-        // Update pivot role
+        // Update pivot role + permissions
         $company->users()->updateExistingPivot($user->id, [
-            'role' => $validated['role'],
+            'role'        => $validated['role'],
+            'permissions' => json_encode($validated['permissions'] ?? []),
         ]);
 
         // Sync Spatie role
