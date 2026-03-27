@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -35,10 +36,22 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+        $userData = null;
+
+        if ($user) {
+            $userData = $user->toArray();
+            // Attach role in current company context
+            if (App::bound('currentCompany')) {
+                $company = App::make('currentCompany');
+                $userData['company_role'] = $user->roleInCompany($company);
+            }
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $userData,
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

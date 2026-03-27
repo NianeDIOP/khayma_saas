@@ -47,6 +47,9 @@ class ResolveTenant
             'trial_ends_at'       => $company->trial_ends_at?->toISOString(),
         ]);
 
+        // Share active modules for sidebar visibility
+        inertia()->share('activeModules', $company->modules()->get(['modules.id', 'modules.name', 'modules.code']));
+
         return $next($request);
     }
 

@@ -94,7 +94,7 @@ function submit() {
               <td>
                 <select v-model="item.unit_id" class="form-input">
                   <option value="">—</option>
-                  <option v-for="u in units" :key="u.id" :value="u.id">{{ u.abbreviation || u.name }}</option>
+                  <option v-for="u in units" :key="u.id" :value="u.id">{{ u.symbol || u.name }}</option>
                 </select>
               </td>
               <td><input v-model.number="item.quantity" type="number" min="0.01" step="0.01" class="form-input input-sm" required /></td>

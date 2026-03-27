@@ -281,4 +281,3 @@ function formatPrice(v) {
         </div>
     </AppLayout>
 </template>
-</script>

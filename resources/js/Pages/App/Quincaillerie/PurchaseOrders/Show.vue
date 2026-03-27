@@ -83,7 +83,7 @@ function deletePO() {
         <tbody>
           <tr v-for="item in po.items" :key="item.id">
             <td>{{ item.product?.name }}</td>
-            <td>{{ item.unit?.abbreviation || item.unit?.name || '—' }}</td>
+            <td>{{ item.unit?.symbol || item.unit?.name || '—' }}</td>
             <td>{{ item.quantity }}</td>
             <td>
               <span :style="{ color: item.received_quantity >= item.quantity ? '#10B981' : '#F59E0B', fontWeight: 600 }">

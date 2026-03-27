@@ -52,7 +52,7 @@ class QuoteController extends Controller
             'quote'     => null,
             'products'  => $company->products()->where('is_active', true)->with('unit')->orderBy('name')->get(),
             'customers' => $company->customers()->orderBy('name')->get(['id', 'name']),
-            'units'     => $company->units()->orderBy('name')->get(['id', 'name', 'abbreviation']),
+            'units'     => $company->units()->orderBy('name')->get(['id', 'name', 'symbol']),
         ]);
     }
 
@@ -138,7 +138,7 @@ class QuoteController extends Controller
             'quote'     => $quote,
             'products'  => $company->products()->where('is_active', true)->with('unit')->orderBy('name')->get(),
             'customers' => $company->customers()->orderBy('name')->get(['id', 'name']),
-            'units'     => $company->units()->orderBy('name')->get(['id', 'name', 'abbreviation']),
+            'units'     => $company->units()->orderBy('name')->get(['id', 'name', 'symbol']),
         ]);
     }
 

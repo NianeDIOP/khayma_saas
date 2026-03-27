@@ -81,7 +81,7 @@ function deleteQuote() {
         <tbody>
           <tr v-for="item in quote.items" :key="item.id">
             <td>{{ item.product?.name }}</td>
-            <td>{{ item.unit?.abbreviation || item.unit?.name || '—' }}</td>
+            <td>{{ item.unit?.symbol || item.unit?.name || '—' }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ fmt(item.unit_price) }}</td>
             <td>{{ fmt(item.discount) }}</td>

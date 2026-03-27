@@ -49,7 +49,7 @@ class PurchaseOrderController extends Controller
             'purchaseOrder' => null,
             'products'      => $company->products()->where('is_active', true)->with('unit')->orderBy('name')->get(),
             'suppliers'     => $company->suppliers()->orderBy('name')->get(['id', 'name']),
-            'units'         => $company->units()->orderBy('name')->get(['id', 'name', 'abbreviation']),
+            'units'         => $company->units()->orderBy('name')->get(['id', 'name', 'symbol']),
         ]);
     }
 
@@ -124,7 +124,7 @@ class PurchaseOrderController extends Controller
             'purchaseOrder' => $purchaseOrder,
             'products'      => $company->products()->where('is_active', true)->with('unit')->orderBy('name')->get(),
             'suppliers'     => $company->suppliers()->orderBy('name')->get(['id', 'name']),
-            'units'         => $company->units()->orderBy('name')->get(['id', 'name', 'abbreviation']),
+            'units'         => $company->units()->orderBy('name')->get(['id', 'name', 'symbol']),
         ]);
     }
 
