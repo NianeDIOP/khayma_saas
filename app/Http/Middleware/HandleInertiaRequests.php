@@ -36,23 +36,23 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $user = $request->user();
-        $userData = null;
-
-        if ($user) {
-            $userData = $user->toArray();
-            // Attach role in current company context
-            if (App::bound('currentCompany')) {
-                $company = App::make('currentCompany');
-                $userData['company_role'] = $user->roleInCompany($company);
-                $userData['company_permissions'] = $user->permissionsInCompany($company);
-            }
-        }
-
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $userData,
+                'user' => function () use ($request) {
+                    $user = $request->user();
+                    if (!$user) return null;
+
+                    $userData = $user->toArray();
+
+                    if (App::bound('currentCompany')) {
+                        $company = App::make('currentCompany');
+                        $userData['company_role'] = $user->roleInCompany($company);
+                        $userData['company_permissions'] = $user->permissionsInCompany($company);
+                    }
+
+                    return $userData;
+                },
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

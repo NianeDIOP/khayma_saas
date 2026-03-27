@@ -26,6 +26,19 @@ class TeamController extends Controller
         }
     }
 
+    private function roleDefaults(): array
+    {
+        return [
+            'manager'    => ['dashboard','customers','suppliers','products','categories','units','depots','stock','sales','expenses',
+                             'restaurant.pos','restaurant.orders','restaurant.dishes','restaurant.categories','restaurant.services','restaurant.cash','restaurant.reports',
+                             'quinc.pos','quinc.quotes','quinc.purchase-orders','quinc.supplier-payments','quinc.supplier-returns','quinc.credits','quinc.inventories','quinc.reports',
+                             'boutique.pos','boutique.variants','boutique.promotions','boutique.loyalty','boutique.transfers','boutique.reports',
+                             'location.assets','location.contracts','location.payments','location.calendar','location.reports'],
+            'caissier'   => ['dashboard','customers','sales','restaurant.pos','restaurant.orders','restaurant.cash','quinc.pos','quinc.credits','boutique.pos','location.payments'],
+            'magasinier' => ['dashboard','suppliers','products','categories','units','depots','stock','quinc.inventories','boutique.transfers'],
+        ];
+    }
+
     private function allPermissions(): array
     {
         return [
@@ -110,6 +123,7 @@ class TeamController extends Controller
             'roles'             => ['manager', 'caissier', 'magasinier'],
             'allPermissions'    => $this->allPermissions(),
             'activeModuleCodes' => $this->company()->modules()->pluck('code')->toArray(),
+            'roleDefaults'      => $this->roleDefaults(),
         ]);
     }
 
@@ -186,6 +200,7 @@ class TeamController extends Controller
             'roles'             => ['manager', 'caissier', 'magasinier'],
             'allPermissions'    => $this->allPermissions(),
             'activeModuleCodes' => $this->company()->modules()->pluck('code')->toArray(),
+            'roleDefaults'      => $this->roleDefaults(),
         ]);
     }
 

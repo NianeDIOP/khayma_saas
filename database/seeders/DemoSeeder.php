@@ -127,7 +127,12 @@ class DemoSeeder extends Seeder
             ['name' => 'Fatou Sow', 'password' => Hash::make('Password1!'), 'is_super_admin' => false]
         );
         $this->company->users()->syncWithoutDetaching([
-            $this->manager->id => ['role' => 'manager', 'joined_at' => now()->subMonths(4)],
+            $this->manager->id => ['role' => 'manager', 'joined_at' => now()->subMonths(4),
+                'permissions' => json_encode(['dashboard','customers','suppliers','products','categories','units','depots','stock','sales','expenses',
+                    'restaurant.pos','restaurant.orders','restaurant.dishes','restaurant.categories','restaurant.services','restaurant.cash','restaurant.reports',
+                    'quinc.pos','quinc.quotes','quinc.purchase-orders','quinc.supplier-payments','quinc.supplier-returns','quinc.credits','quinc.inventories','quinc.reports',
+                    'boutique.pos','boutique.variants','boutique.promotions','boutique.loyalty','boutique.transfers','boutique.reports',
+                    'location.assets','location.contracts','location.payments','location.calendar','location.reports'])],
         ]);
         if (!$this->manager->hasRole('manager')) $this->manager->assignRole('manager');
 
@@ -137,7 +142,8 @@ class DemoSeeder extends Seeder
             ['name' => 'Awa Ndiaye', 'password' => Hash::make('Password1!'), 'is_super_admin' => false]
         );
         $this->company->users()->syncWithoutDetaching([
-            $this->caissier->id => ['role' => 'caissier', 'joined_at' => now()->subMonths(3)],
+            $this->caissier->id => ['role' => 'caissier', 'joined_at' => now()->subMonths(3),
+                'permissions' => json_encode(['dashboard','customers','sales','restaurant.pos','restaurant.orders','restaurant.cash','quinc.pos','quinc.credits','boutique.pos','location.payments'])],
         ]);
         if (!$this->caissier->hasRole('caissier')) $this->caissier->assignRole('caissier');
 
@@ -147,7 +153,8 @@ class DemoSeeder extends Seeder
             ['name' => 'Ibrahima Fall', 'password' => Hash::make('Password1!'), 'is_super_admin' => false]
         );
         $this->company->users()->syncWithoutDetaching([
-            $this->magasinier->id => ['role' => 'magasinier', 'joined_at' => now()->subMonths(2)],
+            $this->magasinier->id => ['role' => 'magasinier', 'joined_at' => now()->subMonths(2),
+                'permissions' => json_encode(['dashboard','suppliers','products','categories','units','depots','stock','quinc.inventories','boutique.transfers'])],
         ]);
         if (!$this->magasinier->hasRole('magasinier')) $this->magasinier->assignRole('magasinier');
 

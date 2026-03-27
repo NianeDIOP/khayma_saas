@@ -51,7 +51,7 @@ const userRole = computed(() => {
     const u = user.value
     if (!u) return null
     if (u.is_super_admin) return 'super_admin'
-    return u.company_role || 'owner'
+    return u.company_role || null
 })
 
 // ── Detect active modules ──
@@ -63,27 +63,16 @@ function hasModule(code) {
 // ── Permission checks ──
 // Owner & super_admin see everything.
 // Other roles: check explicit permissions array from pivot.
-// If permissions is null (legacy), fall back to role defaults.
 const userPermissions = computed(() => user.value?.company_permissions || null)
-
-const roleDefaults = {
-    manager:    ['dashboard','customers','suppliers','products','categories','units','depots','stock','sales','expenses',
-                 'restaurant.pos','restaurant.orders','restaurant.dishes','restaurant.categories','restaurant.services','restaurant.cash','restaurant.reports',
-                 'quinc.pos','quinc.quotes','quinc.purchase-orders','quinc.supplier-payments','quinc.supplier-returns','quinc.credits','quinc.inventories','quinc.reports',
-                 'boutique.pos','boutique.variants','boutique.promotions','boutique.loyalty','boutique.transfers','boutique.reports',
-                 'location.assets','location.contracts','location.payments','location.calendar','location.reports'],
-    caissier:   ['dashboard','customers','sales','restaurant.pos','restaurant.orders','restaurant.cash','quinc.pos','quinc.credits','boutique.pos','location.payments'],
-    magasinier: ['dashboard','suppliers','products','categories','units','depots','stock','quinc.inventories','boutique.transfers'],
-}
 
 function can(section) {
     const r = userRole.value
     if (!r) return false
     if (r === 'super_admin' || r === 'owner') return true
-    // If explicit permissions set by owner, use them
-    if (userPermissions.value) return userPermissions.value.includes(section)
-    // Fallback to role defaults
-    return (roleDefaults[r] || []).includes(section)
+    // Use explicit permissions assigned by owner
+    if (Array.isArray(userPermissions.value)) return userPermissions.value.includes(section)
+    // No permissions set yet → no access
+    return false
 }
 </script>
 

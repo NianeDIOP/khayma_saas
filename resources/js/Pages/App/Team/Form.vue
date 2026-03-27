@@ -1,6 +1,6 @@
 <script setup>
 import { useForm, Link, usePage } from '@inertiajs/vue3'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 
 const props = defineProps({
@@ -8,6 +8,7 @@ const props = defineProps({
     roles: Array,
     allPermissions: Array,
     activeModuleCodes: Array,
+    roleDefaults: Object,
 })
 
 const page = usePage()
@@ -21,6 +22,18 @@ const form = useForm({
     password:    '',
     role:        props.member?.role        || 'manager',
     permissions: props.member?.permissions || [],
+})
+
+// When creating and no permissions yet, pre-select from role defaults
+if (!isEdit && form.permissions.length === 0 && props.roleDefaults) {
+    form.permissions = [...(props.roleDefaults[form.role] || [])]
+}
+
+// When role changes on create, reset permissions to role defaults
+watch(() => form.role, (newRole) => {
+    if (!isEdit && props.roleDefaults) {
+        form.permissions = [...(props.roleDefaults[newRole] || [])]
+    }
 })
 
 const roleLabels = {
