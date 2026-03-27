@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick, watch } from 'vue'
 import { Link, usePage, router } from '@inertiajs/vue3'
 
 defineProps({ title: { type: String, default: 'Espace entreprise' } })
@@ -13,15 +13,22 @@ const sidebarNavRef = ref(null)
 function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
 
 // ── Preserve sidebar scroll position across Inertia navigations ──
-let savedScrollTop = 0
-router.on('before', () => {
-    if (sidebarNavRef.value) savedScrollTop = sidebarNavRef.value.scrollTop
-})
-router.on('finish', () => {
+function saveSidebarScroll() {
+    if (sidebarNavRef.value) {
+        sessionStorage.setItem('sidebar-scroll', sidebarNavRef.value.scrollTop)
+    }
+}
+function restoreSidebarScroll() {
     nextTick(() => {
-        if (sidebarNavRef.value) sidebarNavRef.value.scrollTop = savedScrollTop
+        const saved = sessionStorage.getItem('sidebar-scroll')
+        if (sidebarNavRef.value && saved) {
+            sidebarNavRef.value.scrollTop = parseInt(saved, 10)
+        }
     })
-})
+}
+onMounted(restoreSidebarScroll)
+router.on('before', saveSidebarScroll)
+router.on('navigate', restoreSidebarScroll)
 
 // ── Detect user role in current company ──
 const userRole = computed(() => {
@@ -86,6 +93,7 @@ function can(section) {
         'location.payments':  ['manager', 'caissier'],
         'location.calendar':  ['manager'],
         'location.reports':   ['manager'],
+        team:                 [],
     }
     return (map[section] || []).includes(r)
 }
@@ -130,6 +138,10 @@ function can(section) {
         <Link v-if="can('settings')" :href="route('app.settings', { _tenant: company?.slug })"
           :class="['nav-item', { active: $page.url.includes('/settings') }]">
           <i class="fa-solid fa-gear" style="color:#8B5CF6"></i> <span>Paramètres</span>
+        </Link>
+        <Link v-if="can('team')" :href="route('app.team.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/team') }]">
+          <i class="fa-solid fa-users" style="color:#6366F1"></i> <span>Équipe</span>
         </Link>
 
         <!-- Gestion -->

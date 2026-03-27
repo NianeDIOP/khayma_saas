@@ -48,6 +48,7 @@ use App\Http\Controllers\App\Location\ContractController;
 use App\Http\Controllers\App\Location\PaymentController as RentalPaymentController;
 use App\Http\Controllers\App\Location\CalendarController;
 use App\Http\Controllers\App\Location\ReportController as LocationReportController;
+use App\Http\Controllers\App\TeamController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -97,6 +98,14 @@ Route::middleware(['tenant', 'auth', 'subscription'])
          // Paramètres entreprise
          Route::get('/settings',     [SettingsController::class, 'index'])->name('settings');
          Route::put('/settings',     [SettingsController::class, 'update'])->name('settings.update');
+
+         // Équipe (gestion des membres)
+         Route::get('/team',              [TeamController::class, 'index'])->name('team.index');
+         Route::get('/team/create',       [TeamController::class, 'create'])->name('team.create');
+         Route::post('/team',             [TeamController::class, 'store'])->name('team.store');
+         Route::get('/team/{user}/edit',  [TeamController::class, 'edit'])->name('team.edit');
+         Route::put('/team/{user}',       [TeamController::class, 'update'])->name('team.update');
+         Route::delete('/team/{user}',    [TeamController::class, 'destroy'])->name('team.destroy');
 
          // Clients
          Route::resource('customers', CustomerController::class);
