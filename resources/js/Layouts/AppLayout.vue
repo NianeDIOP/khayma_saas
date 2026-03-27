@@ -162,6 +162,34 @@ function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
           :class="['nav-item', { active: $page.url.includes('/quincaillerie/reports') }]">
           <i class="fa-solid fa-chart-bar" style="color:#EC4899"></i> <span>Rapports Quinc.</span>
         </Link>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">Boutique</div>
+
+        <Link :href="route('app.boutique.pos.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/boutique/pos') }]">
+          <i class="fa-solid fa-cash-register" style="color:#10B981"></i> <span>Caisse POS</span>
+        </Link>
+        <Link :href="route('app.boutique.variants.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/boutique/variants') }]">
+          <i class="fa-solid fa-swatchbook" style="color:#6366F1"></i> <span>Variantes</span>
+        </Link>
+        <Link :href="route('app.boutique.promotions.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/boutique/promotions') }]">
+          <i class="fa-solid fa-tags" style="color:#F59E0B"></i> <span>Promotions</span>
+        </Link>
+        <Link :href="route('app.boutique.loyalty.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/boutique/loyalty') }]">
+          <i class="fa-solid fa-heart" style="color:#EC4899"></i> <span>Fidélité</span>
+        </Link>
+        <Link :href="route('app.boutique.transfers.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/boutique/transfers') }]">
+          <i class="fa-solid fa-right-left" style="color:#0EA5E9"></i> <span>Transferts</span>
+        </Link>
+        <Link :href="route('app.boutique.reports.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/boutique/reports') }]">
+          <i class="fa-solid fa-chart-pie" style="color:#8B5CF6"></i> <span>Rapports Boutique</span>
+        </Link>
       </nav>
       <div class="sidebar-footer">
         <a href="/" class="nav-item">

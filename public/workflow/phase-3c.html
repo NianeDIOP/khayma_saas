@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phase 3C — Module Boutique / POS · Khayma</title>
+  <meta name="csrf-token" content="" />
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .date-band {
+      display: flex; align-items: center; gap: 20px;
+      background: #ECFDF5; border: 1px solid #A7F3D0;
+      border-left: 3px solid #10B981;
+      padding: 8px 14px; font-size: 0.78rem; color: #065F46; margin-bottom: 20px;
+    }
+    .date-band i { color: #10B981; }
+    .date-item { display: flex; align-items: center; gap: 6px; }
+    .date-item strong { color: #111827; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="kh-header">
+  <a class="kh-logo" href="index.html">
+    <img src="logo.png" alt="Khayma" style="height:46px;width:auto;display:block;" />
+  </a>
+  <div class="kh-header-sep"></div>
+  <span class="kh-header-sub" style="font-size:0.85rem;font-weight:700;color:#111827;">Workflow de développement</span>
+  <div class="kh-header-right">
+    <div class="kh-prog-chip">
+      <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 3C</span>
+      <div class="kh-prog-track">
+        <div class="kh-prog-fill" id="phaseFill" style="width:0%;background:#10B981;"></div>
+      </div>
+      <span class="kh-prog-pct" id="phasePct">0%</span>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="kh-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="kh-sidebar">
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Prérequis</div>
+      <a class="kh-sidebar-item" href="phase-0.html">
+        <i class="fa-solid fa-gear si-icon" style="color:#F59E0B"></i>
+        <span class="si-label">Phase 0 — Installation</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 1 — Fondations</div>
+      <a class="kh-sidebar-item" href="phase-1a.html">
+        <i class="fa-brands fa-laravel si-icon" style="color:#FF2D20"></i>
+        <span class="si-label">1A — Laravel &amp; Architecture</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1b.html">
+        <i class="fa-solid fa-database si-icon" style="color:#3B82F6"></i>
+        <span class="si-label">1B — Base de données</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1c.html">
+        <i class="fa-solid fa-building si-icon" style="color:#8B5CF6"></i>
+        <span class="si-label">1C — Multi-Tenant</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1d.html">
+        <i class="fa-solid fa-lock si-icon" style="color:#D97706"></i>
+        <span class="si-label">1D — Auth &amp; RBAC</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-1e.html">
+        <i class="fa-solid fa-shield-halved si-icon" style="color:#6366F1"></i>
+        <span class="si-label">1E — Backoffice Admin</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 2 — Espace Entreprise</div>
+      <a class="kh-sidebar-item" href="phase-2a.html">
+        <i class="fa-solid fa-house si-icon" style="color:#14B8A6"></i>
+        <span class="si-label">2A — Onboarding &amp; Dashboard</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-2b.html">
+        <i class="fa-solid fa-users si-icon" style="color:#2563EB"></i>
+        <span class="si-label">2B — Clients &amp; Fournisseurs</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-2c.html">
+        <i class="fa-solid fa-boxes-stacked si-icon" style="color:#F59E0B"></i>
+        <span class="si-label">2C — Stock &amp; Caisse</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 3 — Modules métier</div>
+      <a class="kh-sidebar-item" href="phase-3a.html">
+        <i class="fa-solid fa-utensils si-icon" style="color:#EF4444"></i>
+        <span class="si-label">3A — Restaurant</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3b.html">
+        <i class="fa-solid fa-wrench si-icon" style="color:#64748B"></i>
+        <span class="si-label">3B — Quincaillerie</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item is-active" href="phase-3c.html">
+        <i class="fa-solid fa-cart-shopping si-icon" style="color:#10B981"></i>
+        <span class="si-label">3C — Boutique / POS</span>
+        <span class="si-dot si-dot-done"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-3d.html">
+        <i class="fa-solid fa-key si-icon" style="color:#D97706"></i>
+        <span class="si-label">3D — Location</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+
+    <div class="kh-sidebar-divider"></div>
+
+    <div class="kh-sidebar-group">
+      <div class="kh-sidebar-title">Phase 4 — Finalisation</div>
+      <a class="kh-sidebar-item" href="phase-4a.html">
+        <i class="fa-solid fa-flask si-icon" style="color:#8B5CF6"></i>
+        <span class="si-label">4A — Tests &amp; Sécurité</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+      <a class="kh-sidebar-item" href="phase-4b.html">
+        <i class="fa-solid fa-rocket si-icon" style="color:#3B82F6"></i>
+        <span class="si-label">4B — Déploiement OVH</span>
+        <span class="si-dot si-dot-todo"></span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="kh-content">
+
+    <!-- Breadcrumb -->
+    <div class="kh-breadcrumb">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Hub</a>
+      <i class="fa-solid fa-chevron-right" style="font-size:0.6rem;"></i>
+      <span class="kh-breadcrumb-current">Phase 3C — Module Boutique / POS</span>
+    </div>
+
+    <!-- Page title -->
+    <div class="kh-page-title" style="margin-top:20px;">
+      <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #10B981;line-height:1.3;">
+        Phase 3C
+        <span style="display:block;color:#10B981;font-weight:800;">Module Boutique / POS</span>
+      </h1>
+      <p style="font-size:0.82rem;color:#6B7280;max-width:560px;padding-left:15px;margin-top:6px;">
+        5 migrations (variantes, promotions, fidélité, transferts, champs boutique), 8 modèles + 4 MAJ, 6 contrôleurs, ~20 routes, 12 pages Vue, 4 factories et 6 fichiers de tests PHPUnit.
+      </p>
+    </div>
+
+    <!-- Date band -->
+    <div class="date-band">
+      <div class="date-item"><i class="fa-solid fa-calendar-day"></i> Début : <strong id="dateStart">—</strong></div>
+      <div class="date-item"><i class="fa-solid fa-calendar-check"></i> Validation : <strong id="dateEnd">—</strong></div>
+      <div class="date-item" style="margin-left:auto;"><i class="fa-solid fa-clock"></i> Durée : <strong id="dateDuration">—</strong></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="kh-phase-stats">
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-done">0</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-check" style="color:#10B981"></i> Tâches complétées</div>
+      </div>
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-total">0</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-list-check" style="color:#10B981"></i> Tâches totales</div>
+      </div>
+      <div class="kh-stat">
+        <div class="kh-stat-value" id="stat-pct" style="color:#10B981;">0%</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-percent" style="color:#10B981"></i> Progression</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 3C.1 — Migrations (5 tables)
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-3c1">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#10B981;">3C.1</div>
+        <div class="kh-step-info">
+          <h3>Migrations — 5 fichiers</h3>
+          <p>product_variants + variant_stock_items, promotions, loyalty_configs + loyalty_transactions, depot_transfers + items, boutique fields on existing tables.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron open"></i>
+        </div>
+      </div>
+      <div class="kh-step-body open">
+        <ul class="kh-tasks" id="tasks-3c1">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>product_variants</code> + <code>variant_stock_items</code> — variantes produit avec SKU, barcode, attributs JSONB, stock par dépôt <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>promotions</code> — type percentage/fixed, dates, is_active, index company+product <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>loyalty_configs</code> + <code>loyalty_transactions</code> — programme fidélité avec seuils et historique <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>depot_transfers</code> + <code>depot_transfer_items</code> — transferts inter-dépôts avec statut <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>sale_items</code>, <code>stock_movements</code>, <code>sales</code> — ajout product_variant_id, depot_id, loyalty fields <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 3C.2 — Models + Factories
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-3c2">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#10B981;">3C.2</div>
+        <div class="kh-step-info">
+          <h3>Modèles (8 new + 4 updated) + Factories (4)</h3>
+          <p>ProductVariant, VariantStockItem, Promotion, LoyaltyConfig, LoyaltyTransaction, DepotTransfer, DepotTransferItem + MAJ Product, Customer, Sale, Company.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-3c2">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>ProductVariant</code> — attributs JSONB, effectivePrice, effectivePurchasePrice, scopeForCompany <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>Promotion</code> — scopeActive, getDiscountedPrice(float) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>LoyaltyConfig</code> — calculatePoints(amount), calculateRedemptionValue(points) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>DepotTransfer</code>, <code>DepotTransferItem</code>, <code>VariantStockItem</code>, <code>LoyaltyTransaction</code> <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">MAJ Product (variants, promotions, activePromotion), Customer (loyaltyTransactions), Sale (depot, loyalty), Company (5 relations) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">4 Factories — ProductVariant, Promotion, LoyaltyConfig, DepotTransfer <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 3C.3 — Controllers + Routes
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-3c3">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#10B981;">3C.3</div>
+        <div class="kh-step-info">
+          <h3>Contrôleurs (6) + Routes (~20)</h3>
+          <p>PosController, VariantController, PromotionController, LoyaltyController, TransferController, ReportController.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-3c3">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>PosController</code> — index (produits+promos+variantes+stock), store (vente POS + fidélité + crédit), receipt <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>VariantController</code> — CRUD complet avec validation SKU/barcode unique <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>PromotionController</code> — CRUD avec filtre active_only <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>LoyaltyController</code> — index (config + transactions + top clients + stats), updateConfig <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>TransferController</code> — index, create, store (stock moves + variant stock), show <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>ReportController</code> — KPI (CA, paniers, profit), ventilation paiements/catégories, stocks, dettes, fidélité <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">~20 routes sous <code>app.boutique.*</code> préfixe (POS, variants, promotions, loyalty, transfers, reports) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 3C.4 — Vue Pages (12) + Sidebar
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-3c4">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#10B981;">3C.4</div>
+        <div class="kh-step-info">
+          <h3>Pages Vue Inertia (12) + Sidebar</h3>
+          <p>Caisse POS (2), Variantes (2), Promotions (2), Fidélité (1), Transferts (3), Rapports (1), + sidebar Boutique.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-3c4">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Pos — Index.vue (grille produits, scan barcode, panier, promotions, fidélité, multi-paiement), Receipt.vue (ticket imprimable) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Variants — Index.vue (liste + recherche + filtre produit), Form.vue (attributs dynamiques key-value) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Promotions — Index.vue (liste + filtre actives), Form.vue (percentage/fixed, dates) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Loyalty — Index.vue (config, stats, top clients, transactions avec filtres) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Transfers — Index.vue, Form.vue (lignes dynamiques), Show.vue (détail transfert) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">Reports — Index.vue (8 KPI, filtres date, top produits, ventilation paiements/catégories, dettes, alertes stock, fidélité, stock par dépôt) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text">AppLayout sidebar — section Boutique avec 6 liens colorés (Caisse POS, Variantes, Promotions, Fidélité, Transferts, Rapports) <span class="kh-tag tag-dev">dev</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STEP 3C.5 — Tests
+    ══════════════════════════════════ -->
+    <div class="kh-step" id="step-3c5">
+      <div class="kh-step-header" onclick="toggleStep(this)">
+        <div class="kh-step-num" style="background:#10B981;">3C.5</div>
+        <div class="kh-step-info">
+          <h3>Tests PHPUnit (6 fichiers)</h3>
+          <p>PosTest, VariantTest, PromotionTest, LoyaltyTest, TransferTest, ReportTest.</p>
+        </div>
+        <div class="kh-step-right">
+          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
+        </div>
+      </div>
+      <div class="kh-step-body">
+        <ul class="kh-tasks" id="tasks-3c5">
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>PosTest</code> — 10 tests (vente cash, crédit, fidélité, variante, remise, ticket) <span class="kh-tag tag-test">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>VariantTest</code> — 9 tests (CRUD, SKU unique, recherche) <span class="kh-tag tag-test">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>PromotionTest</code> — 10 tests (CRUD, validation, filtre actives) <span class="kh-tag tag-test">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>LoyaltyTest</code> — 6 tests (config, transactions, calcul points, filtres) <span class="kh-tag tag-test">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>TransferTest</code> — 8 tests (index, create, store avec stock, variante, validation, show, filtre statut) <span class="kh-tag tag-test">test</span></span>
+          </li>
+          <li class="kh-task">
+            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text done-text"><code>ReportTest</code> — 7 tests (KPI, filtres dates, fidélité, alertes stock, dettes, stock dépôts) <span class="kh-tag tag-test">test</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Validation note -->
+    <div class="kh-validation-note" id="validationNote" style="display:none;">
+      <i class="fa-solid fa-circle-check" style="color:#10B981;font-size:1.1rem;"></i>
+      <div>
+        <strong>Phase 3C terminée.</strong>
+        <span style="color:#6B7280;">Module Boutique / POS complet — caisse POS, variantes, promotions, fidélité, transferts inter-dépôts, rapports. Commit et push effectués.</span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const PHASE_KEY = 'phase3c';
+let _cachedProgress = {};
+
+function toggleStep(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.kh-step-chevron');
+  body.classList.toggle('open');
+  if (chevron) chevron.classList.toggle('open');
+}
+function toggleTask(cb) {
+  cb.classList.toggle('checked');
+  cb.nextElementSibling.classList.toggle('done-text');
+  saveProgress();
+  updateStats();
+}
+async function saveProgress() {
+  const data = {};
+  document.querySelectorAll('.kh-tasks').forEach(ul => {
+    const states = [];
+    ul.querySelectorAll('.kh-task-cb').forEach(cb => states.push(cb.classList.contains('checked')));
+    data[ul.id] = states;
+  });
+  _cachedProgress.step_states = data;
+  localStorage.setItem('khayma_fallback_' + PHASE_KEY, JSON.stringify(_cachedProgress));
+  try {
+    const token = document.querySelector('meta[name="csrf-token"]')?.content;
+    await fetch(`/api/workflow/${PHASE_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', ...(token ? { 'X-CSRF-TOKEN': token } : {}) },
+      body: JSON.stringify({ step_states: data }),
+    });
+  } catch(e) { /* offline fallback saved above */ }
+}
+function updateDates(data) {
+  if (data.started_at) document.getElementById('dateStart').textContent = new Date(data.started_at).toLocaleDateString('fr-FR');
+  if (data.validated_at) document.getElementById('dateEnd').textContent = new Date(data.validated_at).toLocaleDateString('fr-FR');
+  if (data.started_at && data.validated_at) {
+    const diff = Math.ceil((new Date(data.validated_at) - new Date(data.started_at)) / 86400000);
+    document.getElementById('dateDuration').textContent = diff + ' jour' + (diff > 1 ? 's' : '');
+  }
+}
+function updateStepBadges() {
+  document.querySelectorAll('.kh-step').forEach(step => {
+    const boxes = step.querySelectorAll('.kh-task-cb');
+    const checked = step.querySelectorAll('.kh-task-cb.checked');
+    const badge = step.querySelector('.kh-badge');
+    if (!badge || !boxes.length) return;
+    if (checked.length === boxes.length)      { badge.className = 'kh-badge kh-badge-done'; badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Validé'; }
+    else if (checked.length > 0)              { badge.className = 'kh-badge kh-badge-wip';  badge.innerHTML = '<i class="fa-solid fa-spinner"></i> En cours'; }
+    else                                      { badge.className = 'kh-badge kh-badge-todo'; badge.innerHTML = '<i class="fa-regular fa-circle"></i> À faire'; }
+  });
+}
+function updateStats() {
+  const checkboxes = document.querySelectorAll('.kh-task-cb');
+  const total = checkboxes.length;
+  const done  = document.querySelectorAll('.kh-task-cb.checked').length;
+  const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('stat-done').textContent  = done;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-pct').textContent   = pct + '%';
+  document.getElementById('phaseFill').style.width  = pct + '%';
+  document.getElementById('phasePct').textContent   = pct + '%';
+  const note = document.getElementById('validationNote');
+  if (note) note.style.display = (done === total && total > 0) ? 'flex' : 'none';
+  updateStepBadges();
+}
+async function loadProgress() {
+  try {
+    const res  = await fetch(`/api/workflow/${PHASE_KEY}`, { headers: { 'Accept': 'application/json' } });
+    const data = await res.json();
+    _cachedProgress = data;
+    if (data.step_states) {
+      Object.entries(data.step_states).forEach(([ulId, states]) => {
+        const ul = document.getElementById(ulId);
+        if (!ul) return;
+        ul.querySelectorAll('.kh-task-cb').forEach((cb, i) => {
+          if (typeof states[i] !== 'undefined') {
+            cb.classList.toggle('checked', states[i]);
+            cb.nextElementSibling.classList.toggle('done-text', states[i]);
+          }
+        });
+      });
+    }
+    updateDates(data);
+  } catch(e) {
+    const fallback = localStorage.getItem('khayma_fallback_' + PHASE_KEY);
+    if (fallback) {
+      const data = JSON.parse(fallback);
+      if (data.step_states) {
+        Object.entries(data.step_states).forEach(([ulId, states]) => {
+          const ul = document.getElementById(ulId);
+          if (!ul) return;
+          ul.querySelectorAll('.kh-task-cb').forEach((cb, i) => {
+            if (typeof states[i] !== 'undefined') {
+              cb.classList.toggle('checked', states[i]);
+              cb.nextElementSibling.classList.toggle('done-text', states[i]);
+            }
+          });
+        });
+      }
+    }
+  }
+  updateStats();
+}
+loadProgress();
+</script>
+</body>
+</html>

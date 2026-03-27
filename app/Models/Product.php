@@ -66,6 +66,21 @@ class Product extends Model
                     ->withTimestamps();
     }
 
+    public function variants(): HasMany
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(Promotion::class);
+    }
+
+    public function activePromotion()
+    {
+        return $this->promotions()->active()->first();
+    }
+
     public function scopeForCompany($query, int $companyId)
     {
         return $query->where('company_id', $companyId);

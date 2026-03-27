@@ -160,6 +160,33 @@ class Company extends Model
         return $this->hasMany(Inventory::class);
     }
 
+    // ── Boutique / POS ────────────────────────────────────────
+
+    public function productVariants(): HasMany
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(Promotion::class);
+    }
+
+    public function loyaltyConfig()
+    {
+        return $this->hasOne(LoyaltyConfig::class);
+    }
+
+    public function loyaltyTransactions(): HasMany
+    {
+        return $this->hasMany(LoyaltyTransaction::class);
+    }
+
+    public function depotTransfers(): HasMany
+    {
+        return $this->hasMany(DepotTransfer::class);
+    }
+
     // ── Scopes ────────────────────────────────────────────────
 
     public function scopeActive($query)

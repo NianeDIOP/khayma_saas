@@ -37,6 +37,12 @@ use App\Http\Controllers\App\Quincaillerie\SupplierReturnController;
 use App\Http\Controllers\App\Quincaillerie\CreditController;
 use App\Http\Controllers\App\Quincaillerie\InventoryController;
 use App\Http\Controllers\App\Quincaillerie\ReportController as QuincaillerieReportController;
+use App\Http\Controllers\App\Boutique\PosController;
+use App\Http\Controllers\App\Boutique\VariantController;
+use App\Http\Controllers\App\Boutique\PromotionController;
+use App\Http\Controllers\App\Boutique\LoyaltyController;
+use App\Http\Controllers\App\Boutique\TransferController;
+use App\Http\Controllers\App\Boutique\ReportController as BoutiqueReportController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -182,6 +188,33 @@ Route::middleware(['tenant', 'auth', 'subscription'])
 
              // Rapports Quincaillerie
              Route::get('/reports', [QuincaillerieReportController::class, 'index'])->name('reports.index');
+         });
+
+         // ── Module Boutique / POS ─────────────────────────────────
+         Route::prefix('boutique')->name('boutique.')->group(function () {
+             // POS (caisse)
+             Route::get('/pos',          [PosController::class, 'index'])->name('pos.index');
+             Route::post('/pos',         [PosController::class, 'store'])->name('pos.store');
+             Route::get('/pos/{sale}/receipt', [PosController::class, 'receipt'])->name('pos.receipt');
+
+             // Variantes produits
+             Route::resource('variants', VariantController::class)->except(['show']);
+
+             // Promotions
+             Route::resource('promotions', PromotionController::class)->except(['show']);
+
+             // Fidélité
+             Route::get('/loyalty',         [LoyaltyController::class, 'index'])->name('loyalty.index');
+             Route::put('/loyalty/config',  [LoyaltyController::class, 'updateConfig'])->name('loyalty.update-config');
+
+             // Transferts inter-dépôts
+             Route::get('/transfers',          [TransferController::class, 'index'])->name('transfers.index');
+             Route::get('/transfers/create',   [TransferController::class, 'create'])->name('transfers.create');
+             Route::post('/transfers',         [TransferController::class, 'store'])->name('transfers.store');
+             Route::get('/transfers/{transfer}', [TransferController::class, 'show'])->name('transfers.show');
+
+             // Rapports Boutique
+             Route::get('/reports', [BoutiqueReportController::class, 'index'])->name('reports.index');
          });
      });
 

@@ -33,6 +33,11 @@ class Customer extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function loyaltyTransactions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(LoyaltyTransaction::class);
+    }
+
     public function scopeForCompany($query, int $companyId)
     {
         return $query->where('company_id', $companyId);

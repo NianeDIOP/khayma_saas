@@ -28,14 +28,21 @@ class Sale extends Model
         'delivery_address',
         'delivery_fee',
         'delivery_status',
+        'depot_id',
+        'loyalty_points_earned',
+        'loyalty_points_used',
+        'loyalty_discount',
     ];
 
     protected $casts = [
-        'subtotal'        => 'decimal:2',
-        'discount_amount' => 'decimal:2',
-        'tax_amount'      => 'decimal:2',
-        'total'           => 'decimal:2',
-        'delivery_fee'    => 'decimal:2',
+        'subtotal'              => 'decimal:2',
+        'discount_amount'       => 'decimal:2',
+        'tax_amount'            => 'decimal:2',
+        'total'                 => 'decimal:2',
+        'delivery_fee'          => 'decimal:2',
+        'loyalty_discount'      => 'decimal:2',
+        'loyalty_points_earned' => 'integer',
+        'loyalty_points_used'   => 'integer',
     ];
 
     public function company(): BelongsTo
@@ -61,6 +68,11 @@ class Sale extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function depot(): BelongsTo
+    {
+        return $this->belongsTo(Depot::class);
     }
 
     public function scopeForCompany($query, int $companyId)
