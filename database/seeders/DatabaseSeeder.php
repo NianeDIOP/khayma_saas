@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PlanSeeder::class,
             ModuleSeeder::class,
             CompanySeeder::class,
+            DemoSeeder::class,
         ]);
     }
 }
