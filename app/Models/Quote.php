@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Sale extends Model
+class Quote extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,25 +17,20 @@ class Sale extends Model
         'customer_id',
         'user_id',
         'reference',
-        'type',
         'status',
         'subtotal',
         'discount_amount',
-        'tax_amount',
         'total',
-        'payment_status',
         'notes',
-        'delivery_address',
-        'delivery_fee',
-        'delivery_status',
+        'valid_until',
+        'converted_sale_id',
     ];
 
     protected $casts = [
         'subtotal'        => 'decimal:2',
         'discount_amount' => 'decimal:2',
-        'tax_amount'      => 'decimal:2',
         'total'           => 'decimal:2',
-        'delivery_fee'    => 'decimal:2',
+        'valid_until'     => 'date',
     ];
 
     public function company(): BelongsTo
@@ -55,16 +50,30 @@ class Sale extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(SaleItem::class);
+        return $this->hasMany(QuoteItem::class);
     }
 
-    public function payments(): HasMany
+    public function convertedSale(): BelongsTo
     {
-        return $this->hasMany(Payment::class);
+        return $this->belongsTo(Sale::class, 'converted_sale_id');
     }
 
     public function scopeForCompany($query, int $companyId)
     {
         return $query->where('company_id', $companyId);
+    }
+
+    public static function generateReference(int $companyId): string
+    {
+        $today = now()->format('Ymd');
+        $prefix = "DEV-{$today}-";
+        $last = static::where('company_id', $companyId)
+            ->where('reference', 'like', $prefix . '%')
+            ->orderByDesc('reference')
+            ->value('reference');
+
+        $next = $last ? (int) substr($last, -4) + 1 : 1;
+
+        return $prefix . str_pad($next, 4, '0', STR_PAD_LEFT);
     }
 }

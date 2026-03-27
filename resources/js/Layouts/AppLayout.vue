@@ -130,6 +130,38 @@ function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
           :class="['nav-item', { active: $page.url.includes('/restaurant/reports') }]">
           <i class="fa-solid fa-chart-bar" style="color:#EC4899"></i> <span>Rapports</span>
         </Link>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">Quincaillerie</div>
+
+        <Link :href="route('app.quincaillerie.quotes.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/quincaillerie/quotes') }]">
+          <i class="fa-solid fa-file-invoice" style="color:#6366F1"></i> <span>Devis</span>
+        </Link>
+        <Link :href="route('app.quincaillerie.purchase-orders.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/quincaillerie/purchase-orders') }]">
+          <i class="fa-solid fa-truck" style="color:#0EA5E9"></i> <span>Bons de commande</span>
+        </Link>
+        <Link :href="route('app.quincaillerie.supplier-payments.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/quincaillerie/supplier-payments') }]">
+          <i class="fa-solid fa-money-check-dollar" style="color:#10B981"></i> <span>Paiements fourn.</span>
+        </Link>
+        <Link :href="route('app.quincaillerie.supplier-returns.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/quincaillerie/supplier-returns') }]">
+          <i class="fa-solid fa-rotate-left" style="color:#EF4444"></i> <span>Retours fourn.</span>
+        </Link>
+        <Link :href="route('app.quincaillerie.credits.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/quincaillerie/credits') }]">
+          <i class="fa-solid fa-hand-holding-dollar" style="color:#F59E0B"></i> <span>Crédits clients</span>
+        </Link>
+        <Link :href="route('app.quincaillerie.inventories.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/quincaillerie/inventories') }]">
+          <i class="fa-solid fa-clipboard-check" style="color:#8B5CF6"></i> <span>Inventaires</span>
+        </Link>
+        <Link :href="route('app.quincaillerie.reports.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/quincaillerie/reports') }]">
+          <i class="fa-solid fa-chart-bar" style="color:#EC4899"></i> <span>Rapports Quinc.</span>
+        </Link>
       </nav>
       <div class="sidebar-footer">
         <a href="/" class="nav-item">

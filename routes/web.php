@@ -30,6 +30,13 @@ use App\Http\Controllers\App\Restaurant\ServiceController;
 use App\Http\Controllers\App\Restaurant\CashSessionController;
 use App\Http\Controllers\App\Restaurant\OrderController;
 use App\Http\Controllers\App\Restaurant\ReportController as RestaurantReportController;
+use App\Http\Controllers\App\Quincaillerie\QuoteController;
+use App\Http\Controllers\App\Quincaillerie\PurchaseOrderController;
+use App\Http\Controllers\App\Quincaillerie\SupplierPaymentController;
+use App\Http\Controllers\App\Quincaillerie\SupplierReturnController;
+use App\Http\Controllers\App\Quincaillerie\CreditController;
+use App\Http\Controllers\App\Quincaillerie\InventoryController;
+use App\Http\Controllers\App\Quincaillerie\ReportController as QuincaillerieReportController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -138,6 +145,43 @@ Route::middleware(['tenant', 'auth', 'subscription'])
 
              // Rapports
              Route::get('/reports', [RestaurantReportController::class, 'index'])->name('reports.index');
+         });
+
+         // ── Module Quincaillerie ─────────────────────────────────
+         Route::prefix('quincaillerie')->name('quincaillerie.')->group(function () {
+             // Devis
+             Route::resource('quotes', QuoteController::class);
+             Route::patch('/quotes/{quote}/status', [QuoteController::class, 'updateStatus'])->name('quotes.update-status');
+             Route::post('/quotes/{quote}/convert', [QuoteController::class, 'convert'])->name('quotes.convert');
+
+             // Bons de commande fournisseur
+             Route::resource('purchase-orders', PurchaseOrderController::class);
+             Route::patch('/purchase-orders/{purchase_order}/status', [PurchaseOrderController::class, 'updateStatus'])->name('purchase-orders.update-status');
+             Route::post('/purchase-orders/{purchase_order}/receive', [PurchaseOrderController::class, 'receive'])->name('purchase-orders.receive');
+
+             // Paiements fournisseur
+             Route::get('/supplier-payments',       [SupplierPaymentController::class, 'index'])->name('supplier-payments.index');
+             Route::get('/supplier-payments/create', [SupplierPaymentController::class, 'create'])->name('supplier-payments.create');
+             Route::post('/supplier-payments',      [SupplierPaymentController::class, 'store'])->name('supplier-payments.store');
+
+             // Retours fournisseur
+             Route::get('/supplier-returns',       [SupplierReturnController::class, 'index'])->name('supplier-returns.index');
+             Route::get('/supplier-returns/create', [SupplierReturnController::class, 'create'])->name('supplier-returns.create');
+             Route::post('/supplier-returns',      [SupplierReturnController::class, 'store'])->name('supplier-returns.store');
+
+             // Crédits clients
+             Route::get('/credits',                    [CreditController::class, 'index'])->name('credits.index');
+             Route::post('/credits/{sale}/payment',    [CreditController::class, 'addPayment'])->name('credits.add-payment');
+
+             // Inventaires
+             Route::get('/inventories',                        [InventoryController::class, 'index'])->name('inventories.index');
+             Route::get('/inventories/create',                 [InventoryController::class, 'create'])->name('inventories.create');
+             Route::post('/inventories',                       [InventoryController::class, 'store'])->name('inventories.store');
+             Route::get('/inventories/{inventory}',            [InventoryController::class, 'show'])->name('inventories.show');
+             Route::post('/inventories/{inventory}/validate',  [InventoryController::class, 'validate'])->name('inventories.validate');
+
+             // Rapports Quincaillerie
+             Route::get('/reports', [QuincaillerieReportController::class, 'index'])->name('reports.index');
          });
      });
 
