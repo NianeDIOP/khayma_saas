@@ -43,6 +43,11 @@ use App\Http\Controllers\App\Boutique\PromotionController;
 use App\Http\Controllers\App\Boutique\LoyaltyController;
 use App\Http\Controllers\App\Boutique\TransferController;
 use App\Http\Controllers\App\Boutique\ReportController as BoutiqueReportController;
+use App\Http\Controllers\App\Location\AssetController as LocationAssetController;
+use App\Http\Controllers\App\Location\ContractController;
+use App\Http\Controllers\App\Location\PaymentController as RentalPaymentController;
+use App\Http\Controllers\App\Location\CalendarController;
+use App\Http\Controllers\App\Location\ReportController as LocationReportController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -215,6 +220,32 @@ Route::middleware(['tenant', 'auth', 'subscription'])
 
              // Rapports Boutique
              Route::get('/reports', [BoutiqueReportController::class, 'index'])->name('reports.index');
+         });
+
+         // ── Module Location ──────────────────────────────────────
+         Route::prefix('location')->name('location.')->group(function () {
+             // Biens locatifs
+             Route::resource('assets', LocationAssetController::class);
+
+             // Contrats
+             Route::get('/contracts',               [ContractController::class, 'index'])->name('contracts.index');
+             Route::get('/contracts/create',         [ContractController::class, 'create'])->name('contracts.create');
+             Route::post('/contracts',               [ContractController::class, 'store'])->name('contracts.store');
+             Route::get('/contracts/{contract}',     [ContractController::class, 'show'])->name('contracts.show');
+             Route::patch('/contracts/{contract}/status', [ContractController::class, 'updateStatus'])->name('contracts.update-status');
+             Route::post('/contracts/{contract}/renew',   [ContractController::class, 'renew'])->name('contracts.renew');
+             Route::post('/contracts/{contract}/return-deposit', [ContractController::class, 'returnDeposit'])->name('contracts.return-deposit');
+
+             // Paiements locatifs
+             Route::get('/payments',                     [RentalPaymentController::class, 'index'])->name('payments.index');
+             Route::post('/payments/{payment}/record',   [RentalPaymentController::class, 'recordPayment'])->name('payments.record');
+             Route::post('/payments/mark-overdue',       [RentalPaymentController::class, 'markOverdue'])->name('payments.mark-overdue');
+
+             // Calendrier
+             Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+
+             // Rapports Location
+             Route::get('/reports', [LocationReportController::class, 'index'])->name('reports.index');
          });
      });
 

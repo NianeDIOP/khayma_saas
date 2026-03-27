@@ -187,6 +187,23 @@ class Company extends Model
         return $this->hasMany(DepotTransfer::class);
     }
 
+    // ── Location ──────────────────────────────────────────────
+
+    public function rentalAssets(): HasMany
+    {
+        return $this->hasMany(RentalAsset::class);
+    }
+
+    public function rentalContracts(): HasMany
+    {
+        return $this->hasMany(RentalContract::class);
+    }
+
+    public function rentalPayments(): HasMany
+    {
+        return $this->hasMany(RentalPayment::class);
+    }
+
     // ── Scopes ────────────────────────────────────────────────
 
     public function scopeActive($query)

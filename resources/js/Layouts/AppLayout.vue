@@ -190,6 +190,30 @@ function toggleSidebar() { sidebarOpen.value = !sidebarOpen.value }
           :class="['nav-item', { active: $page.url.includes('/boutique/reports') }]">
           <i class="fa-solid fa-chart-pie" style="color:#8B5CF6"></i> <span>Rapports Boutique</span>
         </Link>
+
+        <div class="nav-divider"></div>
+        <div class="nav-section-label">Location</div>
+
+        <Link :href="route('app.location.assets.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/location/assets') }]">
+          <i class="fa-solid fa-building" style="color:#0EA5E9"></i> <span>Biens</span>
+        </Link>
+        <Link :href="route('app.location.contracts.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/location/contracts') }]">
+          <i class="fa-solid fa-file-contract" style="color:#10B981"></i> <span>Contrats</span>
+        </Link>
+        <Link :href="route('app.location.payments.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/location/payments') }]">
+          <i class="fa-solid fa-money-bill-wave" style="color:#F59E0B"></i> <span>Paiements</span>
+        </Link>
+        <Link :href="route('app.location.calendar.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/location/calendar') }]">
+          <i class="fa-solid fa-calendar-days" style="color:#8B5CF6"></i> <span>Calendrier</span>
+        </Link>
+        <Link :href="route('app.location.reports.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/location/reports') }]">
+          <i class="fa-solid fa-chart-line" style="color:#EC4899"></i> <span>Rapports Location</span>
+        </Link>
       </nav>
       <div class="sidebar-footer">
         <a href="/" class="nav-item">
