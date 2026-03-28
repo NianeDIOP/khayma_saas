@@ -66,7 +66,9 @@ const payChartSeries = computed(() => props.payValues.length ? props.payValues :
     <div v-if="stats.trial_days_left !== null" class="trial-banner">
       <i class="fa-solid fa-hourglass-half"></i>
       <span>PÃ©riode d'essai : <strong>{{ stats.trial_days_left }} jour(s)</strong> restant(s)</span>
-      <a href="#" class="trial-upgrade">Passer Ã  un plan payant</a>
+      <Link :href="route('app.payment.index', { _tenant: $page.props.currentCompany?.slug })" class="trial-upgrade">
+        Passer a un plan payant
+      </Link>
     </div>
 
     <!-- Stats cards -->

@@ -22,6 +22,11 @@ class CheckSubscription
             return $next($request);
         }
 
+        // Keep renewal/payment routes reachable even when access is blocked by subscription state.
+        if ($request->routeIs('app.payment.*')) {
+            return $next($request);
+        }
+
         $company = App::make('currentCompany');
 
         // Vérifications dans l'ordre de priorité

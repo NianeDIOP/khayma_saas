@@ -25,6 +25,11 @@ const form = useForm({
   sms_api_url: props.settings.sms_api_url || '',
   sms_api_token: props.settings.sms_api_token || '',
   sms_from: props.settings.sms_from || 'KHAYMA',
+  paydunya_mode: props.settings.paydunya_mode || 'log',
+  paydunya_env: props.settings.paydunya_env || 'test',
+  paydunya_master_key: props.settings.paydunya_master_key || '',
+  paydunya_private_key: props.settings.paydunya_private_key || '',
+  paydunya_token: props.settings.paydunya_token || '',
 })
 
 function submit() {
@@ -185,6 +190,49 @@ function submit() {
           </div>
           <p class="hint" v-if="form.sms_provider === 'api'">Pour le mode API, renseigner URL + token.</p>
           <p class="hint" v-else>En mode <strong>{{ form.sms_provider }}</strong>, aucun SMS réel n'est envoyé.</p>
+        </div>
+
+        <!-- PayDunya -->
+        <div class="section">
+          <div class="section-title"><i class="fa-solid fa-credit-card"></i> PayDunya</div>
+          <div class="form-row form-row-3">
+            <div class="field">
+              <label>Mode</label>
+              <select v-model="form.paydunya_mode" class="kh-input">
+                <option value="log">log</option>
+                <option value="fake">fake</option>
+                <option value="api">api</option>
+              </select>
+              <span v-if="form.errors.paydunya_mode" class="error">{{ form.errors.paydunya_mode }}</span>
+            </div>
+            <div class="field">
+              <label>Environnement</label>
+              <select v-model="form.paydunya_env" class="kh-input">
+                <option value="test">Sandbox / Test</option>
+                <option value="live">Production / Live</option>
+              </select>
+              <span v-if="form.errors.paydunya_env" class="error">{{ form.errors.paydunya_env }}</span>
+            </div>
+            <div class="field">
+              <label>Master Key</label>
+              <input v-model="form.paydunya_master_key" type="password" class="kh-input" placeholder="PAYDUNYA-MASTER-KEY" autocomplete="new-password" />
+              <span v-if="form.errors.paydunya_master_key" class="error">{{ form.errors.paydunya_master_key }}</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Private Key</label>
+              <input v-model="form.paydunya_private_key" type="password" class="kh-input" placeholder="PAYDUNYA-PRIVATE-KEY" autocomplete="new-password" />
+              <span v-if="form.errors.paydunya_private_key" class="error">{{ form.errors.paydunya_private_key }}</span>
+            </div>
+            <div class="field">
+              <label>Token</label>
+              <input v-model="form.paydunya_token" type="password" class="kh-input" placeholder="PAYDUNYA-TOKEN" autocomplete="new-password" />
+              <span v-if="form.errors.paydunya_token" class="error">{{ form.errors.paydunya_token }}</span>
+            </div>
+          </div>
+          <p class="hint" v-if="form.paydunya_mode === 'api'">Mode <strong>api</strong> — les paiements réels seront traités via l'environnement <strong>{{ form.paydunya_env }}</strong>.</p>
+          <p class="hint" v-else>En mode <strong>{{ form.paydunya_mode }}</strong>, aucun paiement réel n'est traité.</p>
         </div>
 
         <div class="form-actions">

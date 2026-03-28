@@ -54,10 +54,14 @@ use App\Http\Controllers\App\NotificationController;
 use App\Http\Controllers\App\PdfController;
 use App\Http\Controllers\App\ExportImportController;
 use App\Http\Controllers\App\ReportController;
+use App\Http\Controllers\App\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
 Route::get('/', fn () => view('welcome'))->name('home');
+
+// ── Webhook PayDunya (public, no auth, no CSRF) ───────────────────
+Route::post('/payment/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
 
 // ── Authentification ─────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
@@ -168,6 +172,12 @@ Route::middleware(['tenant', 'auth', 'subscription'])
 
          // Dépenses
          Route::resource('expenses', ExpenseController::class);
+
+         // Abonnement & Paiement PayDunya
+         Route::get('/subscription',                           [PaymentController::class, 'index'])->name('payment.index');
+         Route::post('/payment/initiate/{plan}/{period}',      [PaymentController::class, 'initiate'])->name('payment.initiate');
+         Route::get('/payment/callback/{transaction}',         [PaymentController::class, 'callback'])->name('payment.callback');
+         Route::get('/payment/cancel/{transaction}',           [PaymentController::class, 'cancel'])->name('payment.cancel');
 
          // ── Module Restaurant ────────────────────────────────────
          Route::prefix('restaurant')->name('restaurant.')->group(function () {

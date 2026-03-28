@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'api/workflow',
             'api/workflow/*',
+            'payment/webhook',
         ]);
         // Alias pour les routes tenant
         $middleware->alias([

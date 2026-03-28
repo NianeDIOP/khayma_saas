@@ -306,6 +306,11 @@ class AdminBackofficeTest extends TestCase
                  'sms_api_url' => 'https://sms.test.local/send',
                  'sms_api_token' => 'sms-token',
                  'sms_from' => 'TESTAPP',
+                 'paydunya_mode' => 'api',
+                 'paydunya_env' => 'test',
+                 'paydunya_master_key' => 'mk-test',
+                 'paydunya_private_key' => 'pk-test',
+                 'paydunya_token' => 'tok-test',
              ])
              ->assertRedirect();
 
@@ -313,6 +318,8 @@ class AdminBackofficeTest extends TestCase
         $this->assertEquals('EUR', PlatformSetting::get('default_currency'));
         $this->assertEquals('smtp', PlatformSetting::get('mail_mailer'));
         $this->assertEquals('api', PlatformSetting::get('sms_provider'));
+        $this->assertEquals('api', PlatformSetting::get('paydunya_mode'));
+        $this->assertEquals('test', PlatformSetting::get('paydunya_env'));
     }
 
     #[Test]
@@ -320,7 +327,7 @@ class AdminBackofficeTest extends TestCase
     {
         $this->actingAs($this->admin())
              ->put('/admin/settings', [])
-             ->assertSessionHasErrors(['app_name', 'default_currency', 'trial_duration_days', 'mail_mailer', 'sms_provider']);
+             ->assertSessionHasErrors(['app_name', 'default_currency', 'trial_duration_days', 'mail_mailer', 'sms_provider', 'paydunya_mode', 'paydunya_env']);
     }
 
     #[Test]
@@ -346,8 +353,10 @@ class AdminBackofficeTest extends TestCase
                  'sms_api_url' => 'not-a-url',
                  'sms_api_token' => 'abc',
                  'sms_from' => 'KHAYMA',
+                 'paydunya_mode' => 'invalid-mode',
+                 'paydunya_env' => 'invalid-env',
              ])
-             ->assertSessionHasErrors(['mail_mailer', 'sms_provider', 'sms_api_url']);
+             ->assertSessionHasErrors(['mail_mailer', 'sms_provider', 'sms_api_url', 'paydunya_mode', 'paydunya_env']);
     }
 
     // ── Company CRUD (extended) ─────────────────────────────────

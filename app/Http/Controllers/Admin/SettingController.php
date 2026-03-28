@@ -29,6 +29,12 @@ class SettingController extends Controller
         'sms_api_url',
         'sms_api_token',
         'sms_from',
+        // PayDunya
+        'paydunya_mode',
+        'paydunya_env',
+        'paydunya_master_key',
+        'paydunya_private_key',
+        'paydunya_token',
     ];
 
     public function index()
@@ -57,6 +63,12 @@ class SettingController extends Controller
             'sms_api_url'         => '',
             'sms_api_token'       => '',
             'sms_from'            => 'KHAYMA',
+            // PayDunya
+            'paydunya_mode'        => 'log',
+            'paydunya_env'         => 'test',
+            'paydunya_master_key'  => '',
+            'paydunya_private_key' => '',
+            'paydunya_token'       => '',
         ];
 
         foreach ($defaults as $key => $default) {
@@ -89,6 +101,12 @@ class SettingController extends Controller
             'sms_api_url'         => 'nullable|url|max:500',
             'sms_api_token'       => 'nullable|string|max:255',
             'sms_from'            => 'nullable|string|max:20',
+            // PayDunya
+            'paydunya_mode'        => 'required|in:log,fake,api',
+            'paydunya_env'         => 'required|in:test,live',
+            'paydunya_master_key'  => 'nullable|string|max:255',
+            'paydunya_private_key' => 'nullable|string|max:255',
+            'paydunya_token'       => 'nullable|string|max:255',
         ]);
 
         foreach ($validated as $key => $value) {

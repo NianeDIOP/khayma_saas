@@ -42,4 +42,12 @@ return [
         'from'     => env('SMS_FROM', 'KHAYMA'),
     ],
 
+    'paydunya' => [
+        'mode'          => env('PAYDUNYA_MODE', 'log'),        // log|fake|api
+        'paydunya_mode' => env('PAYDUNYA_ENV', 'test'),         // test|live
+        'master_key'    => env('PAYDUNYA_MASTER_KEY', ''),
+        'private_key'   => env('PAYDUNYA_PRIVATE_KEY', ''),
+        'token'         => env('PAYDUNYA_TOKEN', ''),
+    ],
+
 ];
