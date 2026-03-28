@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Mail\LowStockAlertMail;
 use App\Models\Company;
 use App\Models\StockItem;
 use App\Models\StockMovement;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class StockController extends Controller
 {
@@ -110,6 +113,34 @@ class StockController extends Controller
                 $stockItem->decrement('quantity', $validated['quantity']);
             }
         });
+
+        // Check low-stock products for this company and notify owner if needed.
+        $lowStock = StockItem::query()
+            ->where('stock_items.company_id', $company->id)
+            ->join('products', 'stock_items.product_id', '=', 'products.id')
+            ->whereNotNull('products.min_stock_alert')
+            ->where('products.min_stock_alert', '>', 0)
+            ->whereColumn('stock_items.quantity', '<=', 'products.min_stock_alert')
+            ->select('products.name', 'stock_items.quantity', 'products.min_stock_alert')
+            ->limit(10)
+            ->get()
+            ->map(fn ($r) => [
+                'name'      => $r->name,
+                'quantity'  => (int) $r->quantity,
+                'threshold' => (int) $r->min_stock_alert,
+            ])
+            ->values()
+            ->all();
+
+        if (!empty($lowStock)) {
+            $owner = $company->users()->wherePivot('role', 'owner')->first();
+            if ($owner && !empty($owner->email)) {
+                Mail::to($owner->email)->queue(new LowStockAlertMail($company->name, $owner->name, $lowStock));
+            }
+            if ($owner && !empty($owner->phone)) {
+                app(SmsService::class)->send($owner->phone, 'Khayma: alerte stock bas dans ' . $company->name . '.');
+            }
+        }
 
         return redirect()->route('app.stock.movements', ['_tenant' => $company->slug])
                          ->with('success', 'Mouvement de stock enregistré.');

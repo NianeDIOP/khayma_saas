@@ -8,7 +8,9 @@ use App\Models\Depot;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
+use App\Mail\InvoiceMail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -77,6 +79,33 @@ class SaleTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseHas('sales', ['company_id' => $this->company->id, 'total' => 1000]);
         $this->assertDatabaseHas('sale_items', ['product_id' => $product->id, 'quantity' => 2]);
+    }
+
+    #[Test]
+    public function store_sale_queues_invoice_email_when_customer_has_email(): void
+    {
+        Mail::fake();
+
+        $product  = Product::factory()->create(['company_id' => $this->company->id, 'selling_price' => 500]);
+        $customer = Customer::factory()->create(['company_id' => $this->company->id, 'email' => 'client@test.sn']);
+        Depot::factory()->create(['company_id' => $this->company->id, 'is_default' => true]);
+
+        $response = $this->tenantPost('/sales', [
+            'customer_id'      => $customer->id,
+            'type'             => 'counter',
+            'discount_amount'  => 0,
+            'tax_amount'       => 0,
+            'payment_method'   => 'cash',
+            'items' => [
+                ['product_id' => $product->id, 'quantity' => 1, 'unit_price' => 500, 'discount' => 0],
+            ],
+        ]);
+
+        $response->assertRedirect();
+
+        Mail::assertQueued(InvoiceMail::class, fn (InvoiceMail $mail) =>
+            (int) $mail->sale->customer_id === (int) $customer->id
+        );
     }
 
     #[Test]

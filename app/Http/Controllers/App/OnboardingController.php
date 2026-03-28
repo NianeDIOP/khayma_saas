@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
 use App\Models\Company;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class OnboardingController extends Controller
@@ -43,6 +46,19 @@ class OnboardingController extends Controller
         ]);
 
         $company->update($validated);
+
+        $user = auth()->user();
+
+        if ($user && !empty($user->email)) {
+            Mail::to($user->email)->queue(new WelcomeMail($user, $company->fresh()));
+        }
+
+        if ($user && !empty($company->phone)) {
+            app(SmsService::class)->send(
+                $company->phone,
+                'Bienvenue sur Khayma. Votre entreprise ' . $company->name . ' est configuree.'
+            );
+        }
 
         return back()->with('success', 'Informations mises à jour.');
     }

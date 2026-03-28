@@ -7,7 +7,9 @@ use App\Models\Module;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Mail\WelcomeMail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -125,6 +127,27 @@ class TenantTest extends TestCase
         $this->assertEquals('Dakar Centre', $this->company->address);
         $this->assertEquals('restaurant', $this->company->sector);
         $this->assertEquals('123456789', $this->company->ninea);
+    }
+
+    #[Test]
+    public function onboarding_update_queues_welcome_email(): void
+    {
+        Mail::fake();
+
+        $response = $this->tenantPut('/onboarding', [
+            'email'   => 'welcome@co.sn',
+            'phone'   => '+221771111111',
+            'address' => 'Dakar',
+            'sector'  => 'restaurant',
+            'ninea'   => 'NIN-123',
+        ]);
+
+        $response->assertRedirect();
+
+        Mail::assertQueued(WelcomeMail::class, fn (WelcomeMail $mail) =>
+            (int) $mail->company->id === (int) $this->company->id
+            && (int) $mail->user->id === (int) $this->owner->id
+        );
     }
 
     #[Test]

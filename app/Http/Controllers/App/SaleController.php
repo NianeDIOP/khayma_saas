@@ -9,9 +9,12 @@ use App\Models\SaleItem;
 use App\Models\StockItem;
 use App\Models\StockMovement;
 use App\Models\Payment;
+use App\Mail\InvoiceMail;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class SaleController extends Controller
 {
@@ -147,6 +150,19 @@ class SaleController extends Controller
 
             return $sale;
         });
+
+        $sale->loadMissing(['company', 'customer']);
+
+        if (!empty($sale->customer?->email)) {
+            Mail::to($sale->customer->email)->queue(new InvoiceMail($sale));
+        }
+
+        if (!empty($sale->customer?->phone)) {
+            app(SmsService::class)->send(
+                $sale->customer->phone,
+                'Khayma: vente ' . $sale->reference . ' enregistree. Total: ' . number_format((float) $sale->total, 0, ',', ' ') . ' XOF.'
+            );
+        }
 
         return redirect()->route('app.sales.show', ['sale' => $sale->id, '_tenant' => $company->slug])
                          ->with('success', 'Vente enregistrée avec succès.');

@@ -181,12 +181,12 @@
       <a class="kh-sidebar-item" href="phase-4b.html">
         <i class="fa-solid fa-chart-line si-icon" style="color:#06B6D4"></i>
         <span class="si-label">4B — Rapports &amp; Graphiques</span>
-        <span class="si-dot si-dot-todo"></span>
+        <span class="si-dot si-dot-done"></span>
       </a>
       <a class="kh-sidebar-item" href="phase-4c.html">
         <i class="fa-solid fa-envelope si-icon" style="color:#F97316"></i>
         <span class="si-label">4C — Email &amp; SMS</span>
-        <span class="si-dot si-dot-todo"></span>
+        <span class="si-dot si-dot-done"></span>
       </a>
       <a class="kh-sidebar-item" href="phase-4d.html">
         <i class="fa-solid fa-credit-card si-icon" style="color:#10B981"></i>
@@ -401,23 +401,23 @@
         <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase4a" style="width:0%"></div></div>
       </a>
 
-      <a class="dash-tile" href="phase-4b.html">
+      <a class="dash-tile is-done" href="phase-4b.html">
         <div class="tile-head">
           <i class="fa-solid fa-chart-line tile-icon" style="color:#06B6D4"></i>
           <span class="tile-name">Phase 4B</span>
-          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done tile-badge"><i class="fa-solid fa-circle-check"></i> Validé</span>
         </div>
         <div class="tile-desc">Rapports &amp; Graphiques</div>
         <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase4b" style="width:0%"></div></div>
       </a>
 
-      <a class="dash-tile" href="phase-4c.html">
+      <a class="dash-tile is-done" href="phase-4c.html">
         <div class="tile-head">
           <i class="fa-solid fa-envelope tile-icon" style="color:#F97316"></i>
           <span class="tile-name">Phase 4C</span>
-          <span class="kh-badge kh-badge-todo tile-badge"><i class="fa-regular fa-circle"></i> À faire</span>
+          <span class="kh-badge kh-badge-done tile-badge"><i class="fa-solid fa-circle-check"></i> Validé</span>
         </div>
-        <div class="tile-desc">Email &amp; SMS (Mailgun + Twilio)</div>
+        <div class="tile-desc">Email &amp; SMS (Mailables, templates, SMS service)</div>
         <div class="tile-bar"><div class="tile-bar-fill" id="tile-phase4c" style="width:0%"></div></div>
       </a>
 
@@ -482,7 +482,7 @@ const PHASES = [
 ];
 
 // Phases définitivement terminées — ignorent l'API, toujours 100% / is-done
-const DONE_PHASES = new Set(['phase0','phase1a','phase1b','phase1c','phase1d','phase1e','phase1ebis','phase2a','phase2b','phase2c','phase3a','phase3b','phase3c','phase3d','phase4a']);
+const DONE_PHASES = new Set(['phase0','phase1a','phase1b','phase1c','phase1d','phase1e','phase1ebis','phase2a','phase2b','phase2c','phase3a','phase3b','phase3c','phase3d','phase4a','phase4b','phase4c']);
 
 async function loadProgress() {
   let allData = {};

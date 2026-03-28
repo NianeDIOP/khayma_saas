@@ -8,7 +8,9 @@ use App\Models\Product;
 use App\Models\StockItem;
 use App\Models\StockMovement;
 use App\Models\User;
+use App\Mail\LowStockAlertMail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -107,6 +109,38 @@ class StockTest extends TestCase
             'depot_id'   => $depot->id,
             'quantity'    => 70,
         ]);
+    }
+
+    #[Test]
+    public function low_stock_alert_email_is_queued_for_owner(): void
+    {
+        Mail::fake();
+
+        $product = Product::factory()->create([
+            'company_id'       => $this->company->id,
+            'min_stock_alert'  => 10,
+        ]);
+        $depot = Depot::factory()->create(['company_id' => $this->company->id]);
+
+        StockItem::create([
+            'company_id' => $this->company->id,
+            'product_id' => $product->id,
+            'depot_id'   => $depot->id,
+            'quantity'   => 20,
+        ]);
+
+        $response = $this->tenantPost('/stock/movements', [
+            'product_id' => $product->id,
+            'depot_id'   => $depot->id,
+            'type'       => 'out',
+            'quantity'   => 12,
+        ]);
+
+        $response->assertRedirect();
+
+        Mail::assertQueued(LowStockAlertMail::class, fn (LowStockAlertMail $mail) =>
+            $mail->companyName === $this->company->name
+        );
     }
 
     #[Test]

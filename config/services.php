@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'sms' => [
+        'provider' => env('SMS_PROVIDER', 'log'),
+        'url'      => env('SMS_API_URL'),
+        'token'    => env('SMS_API_TOKEN'),
+        'from'     => env('SMS_FROM', 'KHAYMA'),
+    ],
+
 ];

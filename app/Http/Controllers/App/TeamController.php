@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
 use App\Models\Company;
 use App\Models\User;
+use App\Services\SmsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class TeamController extends Controller
@@ -169,6 +172,17 @@ class TeamController extends Controller
         // Assign Spatie role
         if (!$user->hasRole($validated['role'])) {
             $user->assignRole($validated['role']);
+        }
+
+        if (!empty($user->email)) {
+            Mail::to($user->email)->queue(new WelcomeMail($user, $company));
+        }
+
+        if (!empty($user->phone)) {
+            app(SmsService::class)->send(
+                $user->phone,
+                'Khayma: vous avez ete ajoute a ' . $company->name . ' en tant que ' . $validated['role'] . '.'
+            );
         }
 
         return redirect()
