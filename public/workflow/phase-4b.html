@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phase 4A — Tests &amp; Sécurité · Khayma</title>
+  <title>Phase 4B — Rapports &amp; Graphiques · Khayma</title>
   <meta name="csrf-token" content="" />
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .date-band {
       display: flex; align-items: center; gap: 20px;
-      background: #F5F3FF; border: 1px solid #DDD6FE;
-      border-left: 3px solid #8B5CF6;
-      padding: 8px 14px; font-size: 0.78rem; color: #4C1D95; margin-bottom: 20px;
+      background: #ECFEFF; border: 1px solid #A5F3FC;
+      border-left: 3px solid #06B6D4;
+      padding: 8px 14px; font-size: 0.78rem; color: #0E7490; margin-bottom: 20px;
     }
-    .date-band i { color: #8B5CF6; }
+    .date-band i { color: #06B6D4; }
     .date-item { display: flex; align-items: center; gap: 6px; }
     .date-item strong { color: #111827; }
   </style>
@@ -30,9 +30,9 @@
   <span class="kh-header-sub" style="font-size:0.85rem;font-weight:700;color:#111827;">Workflow de développement</span>
   <div class="kh-header-right">
     <div class="kh-prog-chip">
-      <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 4A</span>
+      <span style="font-size:0.72rem;font-weight:500;color:#6B7280;">Phase 4B</span>
       <div class="kh-prog-track">
-        <div class="kh-prog-fill" id="phaseFill" style="width:0%;background:#8B5CF6;"></div>
+        <div class="kh-prog-fill" id="phaseFill" style="width:0%;background:#06B6D4;"></div>
       </div>
       <span class="kh-prog-pct" id="phasePct">0%</span>
     </div>
@@ -135,12 +135,12 @@
 
     <div class="kh-sidebar-group">
       <div class="kh-sidebar-title">Phase 4 — Finalisation</div>
-      <a class="kh-sidebar-item is-active" href="phase-4a.html">
+      <a class="kh-sidebar-item" href="phase-4a.html">
         <i class="fa-solid fa-flask si-icon" style="color:#8B5CF6"></i>
         <span class="si-label">4A — Tests &amp; Sécurité</span>
         <span class="si-dot si-dot-done"></span>
       </a>
-      <a class="kh-sidebar-item" href="phase-4b.html">
+      <a class="kh-sidebar-item is-active" href="phase-4b.html">
         <i class="fa-solid fa-chart-line si-icon" style="color:#06B6D4"></i>
         <span class="si-label">4B — Rapports &amp; Graphiques</span>
         <span class="si-dot si-dot-done"></span>
@@ -186,17 +186,17 @@
     <div class="kh-breadcrumb">
       <a href="index.html"><i class="fa-solid fa-house"></i> Hub</a>
       <i class="fa-solid fa-chevron-right" style="font-size:0.6rem;"></i>
-      <span class="kh-breadcrumb-current">Phase 4A — Tests &amp; Sécurité</span>
+      <span class="kh-breadcrumb-current">Phase 4B — Rapports &amp; Graphiques</span>
     </div>
 
     <!-- Page title -->
     <div class="kh-page-title" style="margin-top:20px;">
-      <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #8B5CF6;line-height:1.3;">
-        Phase 4A
-        <span style="display:block;color:#8B5CF6;font-weight:800;">Tests &amp; Sécurité</span>
+      <h1 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.3px;color:#111827;padding-left:12px;border-left:3px solid #06B6D4;line-height:1.3;">
+        Phase 4B
+        <span style="display:block;color:#06B6D4;font-weight:800;">Rapports &amp; Graphiques</span>
       </h1>
       <p style="font-size:0.82rem;color:#6B7280;max-width:560px;padding-left:15px;margin-top:6px;">
-        6 modules transversaux : Audit Trail (HasAuditLog trait sur 12 modèles), Security Headers + Rate Limiting, Notifications in-app, PDF (factures/devis/contrats), Import/Export Excel. 15 nouveaux tests, 362 tests au total (2076 assertions), build vite OK, commit <code>7130997</code>.
+        ApexCharts intégré (area + donut + bar groupé). Dashboard enrichi avec 6 KPI cards + graphiques 7 jours. Rapport global multi-période avec filtres adaptatifs. Graphiques de tendance dans les 4 modules métier. Tests PHPUnit.
       </p>
     </div>
 
@@ -211,27 +211,27 @@
     <div class="kh-phase-stats">
       <div class="kh-stat">
         <div class="kh-stat-value" id="stat-done">0</div>
-        <div class="kh-stat-label"><i class="fa-solid fa-check" style="color:#8B5CF6"></i> Tâches complétées</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-check" style="color:#06B6D4"></i> Tâches complétées</div>
       </div>
       <div class="kh-stat">
         <div class="kh-stat-value" id="stat-total">0</div>
-        <div class="kh-stat-label"><i class="fa-solid fa-list-check" style="color:#8B5CF6"></i> Tâches totales</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-list-check" style="color:#06B6D4"></i> Tâches totales</div>
       </div>
       <div class="kh-stat">
-        <div class="kh-stat-value" id="stat-pct" style="color:#8B5CF6;">0%</div>
-        <div class="kh-stat-label"><i class="fa-solid fa-percent" style="color:#8B5CF6"></i> Progression</div>
+        <div class="kh-stat-value" id="stat-pct" style="color:#06B6D4;">0%</div>
+        <div class="kh-stat-label"><i class="fa-solid fa-percent" style="color:#06B6D4"></i> Progression</div>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 4A.1 — Audit Trail
+         STEP 4B.1 — Dashboard enrichi
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-4a1">
+    <div class="kh-step" id="step-4b1">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">4A.1</div>
+        <div class="kh-step-num" style="background:#06B6D4;">4B.1</div>
         <div class="kh-step-info">
-          <h3>Audit Trail — HasAuditLog trait (12 modèles)</h3>
-          <p>Journalisation automatique des créations, modifications, suppressions dans la table <code>audit_logs</code>.</p>
+          <h3>Dashboard enrichi — KPIs + graphiques ApexCharts</h3>
+          <p>Installation d'ApexCharts, enrichissement du <code>DashboardController</code>, refonte du <code>Dashboard.vue</code> avec graphiques interactifs.</p>
         </div>
         <div class="kh-step-right">
           <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
@@ -239,36 +239,36 @@
         </div>
       </div>
       <div class="kh-step-body open">
-        <ul class="kh-tasks" id="tasks-4a1">
+        <ul class="kh-tasks" id="tasks-4b1">
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>HasAuditLog</code> trait corrigé — colonne <code>action</code> (vs <code>event</code>), résolution <code>company_id</code>, <code>getDirty()</code> sur update, try/catch pour ne jamais bloquer l'opération principale <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Packages installés : <code>apexcharts</code> + <code>vue3-apexcharts</code> via npm — enregistrés globalement dans <code>app.js</code> via <code>.use(VueApexCharts)</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Trait appliqué à 12 modèles : <code>Product</code>, <code>Sale</code>, <code>Customer</code>, <code>Supplier</code>, <code>Expense</code>, <code>Order</code>, <code>RentalContract</code>, <code>RentalAsset</code>, <code>Quote</code>, <code>PurchaseOrder</code>, <code>Company</code>, <code>StockMovement</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text"><code>DashboardController.php</code> enrichi — 6 KPI cards (ventes/dépenses/bénéfice aujourd'hui et ce mois), <code>chartDays</code>/<code>chartValues</code> (7 jours glissants Sales), <code>payLabels</code>/<code>payValues</code> (modes paiement du mois) <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Audit log enregistre : <code>model_type</code>, <code>model_id</code>, <code>action</code>, <code>user_id</code>, <code>company_id</code>, <code>old_values</code>, <code>new_values</code>, <code>ip_address</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text"><code>Dashboard.vue</code> refactorisé — 6 nouvelles KPI cards (today + mois) + area chart 7 jours (2/3 largeur) + donut modes paiement (1/3 largeur) <span class="kh-tag tag-ui">ui</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Interface admin <code>/admin/audit-logs</code> existante (contrôleur, routes, page Vue) — accessible Super Admin <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Courbe de ventes responsive avec gradient, zéros remplis pour les jours sans vente, tooltip formaté XOF <span class="kh-tag tag-ui">ui</span></span>
           </li>
         </ul>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 4A.2 — Sécurité
+         STEP 4B.2 — Rapport global
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-4a2">
+    <div class="kh-step" id="step-4b2">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">4A.2</div>
+        <div class="kh-step-num" style="background:#06B6D4;">4B.2</div>
         <div class="kh-step-info">
-          <h3>Sécurité — Headers HTTP &amp; Rate Limiting</h3>
-          <p>Middleware SecurityHeaders + 3 limiteurs de débit configurés dans AppServiceProvider.</p>
+          <h3>Rapport global App — ReportController + Overview.vue</h3>
+          <p>Contrôleur de rapports trans-module avec filtres période adaptatifs et page Vue complète multi-graphiques.</p>
         </div>
         <div class="kh-step-right">
           <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
@@ -276,36 +276,36 @@
         </div>
       </div>
       <div class="kh-step-body">
-        <ul class="kh-tasks" id="tasks-4a2">
+        <ul class="kh-tasks" id="tasks-4b2">
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Middleware <code>SecurityHeaders</code> créé — ajoute <code>X-Content-Type-Options</code>, <code>X-Frame-Options: SAMEORIGIN</code>, <code>X-XSS-Protection</code>, <code>Referrer-Policy</code>, <code>Permissions-Policy</code>, HSTS (prod only) <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text"><code>App\ReportController@index</code> créé — filtre période (today/week/month/year/custom), groupement adaptatif (daily ≤60j → weekly ≤365j → monthly), KPIs (total_sales, total_orders, avg_basket, total_expenses, net_profit) <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">SecurityHeaders enregistré dans <code>bootstrap/app.php</code> sur le groupe web (après HandleInertiaRequests) <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Données retournées : <code>chartLabels</code>/<code>chartSales</code>/<code>chartExpenses</code>, <code>salesByPayment</code>, <code>topProducts</code>, <code>expensesByCategory</code>, <code>customerDebts</code>, <code>filters</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">3 rate limiters dans <code>AppServiceProvider</code> : <code>login</code> (5 req/min/IP), <code>api</code> (60/min/user), <code>global</code> (120/min/user) <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text">Route <code>app.reports.index</code> (GET <code>/app/reports</code>) ajoutée dans <code>web.php</code> après <code>app.dashboard</code> <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>throttle:login</code> appliqué sur <code>POST /login</code> et <code>POST /register</code> dans <code>web.php</code> — retourne HTTP 429 après 5 tentatives <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text"><code>Reports/Overview.vue</code> créé — 5 boutons période, 4 KPI cards, bar chart groupé Ventes vs Dépenses (pleine largeur), donut paiements + bar horizontal dépenses/catégorie, tableau top 10 produits, tableau créances <span class="kh-tag tag-ui">ui</span></span>
           </li>
         </ul>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 4A.3 — Notifications
+         STEP 4B.3 — Graphiques modules
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-4a3">
+    <div class="kh-step" id="step-4b3">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">4A.3</div>
+        <div class="kh-step-num" style="background:#06B6D4;">4B.3</div>
         <div class="kh-step-info">
-          <h3>Notifications in-app — modèle + contrôleur + cloche</h3>
-          <p>Système de notifications interne avec icône cloche dans la topbar, compteur de non-lues, page dédiée.</p>
+          <h3>Graphiques dans les 4 modules — Controllers + Vue</h3>
+          <p>Ajout de données <code>chartLabels</code>/<code>chartValues</code> dans les 4 ReportControllers modules et section graphique dans les 4 pages Vue correspondantes.</p>
         </div>
         <div class="kh-step-right">
           <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
@@ -313,157 +313,55 @@
         </div>
       </div>
       <div class="kh-step-body">
-        <ul class="kh-tasks" id="tasks-4a3">
+        <ul class="kh-tasks" id="tasks-4b3">
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Modèle <code>AppNotification</code> — table <code>app_notifications</code>, scopes <code>forUser()</code> + <code>unread()</code>, helper statique <code>send($userId, $title, $body, $type, $companyId)</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text"><code>Restaurant\ReportController</code> — courbe quotidienne (Orders par date) via Carbon loop avec zéros pour jours sans commandes <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>NotificationController</code> — 4 méthodes : <code>index</code> (liste paginée Inertia), <code>unreadCount</code> (JSON), <code>markRead</code> (une), <code>markAllRead</code> (toutes) <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text"><code>Quincaillerie\ReportController</code> — courbe quotidienne (Sales par date) avec remplissage des valeurs manquantes <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">4 routes sous <code>app.notifications.*</code> : GET index, GET unread-count, POST /{notification}/read, POST /read-all <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text"><code>Boutique\ReportController</code> — même logique quotidienne (Sales par date) sur la plage <code>start_date</code>/<code>end_date</code> du filtre <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>HandleInertiaRequests</code> — prop partagée <code>unreadNotifications</code> (lazy count) accessible dans tous les composants Vue via <code>$page.props</code> <span class="kh-tag tag-dev">dev</span></span>
+            <span class="kh-task-text done-text"><code>Location\ReportController</code> — courbe mensuelle (RentalPayments par mois) via <code>TO_CHAR(payment_date, 'YYYY-MM')</code>, itération mois par mois avec Carbon <span class="kh-tag tag-dev">dev</span></span>
           </li>
           <li class="kh-task">
             <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>AppLayout.vue</code> — icône cloche avec badge rouge dans la topbar, compteur affiché si &gt; 0, lien vers la page notifications <span class="kh-tag tag-ui">ui</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>Notifications/Index.vue</code> — page liste avec icônes par type (alert/info/success), highlighting non-lues (amber), clic marque lue, bouton "Tout marquer lu", pagination <span class="kh-tag tag-ui">ui</span></span>
+            <span class="kh-task-text done-text">4 pages Vue (Restaurant, Quincaillerie, Boutique, Location Reports) — prop <code>chartLabels</code>/<code>chartValues</code>, <code>computed</code> chartOptions (area, couleur thème module), <code>&lt;apexchart&gt;</code> avec guard <code>v-if="chartLabels?.length"</code> <span class="kh-tag tag-ui">ui</span></span>
           </li>
         </ul>
       </div>
     </div>
 
     <!-- ══════════════════════════════
-         STEP 4A.4 — PDF Generation
+         STEP 4B.4 — Tests
     ══════════════════════════════════ -->
-    <div class="kh-step" id="step-4a4">
+    <div class="kh-step" id="step-4b4">
       <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">4A.4</div>
+        <div class="kh-step-num" style="background:#06B6D4;">4B.4</div>
         <div class="kh-step-info">
-          <h3>Génération PDF — Factures, Devis, Contrats</h3>
-          <p>PdfController + 3 templates Blade (DomPDF) avec branding Khayma, streaming inline.</p>
+          <h3>Tests PHPUnit — ReportTest</h3>
+          <p>Tests de couverture sur les endpoints de rapports : accès, filtres, isolation tenant.</p>
         </div>
         <div class="kh-step-right">
-          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
+          <span class="kh-badge kh-badge-todo"><i class="fa-regular fa-circle"></i> À faire</span>
           <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
         </div>
       </div>
       <div class="kh-step-body">
-        <ul class="kh-tasks" id="tasks-4a4">
+        <ul class="kh-tasks" id="tasks-4b4">
           <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>PdfController</code> — 3 méthodes (<code>sale</code>, <code>quote</code>, <code>contract</code>), scoping tenant, eager loading des relations, stream PDF inline avec nom de fichier <span class="kh-tag tag-dev">dev</span></span>
+            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text">Tests <code>ReportTest</code> — accès désautorisé invité 302, owner accède aux rapports globaux, filtres période retournent données cohérentes, KPIs corrects, isolation tenant <span class="kh-tag tag-test">test</span></span>
           </li>
           <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Template <code>pdf/sale.blade.php</code> — FACTURE professionnelle A4 : en-tête société, numéro/date, bloc client, tableau articles (Produit, Qté, P.U., Remise, Total), totaux (sous-total/remise/TVA/TOTAL), notes, pied de page vert Khayma <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Template <code>pdf/quote.blade.php</code> — DEVIS avec date de validité (indigo #6366F1), bloc client, articles, totaux, bloc conditions avec durée validité 30 jours <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Template <code>pdf/contract.blade.php</code> — CONTRAT DE LOCATION : données bien loué, conditions (loyer/caution/dates), tableau paiements, zone signatures bailleur/locataire <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">3 routes GET sous <code>app.pdf.*</code> : <code>/pdf/sale/{sale}</code>, <code>/pdf/quote/{quote}</code>, <code>/pdf/contract/{contract}</code> <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════
-         STEP 4A.5 — Import/Export Excel
-    ══════════════════════════════════ -->
-    <div class="kh-step" id="step-4a5">
-      <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">4A.5</div>
-        <div class="kh-step-info">
-          <h3>Import/Export Excel — Produits, Clients, Fournisseurs</h3>
-          <p>Package <code>maatwebsite/excel</code>, 3 classes Export + 3 classes Import, boutons dans les pages index.</p>
-        </div>
-        <div class="kh-step-right">
-          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
-          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
-        </div>
-      </div>
-      <div class="kh-step-body">
-        <ul class="kh-tasks" id="tasks-4a5">
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Package <code>maatwebsite/excel 3.1.68</code> installé via composer (+ <code>phpoffice/phpspreadsheet 1.30.2</code>) <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">3 classes Export (<code>ProductsExport</code>, <code>CustomersExport</code>, <code>SuppliersExport</code>) — scoping tenant, headings français, auto-size colonnes <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">3 classes Import (<code>ProductsImport</code>, <code>CustomersImport</code>, <code>SuppliersImport</code>) — heading row, validation requise, résolution catégorie/unité par nom <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>ExportImportController</code> — 6 méthodes (3 exports GET + 3 imports POST), validation fichier (mimes xlsx/xls/csv, max 5 Mo), gestion erreurs ValidationException <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">6 routes sous <code>app.export.*</code> et <code>app.import.*</code> dans <code>web.php</code> <span class="kh-tag tag-dev">dev</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Boutons Exporter + Importer ajoutés dans <code>Products/Index.vue</code>, <code>Customers/Index.vue</code>, <code>Suppliers/Index.vue</code> — import déclenché dès sélection du fichier <span class="kh-tag tag-ui">ui</span></span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════
-         STEP 4A.6 — Tests
-    ══════════════════════════════════ -->
-    <div class="kh-step" id="step-4a6">
-      <div class="kh-step-header" onclick="toggleStep(this)">
-        <div class="kh-step-num" style="background:#8B5CF6;">4A.6</div>
-        <div class="kh-step-info">
-          <h3>Tests PHPUnit (4 fichiers — 15 tests, 48 assertions)</h3>
-          <p>AuditLogTest, SecurityHeadersTest, NotificationTest, ExportImportTest.</p>
-        </div>
-        <div class="kh-step-right">
-          <span class="kh-badge kh-badge-done"><i class="fa-solid fa-circle-check"></i> Validé</span>
-          <i class="fa-solid fa-chevron-right kh-step-chevron"></i>
-        </div>
-      </div>
-      <div class="kh-step-body">
-        <ul class="kh-tasks" id="tasks-4a6">
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>AuditLogTest</code> — 4 tests : création/modification/suppression génèrent des logs (model_type, model_id, user_id, company_id), page admin charge <span class="kh-tag tag-test">test</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>SecurityHeadersTest</code> — 2 tests : présence des 4 headers HTTP de sécurité, rate limiting 429 après 5 tentatives sur /login <span class="kh-tag tag-test">test</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>NotificationTest</code> — 5 tests : index charge, unreadCount JSON, markRead, markAllRead, isolation par user_id <span class="kh-tag tag-test">test</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text"><code>ExportImportTest</code> — 4 tests : export produits/clients/fournisseurs retournent bien XLSX (content-type vérifié), données scoped tenant <span class="kh-tag tag-test">test</span></span>
-          </li>
-          <li class="kh-task">
-            <div class="kh-task-cb checked" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <span class="kh-task-text done-text">Suite complète verte : <strong>362 tests, 2076 assertions</strong> — build Vite OK — commit <code>7130997</code> sur <code>main</code> <span class="kh-tag tag-test">test</span></span>
+            <div class="kh-task-cb" onclick="toggleTask(this)"><svg viewBox="0 0 10 8"><polyline points="1,4 4,7 9,1" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+            <span class="kh-task-text">Suite complète verte : <strong>N tests, M assertions</strong> — build Vite OK — commit effectué <span class="kh-tag tag-test">test</span></span>
           </li>
         </ul>
       </div>
@@ -471,10 +369,10 @@
 
     <!-- Validation note -->
     <div class="kh-validation-note" id="validationNote" style="display:none;">
-      <i class="fa-solid fa-circle-check" style="color:#8B5CF6;font-size:1.1rem;"></i>
+      <i class="fa-solid fa-circle-check" style="color:#06B6D4;font-size:1.1rem;"></i>
       <div>
-        <strong>Phase 4A terminée.</strong>
-        <span style="color:#6B7280;">Audit Trail (12 modèles), Security Headers + Rate Limiting, Notifications in-app, PDF (3 templates), Excel Import/Export (3 entités). 362 tests, 2076 assertions, tous verts. Commit <code>7130997</code> effectué.</span>
+        <strong>Phase 4B terminée.</strong>
+        <span style="color:#6B7280;">ApexCharts intégré (area + donut + bar). Dashboard enrichi (6 KPIs + 2 graphiques). Rapport global multi-période. Graphiques dans 4 modules. Tests verts.</span>
       </div>
     </div>
 
@@ -482,7 +380,7 @@
 </div>
 
 <script>
-const PHASE_KEY = 'phase4a';
+const PHASE_KEY = 'phase4b';
 let _cachedProgress = {};
 
 function toggleStep(header) {

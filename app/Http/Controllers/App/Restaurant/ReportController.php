@@ -80,6 +80,25 @@ class ReportController extends Controller
 
         $netProfit = $totalSales - $totalExpenses;
 
+        // ── Daily chart data ──────────────────────────────────────
+        $dailyRaw = $company->orders()
+            ->where('status', '!=', 'cancelled')
+            ->whereBetween('created_at', [$dateFrom . ' 00:00:00', $dateTo . ' 23:59:59'])
+            ->select(DB::raw('DATE(created_at) as day'), DB::raw('SUM(total) as total'))
+            ->groupBy('day')->orderBy('day')
+            ->pluck('total', 'day')->toArray();
+
+        $chartLabels = [];
+        $chartValues = [];
+        $cur = \Carbon\Carbon::parse($dateFrom);
+        $end = \Carbon\Carbon::parse($dateTo);
+        while ($cur->lte($end)) {
+            $day = $cur->toDateString();
+            $chartLabels[] = $cur->locale('fr')->isoFormat('D MMM');
+            $chartValues[] = (float) ($dailyRaw[$day] ?? 0);
+            $cur->addDay();
+        }
+
         return inertia('App/Restaurant/Reports/Index', [
             'stats' => [
                 'total_sales'    => $totalSales,
@@ -92,6 +111,8 @@ class ReportController extends Controller
             'salesByType'    => $salesByType,
             'salesByPayment' => $salesByPayment,
             'topDishes'      => $topDishes,
+            'chartLabels'    => $chartLabels,
+            'chartValues'    => $chartValues,
             'filters' => [
                 'date_from' => $dateFrom,
                 'date_to'   => $dateTo,

@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -21,6 +21,8 @@ const props = defineProps({
     topDebtors: Array,
     occupancyRate: [Number, String],
     filters: Object,
+    chartLabels: Array,
+    chartValues: Array,
 });
 
 const startDate = ref(props.filters?.start_date || '');
@@ -38,6 +40,19 @@ function applyFilters() {
 function fmt(v) { return new Intl.NumberFormat('fr-FR').format(v || 0); }
 
 const typeLabels = { vehicle: 'Véhicule', real_estate: 'Immobilier', equipment: 'Équipement', other: 'Autre' };
+
+const salesChartOpts = computed(() => ({
+    chart: { type: 'area', height: 220, toolbar: { show: false } },
+    colors: ['#EC4899'],
+    stroke: { curve: 'smooth', width: 2 },
+    fill: { type: 'gradient', gradient: { opacityFrom: 0.3, opacityTo: 0 } },
+    dataLabels: { enabled: false },
+    xaxis: { categories: props.chartLabels || [] },
+    yaxis: { labels: { formatter: v => new Intl.NumberFormat('fr-FR').format(v) } },
+    tooltip: { y: { formatter: v => new Intl.NumberFormat('fr-FR').format(v) + ' XOF' } },
+    grid: { borderColor: '#F3F4F6' },
+}));
+const salesChartSeries = computed(() => [{ name: 'Revenus', data: props.chartValues || [] }]);
 </script>
 
 <template>
@@ -115,6 +130,14 @@ const typeLabels = { vehicle: 'Véhicule', real_estate: 'Immobilier', equipment:
                 <div style="font-size:0.72rem;color:#6B7280;">Contrats renouvelés</div>
                 <div style="font-size:1.1rem;font-weight:700;color:#8B5CF6;">{{ renewedContracts }}</div>
             </div>
+        </div>
+
+        <!-- Revenue Trend Chart -->
+        <div style="border:1px solid #E5E7EB;padding:16px;margin-bottom:20px;">
+            <h2 style="font-size:0.95rem;font-weight:700;margin-bottom:12px;"><i class="fa-solid fa-chart-area" style="color:#EC4899;margin-right:6px;"></i>Évolution des revenus</h2>
+            <apexchart v-if="chartLabels?.length" type="area" height="220"
+                :options="salesChartOpts" :series="salesChartSeries" />
+            <div v-else style="color:#9CA3AF;text-align:center;padding:20px;">Aucune donnée pour cette période</div>
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">

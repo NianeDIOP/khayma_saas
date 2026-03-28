@@ -132,6 +132,25 @@ class ReportController extends Controller
             ];
         });
 
+        // ── Daily chart data ──────────────────────────────────────
+        $dailyRaw = $company->sales()
+            ->where('status', 'completed')
+            ->whereBetween('created_at', [$startDate . ' 00:00:00', $endDate . ' 23:59:59'])
+            ->select(DB::raw('DATE(created_at) as day'), DB::raw('SUM(total) as total'))
+            ->groupBy('day')->orderBy('day')
+            ->pluck('total', 'day')->toArray();
+
+        $chartLabels = [];
+        $chartValues = [];
+        $cur = \Carbon\Carbon::parse($startDate);
+        $end = \Carbon\Carbon::parse($endDate);
+        while ($cur->lte($end)) {
+            $day = $cur->toDateString();
+            $chartLabels[] = $cur->locale('fr')->isoFormat('D MMM');
+            $chartValues[] = (float) ($dailyRaw[$day] ?? 0);
+            $cur->addDay();
+        }
+
         return inertia('App/Boutique/Reports/Index', [
             'totalSales'      => $totalSales,
             'totalOrders'     => $totalOrders,
@@ -145,6 +164,8 @@ class ReportController extends Controller
             'loyaltyEarned'   => $loyaltyEarned,
             'loyaltyRedeemed' => $loyaltyRedeemed,
             'stockByDepot'    => $stockByDepot,
+            'chartLabels'     => $chartLabels,
+            'chartValues'     => $chartValues,
             'filters'         => [
                 'start_date' => $startDate,
                 'end_date'   => $endDate,

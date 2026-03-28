@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -17,6 +17,8 @@ const props = defineProps({
     loyaltyRedeemed: [Number, String],
     stockByDepot: Array,
     filters: Object,
+    chartLabels: Array,
+    chartValues: Array,
 });
 
 const startDate = ref(props.filters?.start_date || '');
@@ -36,6 +38,19 @@ function formatPrice(v) {
 }
 
 const paymentLabels = { cash: 'Espèces', wave: 'Wave', om: 'Orange Money', card: 'Carte', other: 'Autre' };
+
+const salesChartOpts = computed(() => ({
+    chart: { type: 'area', height: 220, toolbar: { show: false } },
+    colors: ['#8B5CF6'],
+    stroke: { curve: 'smooth', width: 2 },
+    fill: { type: 'gradient', gradient: { opacityFrom: 0.3, opacityTo: 0 } },
+    dataLabels: { enabled: false },
+    xaxis: { categories: props.chartLabels || [] },
+    yaxis: { labels: { formatter: v => new Intl.NumberFormat('fr-FR').format(v) } },
+    tooltip: { y: { formatter: v => new Intl.NumberFormat('fr-FR').format(v) + ' XOF' } },
+    grid: { borderColor: '#F3F4F6' },
+}));
+const salesChartSeries = computed(() => [{ name: 'Ventes', data: props.chartValues || [] }]);
 </script>
 
 <template>
@@ -92,6 +107,14 @@ const paymentLabels = { cash: 'Espèces', wave: 'Wave', om: 'Orange Money', card
                 <div style="font-size:1.1rem;font-weight:700;">{{ depot.items }} articles</div>
                 <div style="font-size:0.78rem;color:#6B7280;">{{ formatPrice(depot.value) }} F</div>
             </div>
+        </div>
+
+        <!-- Sales Trend Chart -->
+        <div style="border:1px solid #E5E7EB;padding:16px;margin-bottom:20px;">
+            <h2 style="font-size:0.95rem;font-weight:700;margin-bottom:12px;"><i class="fa-solid fa-chart-area" style="color:#8B5CF6;margin-right:6px;"></i>Évolution des ventes</h2>
+            <apexchart v-if="chartLabels?.length" type="area" height="220"
+                :options="salesChartOpts" :series="salesChartSeries" />
+            <div v-else style="color:#9CA3AF;text-align:center;padding:20px;">Aucune donnée pour cette période</div>
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">

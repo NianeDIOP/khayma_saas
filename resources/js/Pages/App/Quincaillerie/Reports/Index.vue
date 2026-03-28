@@ -1,6 +1,6 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 
 const props = defineProps({
@@ -10,6 +10,8 @@ const props = defineProps({
   salesByPayment: Array,
   stockMovements: Array,
   filters: Object,
+  chartLabels: Array,
+  chartValues: Array,
 })
 const t = () => route().params._tenant
 
@@ -33,6 +35,19 @@ function fmtN(v) { return new Intl.NumberFormat('fr-FR').format(v || 0) }
 
 const TYPE_LABELS = { counter: 'Comptoir', delivery: 'Livraison', table: 'Table', takeaway: 'Emporter' }
 const MOVEMENT_LABELS = { purchase: 'Achat', sale: 'Vente', adjustment: 'Ajustement', return_supplier: 'Retour fourn.', loss: 'Perte' }
+
+const salesChartOpts = computed(() => ({
+  chart: { type: 'area', height: 220, toolbar: { show: false } },
+  colors: ['#6366F1'],
+  stroke: { curve: 'smooth', width: 2 },
+  fill: { type: 'gradient', gradient: { opacityFrom: 0.3, opacityTo: 0 } },
+  dataLabels: { enabled: false },
+  xaxis: { categories: props.chartLabels || [] },
+  yaxis: { labels: { formatter: v => new Intl.NumberFormat('fr-FR').format(v) } },
+  tooltip: { y: { formatter: v => new Intl.NumberFormat('fr-FR').format(v) + ' XOF' } },
+  grid: { borderColor: '#F3F4F6' },
+}))
+const salesChartSeries = computed(() => [{ name: 'Ventes', data: props.chartValues || [] }])
 </script>
 
 <template>
@@ -86,6 +101,14 @@ const MOVEMENT_LABELS = { purchase: 'Achat', sale: 'Vente', adjustment: 'Ajustem
         <div class="kpi-value">{{ fmtN(stats.pending_quotes) }} ({{ fmt(stats.pending_quotes_total) }})</div>
         <div class="kpi-label">Devis en attente</div>
       </div>
+    </div>
+
+    <!-- Sales Trend Chart -->
+    <div class="report-card" style="margin-bottom:1.5rem">
+      <div class="card-title"><i class="fa-solid fa-chart-area" style="color:#6366F1"></i> Évolution des ventes</div>
+      <apexchart v-if="chartLabels?.length" type="area" height="220"
+        :options="salesChartOpts" :series="salesChartSeries" />
+      <div v-else class="empty">Aucune donnée pour cette période</div>
     </div>
 
     <!-- Top Products -->

@@ -91,6 +91,30 @@ class ReportController extends Controller
         // Occupancy rate (rented / total active assets)
         $occupancyRate = $totalAssets > 0 ? round(($rentedAssets / $totalAssets) * 100, 1) : 0;
 
+        // ── Monthly revenue chart ─────────────────────────────────
+        $driver     = DB::getDriverName();
+        $monthExpr  = $driver === 'pgsql'
+            ? DB::raw("TO_CHAR(payment_date, 'YYYY-MM') as month")
+            : DB::raw("strftime('%Y-%m', payment_date) as month");
+
+        $monthlyRaw = RentalPayment::forCompany($company->id)
+            ->whereIn('status', ['paid', 'partial'])
+            ->whereBetween('payment_date', [$startDate, $endDate . ' 23:59:59'])
+            ->select($monthExpr, DB::raw('SUM(amount_paid) as total'))
+            ->groupBy('month')->orderBy('month')
+            ->pluck('total', 'month')->toArray();
+
+        $chartLabels = [];
+        $chartValues = [];
+        $cur = \Carbon\Carbon::parse($startDate)->startOfMonth();
+        $endM = \Carbon\Carbon::parse($endDate);
+        while ($cur->lte($endM)) {
+            $key = $cur->format('Y-m');
+            $chartLabels[] = $cur->locale('fr')->isoFormat('MMM YY');
+            $chartValues[] = (float) ($monthlyRaw[$key] ?? 0);
+            $cur->addMonth();
+        }
+
         return inertia('App/Location/Reports/Index', [
             'totalAssets'        => $totalAssets,
             'availableAssets'    => $availableAssets,
@@ -108,6 +132,8 @@ class ReportController extends Controller
             'totalDebts'         => $totalDebts,
             'topDebtors'         => $topDebtors,
             'occupancyRate'      => $occupancyRate,
+            'chartLabels'        => $chartLabels,
+            'chartValues'        => $chartValues,
             'filters'            => [
                 'start_date' => $startDate,
                 'end_date'   => $endDate,

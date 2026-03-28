@@ -53,6 +53,7 @@ use App\Http\Controllers\App\TeamController;
 use App\Http\Controllers\App\NotificationController;
 use App\Http\Controllers\App\PdfController;
 use App\Http\Controllers\App\ExportImportController;
+use App\Http\Controllers\App\ReportController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -94,6 +95,9 @@ Route::middleware(['tenant', 'auth', 'subscription'])
      ->group(function () {
          // Tableau de bord tenant
          Route::get('/',             [AppDashboard::class,    'index'])->name('dashboard');
+
+         // Rapports globaux (CDC §15)
+         Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 
          // Onboarding (compléter le profil entreprise)
          Route::get('/onboarding',   [OnboardingController::class, 'index'])->name('onboarding');
