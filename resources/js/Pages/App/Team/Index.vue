@@ -48,10 +48,10 @@ function permCount(m) {
     <AppLayout title="Équipe">
         <div class="team-page">
             <div class="page-header">
-                <div>
-                    <h1 class="page-title">Équipe</h1>
-                    <p class="page-sub">{{ members.length }} membre(s) dans l'entreprise</p>
-                </div>
+                <h1 class="page-title">
+                    <i class="fa-solid fa-users" style="color:#6366F1"></i> Équipe
+                    <span class="page-count">{{ members.length }} membre(s)</span>
+                </h1>
                 <Link v-if="isOwner" :href="route('app.team.create', { _tenant: company.slug })" class="btn-primary">
                     <i class="fa-solid fa-user-plus"></i> Ajouter un membre
                 </Link>
@@ -123,9 +123,9 @@ function permCount(m) {
 
 <style scoped>
 .team-page { max-width: 960px; }
-.page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
-.page-title { font-size: 1.5rem; font-weight: 800; color: #111827; margin: 0; }
-.page-sub { font-size: 0.85rem; color: #6B7280; margin-top: 4px; }
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #6366F1; margin: 0; }
+.page-count { font-size: 0.75rem; font-weight: 500; color: #9CA3AF; }
 
 .btn-primary {
     display: inline-flex; align-items: center; gap: 8px;

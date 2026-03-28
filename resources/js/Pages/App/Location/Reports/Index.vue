@@ -40,7 +40,7 @@ const typeLabels = { vehicle: 'Véhicule', real_estate: 'Immobilier', equipment:
 
 <template>
     <AppLayout title="Rapports Location">
-        <h1 style="font-size:1.15rem;font-weight:700;margin-bottom:16px;">Rapports Location</h1>
+        <h1 class="page-title"><i class="fa-solid fa-chart-line" style="color:#EC4899"></i> Rapports Location</h1>
 
         <!-- Date filter -->
         <div style="display:flex;gap:8px;margin-bottom:20px;align-items:end;">
@@ -186,3 +186,7 @@ const typeLabels = { vehicle: 'Véhicule', real_estate: 'Immobilier', equipment:
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #EC4899; margin-bottom: 20px; }
+</style>

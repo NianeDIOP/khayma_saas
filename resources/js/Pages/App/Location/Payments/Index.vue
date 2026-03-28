@@ -50,9 +50,9 @@ function submitPayment() {
 
 <template>
     <AppLayout title="Paiements location">
-        <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h1 style="font-size:1.15rem;font-weight:700;">Paiements de location</h1>
-            <button @click="markOverdue" style="background:#EF4444;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;border:none;cursor:pointer;">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-money-bill-wave" style="color:#F59E0B"></i> Paiements de location</h1>
+            <button @click="markOverdue" class="btn-danger">
                 Marquer retards
             </button>
         </div>
@@ -173,3 +173,10 @@ function submitPayment() {
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #F59E0B; }
+.btn-danger { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #EF4444; color: #fff; font-size: 0.82rem; font-weight: 600; border: none; cursor: pointer; transition: background 0.15s; }
+.btn-danger:hover { background: #DC2626; }
+</style>

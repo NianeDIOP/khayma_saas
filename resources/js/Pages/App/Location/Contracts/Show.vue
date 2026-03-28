@@ -72,9 +72,9 @@ const totalDue = (c.payments || []).reduce((s, p) => s + Number(p.amount || 0), 
 
 <template>
     <AppLayout title="Détail contrat">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h1 style="font-size:1.15rem;font-weight:700;">{{ c.reference }}</h1>
-            <Link :href="route('app.location.contracts.index')" style="color:#6B7280;font-size:0.82rem;text-decoration:none;">← Retour</Link>
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-file-contract" style="color:#10B981"></i> {{ c.reference }}</h1>
+            <Link :href="route('app.location.contracts.index')" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</Link>
         </div>
 
         <div v-if="$page.props.flash?.success" style="background:#ECFDF5;color:#065F46;padding:10px 14px;font-size:0.82rem;margin-bottom:12px;">
@@ -318,3 +318,10 @@ const totalDue = (c.payments || []).reduce((s, p) => s + Number(p.amount || 0), 
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #10B981; }
+.btn-back { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: #F3F4F6; color: #374151; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid #E5E7EB; transition: all 0.15s; }
+.btn-back:hover { background: #E5E7EB; }
+</style>

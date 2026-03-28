@@ -166,7 +166,7 @@ const MOVEMENT_LABELS = { purchase: 'Achat', sale: 'Vente', adjustment: 'Ajustem
 
 <style scoped>
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
-.page-title{font-size:1.5rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #6366F1}
 .filters-bar{display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
 .filter-group{display:flex;flex-direction:column;gap:.2rem}
 .filter-group label{font-size:.75rem;font-weight:600;color:#6B7280}

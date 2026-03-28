@@ -36,9 +36,9 @@ const statusColors = { available: '#10B981', rented: '#3B82F6', maintenance: '#F
 
 <template>
     <AppLayout title="Biens locatifs">
-        <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h1 style="font-size:1.15rem;font-weight:700;">Biens locatifs</h1>
-            <Link :href="route('app.location.assets.create')" style="background:#6366F1;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-building" style="color:#0EA5E9"></i> Biens locatifs</h1>
+            <Link :href="route('app.location.assets.create')" class="btn-primary">
                 + Nouveau bien
             </Link>
         </div>
@@ -122,3 +122,10 @@ const statusColors = { available: '#10B981', rented: '#3B82F6', maintenance: '#F
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #0EA5E9; }
+.btn-primary { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #4F46E5; color: #fff; font-size: 0.82rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: background 0.15s; }
+.btn-primary:hover { background: #4338CA; }
+</style>

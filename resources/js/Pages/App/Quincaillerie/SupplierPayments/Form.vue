@@ -95,7 +95,7 @@ function submit() {
 
 <style scoped>
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
-.page-title{font-size:1.5rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #10B981}
 .btn-back{color:#6B7280;font-size:.875rem;display:inline-flex;align-items:center;gap:.3rem}
 .form-card{background:#fff;border:1px solid #E5E7EB;padding:1.5rem}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}

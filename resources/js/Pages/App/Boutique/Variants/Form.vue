@@ -50,9 +50,9 @@ function submit() {
 <template>
     <AppLayout :title="isEdit ? 'Modifier variante' : 'Nouvelle variante'">
         <div style="max-width:640px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-                <h1 style="font-size:1.15rem;font-weight:700;">{{ isEdit ? 'Modifier la variante' : 'Nouvelle variante' }}</h1>
-                <Link :href="route('app.boutique.variants.index')" style="color:#6B7280;font-size:0.82rem;text-decoration:none;">← Retour</Link>
+            <div class="page-header">
+                <h1 class="page-title"><i class="fa-solid fa-swatchbook" style="color:#6366F1"></i> {{ isEdit ? 'Modifier la variante' : 'Nouvelle variante' }}</h1>
+                <Link :href="route('app.boutique.variants.index')" class="btn-back">← Retour</Link>
             </div>
 
             <form @submit.prevent="submit" style="display:flex;flex-direction:column;gap:14px;">
@@ -126,3 +126,10 @@ function submit() {
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #6366F1}
+.btn-back{color:#6B7280;font-size:0.82rem;text-decoration:none}
+.btn-back:hover{color:#111827}
+</style>

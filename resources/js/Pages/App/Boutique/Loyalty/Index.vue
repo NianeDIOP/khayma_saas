@@ -42,7 +42,9 @@ function formatPrice(v) {
 
 <template>
     <AppLayout title="Fidélité">
-        <h1 style="font-size:1.15rem;font-weight:700;margin-bottom:16px;">Programme de fidélité</h1>
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-heart" style="color:#EC4899"></i> Programme de fidélité</h1>
+        </div>
 
         <div v-if="flash?.success" style="background:#ECFDF5;border:1px solid #6EE7B7;padding:10px 16px;margin-bottom:16px;color:#065F46;font-size:0.85rem;">
             {{ flash.success }}
@@ -171,3 +173,8 @@ function formatPrice(v) {
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #EC4899}
+</style>

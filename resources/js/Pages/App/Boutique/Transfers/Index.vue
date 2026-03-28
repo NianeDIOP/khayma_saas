@@ -22,9 +22,9 @@ const statusColors = { pending: '#F59E0B', completed: '#10B981', cancelled: '#EF
 
 <template>
     <AppLayout title="Transferts inter-dépôts">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h1 style="font-size:1.15rem;font-weight:700;">Transferts inter-dépôts</h1>
-            <Link :href="route('app.boutique.transfers.create')" style="background:#0891B2;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-right-left" style="color:#0EA5E9"></i> Transferts inter-dépôts</h1>
+            <Link :href="route('app.boutique.transfers.create')" class="btn-primary">
                 + Nouveau transfert
             </Link>
         </div>
@@ -75,3 +75,10 @@ const statusColors = { pending: '#F59E0B', completed: '#10B981', cancelled: '#EF
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #0EA5E9}
+.btn-primary{background:#0EA5E9;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;border:none;cursor:pointer}
+.btn-primary:hover{background:#0284C7}
+</style>

@@ -30,7 +30,9 @@ const progress = Math.round((completedCount / props.steps.length) * 100)
   <AppLayout title="Onboarding">
     <Head title="Onboarding" />
 
-    <h1 class="page-title">Bienvenue — Complétons votre profil</h1>
+    <div class="page-header">
+      <h1 class="page-title"><i class="fa-solid fa-clipboard-check" style="color:#F59E0B"></i> Bienvenue — Complétons votre profil</h1>
+    </div>
 
     <!-- Progress bar -->
     <div class="onboard-progress">
@@ -105,10 +107,12 @@ const progress = Math.round((completedCount / props.steps.length) * 100)
 </template>
 
 <style scoped>
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .page-title {
   font-size: 1.15rem; font-weight: 700; color: #111827;
-  margin-bottom: 20px; padding-left: 12px;
+  padding-left: 12px;
   border-left: 3px solid #F59E0B;
+  display: flex; align-items: center; gap: 10px;
 }
 
 /* ── Progress ─── */

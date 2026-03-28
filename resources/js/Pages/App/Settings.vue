@@ -29,7 +29,9 @@ function submit() {
   <AppLayout title="Paramètres">
     <Head title="Paramètres" />
 
-    <h1 class="page-title">Paramètres de l'entreprise</h1>
+    <div class="page-header">
+      <h1 class="page-title"><i class="fa-solid fa-gear" style="color:#8B5CF6"></i> Paramètres de l'entreprise</h1>
+    </div>
 
     <form @submit.prevent="submit" class="settings-form">
       <!-- Identité -->
@@ -126,10 +128,12 @@ function submit() {
 </template>
 
 <style scoped>
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .page-title {
   font-size: 1.15rem; font-weight: 700; color: #111827;
-  margin-bottom: 20px; padding-left: 12px;
+  padding-left: 12px;
   border-left: 3px solid #8B5CF6;
+  display: flex; align-items: center; gap: 10px;
 }
 
 .settings-form { max-width: 750px; }

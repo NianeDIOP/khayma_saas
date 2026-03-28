@@ -87,11 +87,13 @@ function submit() {
     <AppLayout :title="isEdit ? 'Modifier un membre' : 'Ajouter un membre'">
         <div class="form-page">
             <div class="page-header">
-                <Link :href="route('app.team.index', { _tenant: company.slug })" class="back-link">
-                    <i class="fa-solid fa-arrow-left"></i> Retour à l'équipe
+                <h1 class="page-title">
+                    <i class="fa-solid fa-user-pen" style="color:#6366F1"></i>
+                    {{ isEdit ? 'Modifier le membre' : 'Ajouter un membre' }}
+                </h1>
+                <Link :href="route('app.team.index', { _tenant: company.slug })" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> Retour
                 </Link>
-                <h1 class="page-title">{{ isEdit ? 'Modifier le membre' : 'Ajouter un membre' }}</h1>
-                <p class="page-sub">{{ isEdit ? `Modifier le profil de ${member.name}` : 'Invitez un collaborateur dans votre entreprise' }}</p>
             </div>
 
             <form @submit.prevent="submit" class="member-form">
@@ -180,11 +182,15 @@ function submit() {
 
 <style scoped>
 .form-page { max-width: 640px; }
-.page-header { margin-bottom: 28px; }
-.back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; color: #6B7280; text-decoration: none; margin-bottom: 12px; }
-.back-link:hover { color: #111827; }
-.page-title { font-size: 1.5rem; font-weight: 800; color: #111827; margin: 0; }
-.page-sub { font-size: 0.85rem; color: #6B7280; margin-top: 4px; }
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #6366F1; margin: 0; }
+.btn-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; background: #F3F4F6; color: #374151;
+    font-size: 0.78rem; font-weight: 600; text-decoration: none;
+    border: 1px solid #E5E7EB; transition: all 0.15s;
+}
+.btn-back:hover { background: #E5E7EB; }
 
 .member-form { display: flex; flex-direction: column; gap: 20px; }
 

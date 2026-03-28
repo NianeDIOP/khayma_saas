@@ -16,13 +16,11 @@ const contractStatusColors = { active: '#10B981', completed: '#6B7280', overdue:
 
 <template>
     <AppLayout title="Détail bien">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h1 style="font-size:1.15rem;font-weight:700;">{{ asset.name }}</h1>
-            <div style="display:flex;gap:8px;">
-                <Link :href="route('app.location.assets.edit', asset.id)" style="background:#F59E0B;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;">
-                    Modifier
-                </Link>
-                <Link :href="route('app.location.assets.index')" style="color:#6B7280;font-size:0.82rem;text-decoration:none;padding:8px 0;">← Retour</Link>
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-building" style="color:#0EA5E9"></i> {{ asset.name }}</h1>
+            <div class="header-actions">
+                <Link :href="route('app.location.assets.edit', asset.id)" class="btn-edit">Modifier</Link>
+                <Link :href="route('app.location.assets.index')" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</Link>
             </div>
         </div>
 
@@ -117,3 +115,13 @@ const contractStatusColors = { active: '#10B981', completed: '#6B7280', overdue:
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #0EA5E9; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.btn-edit { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #F59E0B; color: #fff; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+.btn-edit:hover { background: #D97706; }
+.btn-back { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: #F3F4F6; color: #374151; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid #E5E7EB; transition: all 0.15s; }
+.btn-back:hover { background: #E5E7EB; }
+</style>

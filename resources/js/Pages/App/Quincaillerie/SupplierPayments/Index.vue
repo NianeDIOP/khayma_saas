@@ -95,7 +95,7 @@ const METHOD_LABELS = { cash: 'Espèces', wave: 'Wave', om: 'Orange Money', bank
 
 <style scoped>
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
-.page-title{font-size:1.5rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #10B981}
 .btn-primary{background:#2563EB;color:#fff;padding:.5rem 1rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem;border:none;cursor:pointer}
 .debt-cards{display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}
 .debt-card{background:#FEF3C7;border:1px solid #F59E0B;padding:.5rem 1rem;min-width:150px}

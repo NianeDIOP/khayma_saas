@@ -27,9 +27,9 @@ const statusColors = { active: '#10B981', completed: '#6B7280', overdue: '#EF444
 
 <template>
     <AppLayout title="Contrats de location">
-        <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h1 style="font-size:1.15rem;font-weight:700;">Contrats de location</h1>
-            <Link :href="route('app.location.contracts.create')" style="background:#6366F1;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-file-contract" style="color:#10B981"></i> Contrats de location</h1>
+            <Link :href="route('app.location.contracts.create')" class="btn-primary">
                 + Nouveau contrat
             </Link>
         </div>
@@ -102,3 +102,10 @@ const statusColors = { active: '#10B981', completed: '#6B7280', overdue: '#EF444
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #10B981; }
+.btn-primary { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #4F46E5; color: #fff; font-size: 0.82rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: background 0.15s; }
+.btn-primary:hover { background: #4338CA; }
+</style>

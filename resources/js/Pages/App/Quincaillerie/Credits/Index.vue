@@ -149,7 +149,7 @@ const PAYMENT_STATUS_COLORS = { paid: '#10B981', partial: '#F59E0B', unpaid: '#E
 
 <style scoped>
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
-.page-title{font-size:1.5rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #EF4444}
 .flash-success{background:#D1FAE5;color:#065F46;padding:.75rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
 .section-title{font-size:1rem;font-weight:600;margin-bottom:.75rem;color:#111}
 .debt-summary{margin-bottom:1.5rem}

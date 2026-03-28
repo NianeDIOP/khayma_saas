@@ -11,9 +11,9 @@ const statusColors = { pending: '#F59E0B', completed: '#10B981', cancelled: '#EF
 <template>
     <AppLayout title="Détail transfert">
         <div style="max-width:700px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-                <h1 style="font-size:1.15rem;font-weight:700;">Transfert {{ transfer.reference }}</h1>
-                <Link :href="route('app.boutique.transfers.index')" style="color:#6B7280;font-size:0.82rem;text-decoration:none;">← Retour</Link>
+            <div class="page-header">
+                <h1 class="page-title"><i class="fa-solid fa-right-left" style="color:#0EA5E9"></i> Transfert {{ transfer.reference }}</h1>
+                <Link :href="route('app.boutique.transfers.index')" class="btn-back">← Retour</Link>
             </div>
 
             <!-- Info cards -->
@@ -63,3 +63,10 @@ const statusColors = { pending: '#F59E0B', completed: '#10B981', cancelled: '#EF
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #0EA5E9}
+.btn-back{color:#6B7280;font-size:0.82rem;text-decoration:none}
+.btn-back:hover{color:#111827}
+</style>

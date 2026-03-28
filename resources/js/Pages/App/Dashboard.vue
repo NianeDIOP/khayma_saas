@@ -20,7 +20,9 @@ const cards = [
   <AppLayout title="Tableau de bord">
     <Head title="Dashboard" />
 
-    <h1 class="page-title">Tableau de bord</h1>
+    <div class="page-header">
+      <h1 class="page-title"><i class="fa-solid fa-gauge-high" style="color:#10B981"></i> Tableau de bord</h1>
+    </div>
 
     <!-- Trial banner -->
     <div v-if="stats.trial_days_left !== null" class="trial-banner">
@@ -71,10 +73,12 @@ const cards = [
 </template>
 
 <style scoped>
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .page-title {
   font-size: 1.15rem; font-weight: 700; color: #111827;
-  margin-bottom: 20px; padding-left: 12px;
+  padding-left: 12px;
   border-left: 3px solid #10B981;
+  display: flex; align-items: center; gap: 10px;
 }
 
 /* ── Trial banner ─── */

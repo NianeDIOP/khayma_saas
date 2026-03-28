@@ -31,9 +31,9 @@ function submit() {
 <template>
     <AppLayout :title="isEdit ? 'Modifier promotion' : 'Nouvelle promotion'">
         <div style="max-width:560px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-                <h1 style="font-size:1.15rem;font-weight:700;">{{ isEdit ? 'Modifier la promotion' : 'Nouvelle promotion' }}</h1>
-                <Link :href="route('app.boutique.promotions.index')" style="color:#6B7280;font-size:0.82rem;text-decoration:none;">← Retour</Link>
+            <div class="page-header">
+                <h1 class="page-title"><i class="fa-solid fa-tags" style="color:#F59E0B"></i> {{ isEdit ? 'Modifier la promotion' : 'Nouvelle promotion' }}</h1>
+                <Link :href="route('app.boutique.promotions.index')" class="btn-back">← Retour</Link>
             </div>
 
             <form @submit.prevent="submit" style="display:flex;flex-direction:column;gap:14px;">
@@ -95,3 +95,10 @@ function submit() {
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #F59E0B}
+.btn-back{color:#6B7280;font-size:0.82rem;text-decoration:none}
+.btn-back:hover{color:#111827}
+</style>

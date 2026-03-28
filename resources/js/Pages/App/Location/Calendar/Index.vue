@@ -44,7 +44,7 @@ function daysRemaining(endDate) {
 
 <template>
     <AppLayout title="Calendrier location">
-        <h1 style="font-size:1.15rem;font-weight:700;margin-bottom:16px;">Calendrier des locations</h1>
+        <h1 class="page-title"><i class="fa-solid fa-calendar-days" style="color:#8B5CF6"></i> Calendrier des locations</h1>
 
         <!-- Alerts -->
         <div v-if="expiringContracts.length || overduePayments.length" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
@@ -130,3 +130,7 @@ function daysRemaining(endDate) {
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-title { font-size: 1.15rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 10px; padding-left: 12px; border-left: 3px solid #8B5CF6; margin-bottom: 20px; }
+</style>

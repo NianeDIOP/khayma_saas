@@ -31,9 +31,9 @@ function formatPrice(v) {
 
 <template>
     <AppLayout title="Promotions">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h1 style="font-size:1.15rem;font-weight:700;">Promotions</h1>
-            <Link :href="route('app.boutique.promotions.create')" style="background:#F59E0B;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-tags" style="color:#F59E0B"></i> Promotions</h1>
+            <Link :href="route('app.boutique.promotions.create')" class="btn-primary">
                 + Nouvelle promotion
             </Link>
         </div>
@@ -93,3 +93,10 @@ function formatPrice(v) {
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #F59E0B}
+.btn-primary{background:#F59E0B;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;border:none;cursor:pointer}
+.btn-primary:hover{background:#D97706}
+</style>

@@ -104,7 +104,7 @@ const STATUS_COLORS = { draft: '#6B7280', sent: '#3B82F6', partial: '#F59E0B', r
 
 <style scoped>
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
-.page-title{font-size:1.5rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #F59E0B}
 .btn-primary{background:#2563EB;color:#fff;padding:.5rem 1rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem;border:none;cursor:pointer}
 .btn-primary:hover{background:#1D4ED8}
 .filters-bar{display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}

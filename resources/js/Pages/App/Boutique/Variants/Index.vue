@@ -28,9 +28,9 @@ function destroy(id) {
 
 <template>
     <AppLayout title="Variantes produits">
-        <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h1 style="font-size:1.15rem;font-weight:700;">Variantes produits</h1>
-            <Link :href="route('app.boutique.variants.create')" style="background:#6366F1;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-swatchbook" style="color:#6366F1"></i> Variantes produits</h1>
+            <Link :href="route('app.boutique.variants.create')" class="btn-primary">
                 + Nouvelle variante
             </Link>
         </div>
@@ -84,3 +84,10 @@ function destroy(id) {
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #6366F1}
+.btn-primary{background:#6366F1;color:white;padding:8px 16px;font-size:0.82rem;font-weight:600;text-decoration:none;border:none;cursor:pointer}
+.btn-primary:hover{background:#4F46E5}
+</style>

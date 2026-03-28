@@ -86,7 +86,7 @@ const STATUS_COLORS = { in_progress: '#F59E0B', validated: '#10B981' }
 
 <style scoped>
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
-.page-title{font-size:1.5rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #8B5CF6}
 .btn-primary{background:#2563EB;color:#fff;padding:.5rem 1rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem;border:none;cursor:pointer}
 .filters-bar{display:flex;gap:.75rem;margin-bottom:1rem}
 .filter-select{padding:.5rem .75rem;border:1px solid #D1D5DB;font-size:.875rem;min-width:140px}

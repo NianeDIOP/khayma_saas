@@ -38,7 +38,9 @@ const paymentLabels = { cash: 'Espèces', wave: 'Wave', om: 'Orange Money', card
 
 <template>
     <AppLayout title="Rapports Boutique">
-        <h1 style="font-size:1.15rem;font-weight:700;margin-bottom:16px;">Rapports Boutique</h1>
+        <div class="page-header">
+            <h1 class="page-title"><i class="fa-solid fa-chart-pie" style="color:#8B5CF6"></i> Rapports Boutique</h1>
+        </div>
 
         <!-- Date filter -->
         <div style="display:flex;gap:8px;margin-bottom:20px;align-items:end;">
@@ -159,3 +161,8 @@ const paymentLabels = { cash: 'Espèces', wave: 'Wave', om: 'Orange Money', card
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.page-title{font-size:1.15rem;font-weight:700;color:#111827;display:flex;align-items:center;gap:10px;padding-left:12px;border-left:3px solid #8B5CF6}
+</style>
