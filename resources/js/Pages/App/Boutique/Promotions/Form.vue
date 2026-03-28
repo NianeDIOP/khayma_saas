@@ -9,6 +9,8 @@ const props = defineProps({
 
 const isEdit = !!props.promotion;
 
+const t = () => route().params._tenant
+
 const form = useForm({
     product_id: props.promotion?.product_id || '',
     name: props.promotion?.name || '',
@@ -21,9 +23,9 @@ const form = useForm({
 
 function submit() {
     if (isEdit) {
-        form.put(route('app.boutique.promotions.update', props.promotion.id));
+        form.put(route('app.boutique.promotions.update', { promotion: props.promotion.id, _tenant: t() }));
     } else {
-        form.post(route('app.boutique.promotions.store'));
+        form.post(route('app.boutique.promotions.store', { _tenant: t() }));
     }
 }
 </script>
@@ -33,7 +35,7 @@ function submit() {
         <div style="max-width:560px;">
             <div class="page-header">
                 <h1 class="page-title"><i class="fa-solid fa-tags" style="color:#F59E0B"></i> {{ isEdit ? 'Modifier la promotion' : 'Nouvelle promotion' }}</h1>
-                <Link :href="route('app.boutique.promotions.index')" class="btn-back">← Retour</Link>
+                <Link :href="route('app.boutique.promotions.index', { _tenant: t() })" class="btn-back">← Retour</Link>
             </div>
 
             <form @submit.prevent="submit" style="display:flex;flex-direction:column;gap:14px;">

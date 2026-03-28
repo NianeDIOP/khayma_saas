@@ -3,6 +3,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
+const t = () => route().params._tenant
+
 const props = defineProps({
     assets: Array,
     customers: Array,
@@ -30,7 +32,7 @@ const typeLabels = { vehicle: 'Véhicule', real_estate: 'Immobilier', equipment:
 function fmt(v) { return new Intl.NumberFormat('fr-FR').format(v || 0); }
 
 function submit() {
-    form.post(route('app.location.contracts.store'));
+    form.post(route('app.location.contracts.store', { _tenant: t() }));
 }
 </script>
 
@@ -39,7 +41,7 @@ function submit() {
         <div style="max-width:640px;">
             <div class="page-header">
                 <h1 class="page-title"><i class="fa-solid fa-file-contract" style="color:#10B981"></i> Nouveau contrat de location</h1>
-                <Link :href="route('app.location.contracts.index')" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</Link>
+                <Link :href="route('app.location.contracts.index', { _tenant: t() })" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</Link>
             </div>
 
             <form @submit.prevent="submit" style="display:flex;flex-direction:column;gap:14px;">
@@ -126,7 +128,7 @@ function submit() {
                             style="padding:10px 24px;background:#111827;color:white;border:none;cursor:pointer;font-size:0.82rem;font-weight:600;">
                         {{ form.processing ? 'Enregistrement...' : 'Créer le contrat' }}
                     </button>
-                    <Link :href="route('app.location.contracts.index')" style="padding:10px 24px;border:1px solid #D1D5DB;text-decoration:none;color:#374151;font-size:0.82rem;">
+                    <Link :href="route('app.location.contracts.index', { _tenant: t() })" style="padding:10px 24px;border:1px solid #D1D5DB;text-decoration:none;color:#374151;font-size:0.82rem;">
                         Annuler
                     </Link>
                 </div>

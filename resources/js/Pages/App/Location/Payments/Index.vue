@@ -11,8 +11,10 @@ const props = defineProps({
 const search = ref(props.filters?.search || '');
 const status = ref(props.filters?.status || '');
 
+const t = () => route().params._tenant
+
 function applyFilters() {
-    router.get(route('app.location.payments.index'), {
+    router.get(route('app.location.payments.index', { _tenant: t() }), {
         search: search.value || undefined,
         status: status.value || undefined,
     }, { preserveState: true });
@@ -20,7 +22,7 @@ function applyFilters() {
 
 function markOverdue() {
     if (!confirm('Marquer tous les paiements en retard ?')) return;
-    router.post(route('app.location.payments.mark-overdue'));
+    router.post(route('app.location.payments.mark-overdue', { _tenant: t() }));
 }
 
 function fmt(v) { return new Intl.NumberFormat('fr-FR').format(v || 0); }
@@ -42,7 +44,7 @@ function openPayment(p) {
 }
 
 function submitPayment() {
-    router.post(route('app.location.payments.record', selectedPayment.value.id), payForm.value, {
+    router.post(route('app.location.payments.record', { payment: selectedPayment.value.id, _tenant: t() }), payForm.value, {
         onSuccess: () => { showPayment.value = false; }
     });
 }
@@ -93,7 +95,7 @@ function submitPayment() {
                 <tbody>
                     <tr v-for="p in payments.data" :key="p.id" style="border-bottom:1px solid #F3F4F6;">
                         <td style="padding:10px;">
-                            <Link v-if="p.rental_contract" :href="route('app.location.contracts.show', p.rental_contract.id)" style="color:#6366F1;text-decoration:none;font-weight:600;">
+                            <Link v-if="p.rental_contract" :href="route('app.location.contracts.show', { contract: p.rental_contract.id, _tenant: t() })" style="color:#6366F1;text-decoration:none;font-weight:600;">
                                 {{ p.rental_contract.reference }}
                             </Link>
                         </td>

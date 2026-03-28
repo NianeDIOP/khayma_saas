@@ -27,6 +27,8 @@ const useLoyaltyPoints = ref(0);
 const notes = ref('');
 const processing = ref(false);
 
+const t = () => route().params._tenant
+
 const filteredProducts = computed(() => {
     let result = props.products;
     if (search.value) {
@@ -92,7 +94,7 @@ function submit() {
     if (cart.value.length === 0 || processing.value) return;
     processing.value = true;
 
-    router.post(route('app.boutique.pos.store'), {
+    router.post(route('app.boutique.pos.store', { _tenant: t() }), {
         customer_id: selectedCustomer.value,
         depot_id: selectedDepot.value,
         discount_amount: discountAmount.value,

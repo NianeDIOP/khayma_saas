@@ -12,8 +12,10 @@ const props = defineProps({
 const search = ref(props.filters?.search || '');
 const productId = ref(props.filters?.product_id || '');
 
+const t = () => route().params._tenant
+
 function applyFilters() {
-    router.get(route('app.boutique.variants.index'), {
+    router.get(route('app.boutique.variants.index', { _tenant: t() }), {
         search: search.value || undefined,
         product_id: productId.value || undefined,
     }, { preserveState: true });
@@ -21,7 +23,7 @@ function applyFilters() {
 
 function destroy(id) {
     if (confirm('Supprimer cette variante ?')) {
-        router.delete(route('app.boutique.variants.destroy', id));
+        router.delete(route('app.boutique.variants.destroy', { variant: id, _tenant: t() }));
     }
 }
 </script>
@@ -30,7 +32,7 @@ function destroy(id) {
     <AppLayout title="Variantes produits">
         <div class="page-header">
             <h1 class="page-title"><i class="fa-solid fa-swatchbook" style="color:#6366F1"></i> Variantes produits</h1>
-            <Link :href="route('app.boutique.variants.create')" class="btn-primary">
+            <Link :href="route('app.boutique.variants.create', { _tenant: t() })" class="btn-primary">
                 + Nouvelle variante
             </Link>
         </div>
@@ -72,7 +74,7 @@ function destroy(id) {
                             </span>
                         </td>
                         <td style="padding:10px;text-align:right;">
-                            <Link :href="route('app.boutique.variants.edit', v.id)" style="color:#6366F1;text-decoration:none;margin-right:8px;">Modifier</Link>
+                            <Link :href="route('app.boutique.variants.edit', { variant: v.id, _tenant: t() })" style="color:#6366F1;text-decoration:none;margin-right:8px;">Modifier</Link>
                             <button @click="destroy(v.id)" style="color:#EF4444;border:none;background:none;cursor:pointer;">Supprimer</button>
                         </td>
                     </tr>

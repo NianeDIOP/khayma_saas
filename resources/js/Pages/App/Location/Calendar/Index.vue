@@ -13,6 +13,8 @@ const props = defineProps({
 
 const typeFilter = ref(props.filters?.type || '');
 
+const t = () => route().params._tenant
+
 function fmt(v) { return new Intl.NumberFormat('fr-FR').format(v || 0); }
 function fmtDt(d) { return d ? new Date(d).toLocaleDateString('fr-FR') : '—'; }
 
@@ -54,7 +56,7 @@ function daysRemaining(endDate) {
                     ⚠ Contrats expirant bientôt ({{ expiringContracts.length }})
                 </h3>
                 <div v-for="ec in expiringContracts" :key="ec.id" style="padding:6px 0;border-bottom:1px solid #FEF3C7;font-size:0.82rem;">
-                    <Link :href="route('app.location.contracts.show', ec.id)" style="color:#6366F1;text-decoration:none;font-weight:600;">{{ ec.reference }}</Link>
+                    <Link :href="route('app.location.contracts.show', { contract: ec.id, _tenant: t() })" style="color:#6366F1;text-decoration:none;font-weight:600;">{{ ec.reference }}</Link>
                     — {{ ec.rental_asset?.name }} ({{ ec.customer?.name }})
                     <span style="color:#F59E0B;font-weight:600;margin-left:4px;">{{ daysRemaining(ec.end_date) }}j restants</span>
                 </div>
@@ -99,7 +101,7 @@ function daysRemaining(endDate) {
                 <tbody>
                     <tr v-for="a in filteredAssets" :key="a.id" style="border-bottom:1px solid #F3F4F6;">
                         <td style="padding:10px;font-weight:600;">
-                            <Link :href="route('app.location.assets.show', a.id)" style="color:#374151;text-decoration:none;">{{ a.name }}</Link>
+                            <Link :href="route('app.location.assets.show', { asset: a.id, _tenant: t() })" style="color:#374151;text-decoration:none;">{{ a.name }}</Link>
                         </td>
                         <td style="padding:10px;">
                             <span :style="{ padding:'2px 8px', fontSize:'0.72rem', fontWeight:600, background: typeColors[a.type]+'20', color: typeColors[a.type] }">
@@ -114,7 +116,7 @@ function daysRemaining(endDate) {
                         <td style="padding:10px;" colspan="3">
                             <div v-if="contractsByAsset[a.id]?.length">
                                 <div v-for="ct in contractsByAsset[a.id]" :key="ct.id" style="padding:2px 0;">
-                                    <Link :href="route('app.location.contracts.show', ct.id)" style="color:#6366F1;text-decoration:none;font-weight:600;">{{ ct.reference }}</Link>
+                                    <Link :href="route('app.location.contracts.show', { contract: ct.id, _tenant: t() })" style="color:#6366F1;text-decoration:none;font-weight:600;">{{ ct.reference }}</Link>
                                     <span style="margin-left:8px;">{{ ct.customer?.name }}</span>
                                     <span style="margin-left:8px;color:#6B7280;">{{ fmtDt(ct.start_date) }} → {{ fmtDt(ct.end_date) }}</span>
                                 </div>

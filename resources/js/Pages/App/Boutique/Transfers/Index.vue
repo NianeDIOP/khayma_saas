@@ -10,8 +10,10 @@ const props = defineProps({
 
 const status = ref(props.filters?.status || '');
 
+const tn = () => route().params._tenant
+
 function applyFilters() {
-    router.get(route('app.boutique.transfers.index'), {
+    router.get(route('app.boutique.transfers.index', { _tenant: tn() }), {
         status: status.value || undefined,
     }, { preserveState: true });
 }
@@ -24,7 +26,7 @@ const statusColors = { pending: '#F59E0B', completed: '#10B981', cancelled: '#EF
     <AppLayout title="Transferts inter-dépôts">
         <div class="page-header">
             <h1 class="page-title"><i class="fa-solid fa-right-left" style="color:#0EA5E9"></i> Transferts inter-dépôts</h1>
-            <Link :href="route('app.boutique.transfers.create')" class="btn-primary">
+            <Link :href="route('app.boutique.transfers.create', { _tenant: tn() })" class="btn-primary">
                 + Nouveau transfert
             </Link>
         </div>
@@ -64,7 +66,7 @@ const statusColors = { pending: '#F59E0B', completed: '#10B981', cancelled: '#EF
                         </td>
                         <td style="padding:10px;color:#6B7280;">{{ new Date(t.created_at).toLocaleDateString('fr-FR') }}</td>
                         <td style="padding:10px;text-align:right;">
-                            <Link :href="route('app.boutique.transfers.show', t.id)" style="color:#0891B2;text-decoration:none;">Détail</Link>
+                            <Link :href="route('app.boutique.transfers.show', { transfer: t.id, _tenant: tn() })" style="color:#0891B2;text-decoration:none;">Détail</Link>
                         </td>
                     </tr>
                     <tr v-if="transfers.data.length === 0">

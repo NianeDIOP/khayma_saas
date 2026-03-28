@@ -11,8 +11,10 @@ const props = defineProps({
 const search = ref(props.filters?.search || '');
 const activeOnly = ref(props.filters?.active_only || false);
 
+const t = () => route().params._tenant
+
 function applyFilters() {
-    router.get(route('app.boutique.promotions.index'), {
+    router.get(route('app.boutique.promotions.index', { _tenant: t() }), {
         search: search.value || undefined,
         active_only: activeOnly.value ? 1 : undefined,
     }, { preserveState: true });
@@ -20,7 +22,7 @@ function applyFilters() {
 
 function destroy(id) {
     if (confirm('Supprimer cette promotion ?')) {
-        router.delete(route('app.boutique.promotions.destroy', id));
+        router.delete(route('app.boutique.promotions.destroy', { promotion: id, _tenant: t() }));
     }
 }
 
@@ -33,7 +35,7 @@ function formatPrice(v) {
     <AppLayout title="Promotions">
         <div class="page-header">
             <h1 class="page-title"><i class="fa-solid fa-tags" style="color:#F59E0B"></i> Promotions</h1>
-            <Link :href="route('app.boutique.promotions.create')" class="btn-primary">
+            <Link :href="route('app.boutique.promotions.create', { _tenant: t() })" class="btn-primary">
                 + Nouvelle promotion
             </Link>
         </div>
@@ -81,7 +83,7 @@ function formatPrice(v) {
                             </span>
                         </td>
                         <td style="padding:10px;text-align:right;">
-                            <Link :href="route('app.boutique.promotions.edit', p.id)" style="color:#F59E0B;text-decoration:none;margin-right:8px;">Modifier</Link>
+                            <Link :href="route('app.boutique.promotions.edit', { promotion: p.id, _tenant: t() })" style="color:#F59E0B;text-decoration:none;margin-right:8px;">Modifier</Link>
                             <button @click="destroy(p.id)" style="color:#EF4444;border:none;background:none;cursor:pointer;">Supprimer</button>
                         </td>
                     </tr>

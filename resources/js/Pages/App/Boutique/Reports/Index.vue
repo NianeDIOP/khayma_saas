@@ -22,8 +22,10 @@ const props = defineProps({
 const startDate = ref(props.filters?.start_date || '');
 const endDate = ref(props.filters?.end_date || '');
 
+const t = () => route().params._tenant
+
 function applyFilters() {
-    router.get(route('app.boutique.reports.index'), {
+    router.get(route('app.boutique.reports.index', { _tenant: t() }), {
         start_date: startDate.value,
         end_date: endDate.value,
     }, { preserveState: true });

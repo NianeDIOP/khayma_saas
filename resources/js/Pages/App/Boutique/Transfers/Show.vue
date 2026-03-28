@@ -4,6 +4,8 @@ import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({ transfer: Object });
 
+const t = () => route().params._tenant
+
 const statusLabels = { pending: 'En attente', completed: 'Complété', cancelled: 'Annulé' };
 const statusColors = { pending: '#F59E0B', completed: '#10B981', cancelled: '#EF4444' };
 </script>
@@ -13,7 +15,7 @@ const statusColors = { pending: '#F59E0B', completed: '#10B981', cancelled: '#EF
         <div style="max-width:700px;">
             <div class="page-header">
                 <h1 class="page-title"><i class="fa-solid fa-right-left" style="color:#0EA5E9"></i> Transfert {{ transfer.reference }}</h1>
-                <Link :href="route('app.boutique.transfers.index')" class="btn-back">← Retour</Link>
+                <Link :href="route('app.boutique.transfers.index', { _tenant: t() })" class="btn-back">← Retour</Link>
             </div>
 
             <!-- Info cards -->

@@ -16,6 +16,8 @@ const flash = computed(() => usePage().props.flash);
 const search = ref(props.filters?.search || '');
 const type = ref(props.filters?.type || '');
 
+const t = () => route().params._tenant
+
 const configForm = useForm({
     points_per_amount: props.config?.points_per_amount || 1,
     amount_per_point: props.config?.amount_per_point || 1000,
@@ -25,11 +27,11 @@ const configForm = useForm({
 });
 
 function saveConfig() {
-    configForm.put(route('app.boutique.loyalty.update-config'));
+    configForm.put(route('app.boutique.loyalty.update-config', { _tenant: t() }));
 }
 
 function applyFilters() {
-    router.get(route('app.boutique.loyalty.index'), {
+    router.get(route('app.boutique.loyalty.index', { _tenant: t() }), {
         search: search.value || undefined,
         type: type.value || undefined,
     }, { preserveState: true });

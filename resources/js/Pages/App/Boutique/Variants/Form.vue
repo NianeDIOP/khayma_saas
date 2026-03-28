@@ -9,6 +9,8 @@ const props = defineProps({
 
 const isEdit = !!props.variant;
 
+const t = () => route().params._tenant
+
 const form = useForm({
     product_id: props.variant?.product_id || '',
     name: props.variant?.name || '',
@@ -40,9 +42,9 @@ function removeAttribute(key) {
 
 function submit() {
     if (isEdit) {
-        form.put(route('app.boutique.variants.update', props.variant.id));
+        form.put(route('app.boutique.variants.update', { variant: props.variant.id, _tenant: t() }));
     } else {
-        form.post(route('app.boutique.variants.store'));
+        form.post(route('app.boutique.variants.store', { _tenant: t() }));
     }
 }
 </script>
@@ -52,7 +54,7 @@ function submit() {
         <div style="max-width:640px;">
             <div class="page-header">
                 <h1 class="page-title"><i class="fa-solid fa-swatchbook" style="color:#6366F1"></i> {{ isEdit ? 'Modifier la variante' : 'Nouvelle variante' }}</h1>
-                <Link :href="route('app.boutique.variants.index')" class="btn-back">← Retour</Link>
+                <Link :href="route('app.boutique.variants.index', { _tenant: t() })" class="btn-back">← Retour</Link>
             </div>
 
             <form @submit.prevent="submit" style="display:flex;flex-direction:column;gap:14px;">

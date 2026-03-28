@@ -4,6 +4,8 @@ import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({ asset: Object });
 
+const t = () => route().params._tenant
+
 function fmt(v) { return new Intl.NumberFormat('fr-FR').format(v || 0); }
 function fmtDt(d) { return d ? new Date(d).toLocaleDateString('fr-FR') : '—'; }
 
@@ -19,8 +21,8 @@ const contractStatusColors = { active: '#10B981', completed: '#6B7280', overdue:
         <div class="page-header">
             <h1 class="page-title"><i class="fa-solid fa-building" style="color:#0EA5E9"></i> {{ asset.name }}</h1>
             <div class="header-actions">
-                <Link :href="route('app.location.assets.edit', asset.id)" class="btn-edit">Modifier</Link>
-                <Link :href="route('app.location.assets.index')" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</Link>
+                <Link :href="route('app.location.assets.edit', { asset: asset.id, _tenant: t() })" class="btn-edit">Modifier</Link>
+                <Link :href="route('app.location.assets.index', { _tenant: t() })" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</Link>
             </div>
         </div>
 
@@ -95,7 +97,7 @@ const contractStatusColors = { active: '#10B981', completed: '#6B7280', overdue:
                 <tbody>
                     <tr v-for="c in asset.contracts" :key="c.id" style="border-bottom:1px solid #F3F4F6;">
                         <td style="padding:10px;">
-                            <Link :href="route('app.location.contracts.show', c.id)" style="color:#6366F1;text-decoration:none;font-weight:600;">{{ c.reference }}</Link>
+                            <Link :href="route('app.location.contracts.show', { contract: c.id, _tenant: t() })" style="color:#6366F1;text-decoration:none;font-weight:600;">{{ c.reference }}</Link>
                         </td>
                         <td style="padding:10px;">{{ c.customer?.name || '—' }}</td>
                         <td style="padding:10px;">{{ fmtDt(c.start_date) }}</td>

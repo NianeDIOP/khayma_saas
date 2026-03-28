@@ -11,8 +11,10 @@ const props = defineProps({
 const search = ref(props.filters?.search || '');
 const status = ref(props.filters?.status || '');
 
+const t = () => route().params._tenant
+
 function applyFilters() {
-    router.get(route('app.location.contracts.index'), {
+    router.get(route('app.location.contracts.index', { _tenant: t() }), {
         search: search.value || undefined,
         status: status.value || undefined,
     }, { preserveState: true });
@@ -29,7 +31,7 @@ const statusColors = { active: '#10B981', completed: '#6B7280', overdue: '#EF444
     <AppLayout title="Contrats de location">
         <div class="page-header">
             <h1 class="page-title"><i class="fa-solid fa-file-contract" style="color:#10B981"></i> Contrats de location</h1>
-            <Link :href="route('app.location.contracts.create')" class="btn-primary">
+            <Link :href="route('app.location.contracts.create', { _tenant: t() })" class="btn-primary">
                 + Nouveau contrat
             </Link>
         </div>
@@ -81,7 +83,7 @@ const statusColors = { active: '#10B981', completed: '#6B7280', overdue: '#EF444
                             </span>
                         </td>
                         <td style="padding:10px;text-align:right;">
-                            <Link :href="route('app.location.contracts.show', c.id)" style="color:#6366F1;text-decoration:none;">Voir</Link>
+                            <Link :href="route('app.location.contracts.show', { contract: c.id, _tenant: t() })" style="color:#6366F1;text-decoration:none;">Voir</Link>
                         </td>
                     </tr>
                     <tr v-if="contracts.data.length === 0">

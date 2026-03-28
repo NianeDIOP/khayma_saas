@@ -6,6 +6,8 @@ import { router, Link } from '@inertiajs/vue3';
 const props = defineProps({ contract: Object });
 const c = props.contract;
 
+const t = () => route().params._tenant
+
 function fmt(v) { return new Intl.NumberFormat('fr-FR').format(v || 0); }
 function fmtDt(d) { return d ? new Date(d).toLocaleDateString('fr-FR') : '—'; }
 
@@ -19,7 +21,7 @@ const methodLabels = { cash: 'Espèces', wave: 'Wave', om: 'Orange Money', card:
 // Status update
 function changeStatus(newStatus) {
     if (!confirm(`Passer le statut à "${statusLabels[newStatus]}" ?`)) return;
-    router.patch(route('app.location.contracts.update-status', c.id), { status: newStatus });
+    router.patch(route('app.location.contracts.update-status', { contract: c.id, _tenant: t() }), { status: newStatus });
 }
 
 // Renew modal
@@ -35,7 +37,7 @@ const renewForm = ref({
 });
 
 function submitRenew() {
-    router.post(route('app.location.contracts.renew', c.id), renewForm.value);
+    router.post(route('app.location.contracts.renew', { contract: c.id, _tenant: t() }), renewForm.value);
 }
 
 // Deposit return
@@ -43,7 +45,7 @@ const showDeposit = ref(false);
 const depositAmount = ref(c.deposit_amount || 0);
 
 function submitDeposit() {
-    router.post(route('app.location.contracts.return-deposit', c.id), {
+    router.post(route('app.location.contracts.return-deposit', { contract: c.id, _tenant: t() }), {
         deposit_returned_amount: depositAmount.value,
     });
 }
@@ -60,7 +62,7 @@ function openPayment(p) {
 }
 
 function submitPayment() {
-    router.post(route('app.location.payments.record', selectedPayment.value.id), payForm.value, {
+    router.post(route('app.location.payments.record', { payment: selectedPayment.value.id, _tenant: t() }), payForm.value, {
         onSuccess: () => { showPayment.value = false; }
     });
 }
@@ -74,7 +76,7 @@ const totalDue = (c.payments || []).reduce((s, p) => s + Number(p.amount || 0), 
     <AppLayout title="Détail contrat">
         <div class="page-header">
             <h1 class="page-title"><i class="fa-solid fa-file-contract" style="color:#10B981"></i> {{ c.reference }}</h1>
-            <Link :href="route('app.location.contracts.index')" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</Link>
+            <Link :href="route('app.location.contracts.index', { _tenant: t() })" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Retour</Link>
         </div>
 
         <div v-if="$page.props.flash?.success" style="background:#ECFDF5;color:#065F46;padding:10px 14px;font-size:0.82rem;margin-bottom:12px;">
@@ -135,7 +137,7 @@ const totalDue = (c.payments || []).reduce((s, p) => s + Number(p.amount || 0), 
         <!-- Renewed from -->
         <div v-if="c.renewed_from" style="border:1px solid #E5E7EB;padding:12px;margin-bottom:20px;font-size:0.82rem;">
             <span style="color:#6B7280;">Renouvelé depuis:</span>
-            <Link :href="route('app.location.contracts.show', c.renewed_from.id)" style="color:#6366F1;text-decoration:none;font-weight:600;margin-left:4px;">
+            <Link :href="route('app.location.contracts.show', { contract: c.renewed_from.id, _tenant: t() })" style="color:#6366F1;text-decoration:none;font-weight:600;margin-left:4px;">
                 {{ c.renewed_from.reference }}
             </Link>
         </div>

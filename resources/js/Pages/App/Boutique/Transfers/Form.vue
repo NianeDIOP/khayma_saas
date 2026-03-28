@@ -16,6 +16,8 @@ const form = ref({
 });
 const processing = ref(false);
 
+const t = () => route().params._tenant
+
 function addLine() {
     form.value.items.push({ product_id: '', variant_id: null, quantity: 1 });
 }
@@ -31,7 +33,7 @@ function getVariants(productId) {
 
 function submit() {
     processing.value = true;
-    router.post(route('app.boutique.transfers.store'), form.value, {
+    router.post(route('app.boutique.transfers.store', { _tenant: t() }), form.value, {
         onFinish: () => { processing.value = false; },
     });
 }
@@ -42,7 +44,7 @@ function submit() {
         <div style="max-width:700px;">
             <div class="page-header">
                 <h1 class="page-title"><i class="fa-solid fa-right-left" style="color:#0EA5E9"></i> Nouveau transfert inter-dépôts</h1>
-                <Link :href="route('app.boutique.transfers.index')" class="btn-back">← Retour</Link>
+                <Link :href="route('app.boutique.transfers.index', { _tenant: t() })" class="btn-back">← Retour</Link>
             </div>
 
             <form @submit.prevent="submit" style="display:flex;flex-direction:column;gap:14px;">

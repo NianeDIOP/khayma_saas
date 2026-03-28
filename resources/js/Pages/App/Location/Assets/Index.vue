@@ -3,6 +3,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { ref } from 'vue';
 import { router, Link } from '@inertiajs/vue3';
 
+const t = () => route().params._tenant
+
 const props = defineProps({
     assets: Object,
     filters: Object,
@@ -13,7 +15,7 @@ const type = ref(props.filters?.type || '');
 const status = ref(props.filters?.status || '');
 
 function applyFilters() {
-    router.get(route('app.location.assets.index'), {
+    router.get(route('app.location.assets.index', { _tenant: t() }), {
         search: search.value || undefined,
         type: type.value || undefined,
         status: status.value || undefined,
@@ -22,7 +24,7 @@ function applyFilters() {
 
 function destroy(id) {
     if (confirm('Supprimer ce bien ?')) {
-        router.delete(route('app.location.assets.destroy', id));
+        router.delete(route('app.location.assets.destroy', { asset: id, _tenant: t() }));
     }
 }
 
@@ -38,7 +40,7 @@ const statusColors = { available: '#10B981', rented: '#3B82F6', maintenance: '#F
     <AppLayout title="Biens locatifs">
         <div class="page-header">
             <h1 class="page-title"><i class="fa-solid fa-building" style="color:#0EA5E9"></i> Biens locatifs</h1>
-            <Link :href="route('app.location.assets.create')" class="btn-primary">
+            <Link :href="route('app.location.assets.create', { _tenant: t() })" class="btn-primary">
                 + Nouveau bien
             </Link>
         </div>
@@ -99,8 +101,8 @@ const statusColors = { available: '#10B981', rented: '#3B82F6', maintenance: '#F
                             </span>
                         </td>
                         <td style="padding:10px;text-align:right;">
-                            <Link :href="route('app.location.assets.show', a.id)" style="color:#6366F1;text-decoration:none;margin-right:8px;">Voir</Link>
-                            <Link :href="route('app.location.assets.edit', a.id)" style="color:#F59E0B;text-decoration:none;margin-right:8px;">Modifier</Link>
+                            <Link :href="route('app.location.assets.show', { asset: a.id, _tenant: t() })" style="color:#6366F1;text-decoration:none;margin-right:8px;">Voir</Link>
+                            <Link :href="route('app.location.assets.edit', { asset: a.id, _tenant: t() })" style="color:#F59E0B;text-decoration:none;margin-right:8px;">Modifier</Link>
                             <button @click="destroy(a.id)" style="color:#EF4444;border:none;background:none;cursor:pointer;">Supprimer</button>
                         </td>
                     </tr>
