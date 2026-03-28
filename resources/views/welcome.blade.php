@@ -1652,7 +1652,7 @@
         <div class="nav-cta">
             @if (Route::has('login'))
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="btn-primary">
+                    <a href="{{ route('dashboard') }}" class="btn-primary">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 @else
@@ -1686,7 +1686,7 @@
     </ul>
     @if (Route::has('login'))
         @auth
-            <a href="{{ url('/dashboard') }}" class="btn-primary">Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="btn-primary">Dashboard</a>
         @else
             @if (Route::has('register'))
                 <a href="{{ route('register') }}" class="btn-primary">

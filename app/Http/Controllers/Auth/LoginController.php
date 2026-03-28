@@ -57,12 +57,17 @@ class LoginController extends Controller
     /**
      * Déconnecte l'utilisateur.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // Force full page reload for Inertia requests to avoid app shell bleed-through
+        if ($request->header('X-Inertia')) {
+            return Inertia::location(route('home'));
+        }
 
         return redirect()->route('home');
     }

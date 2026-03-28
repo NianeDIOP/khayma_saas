@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { Link, usePage, router } from '@inertiajs/vue3'
 
 defineProps({ title: { type: String, default: 'Espace entreprise' } })
@@ -29,6 +29,24 @@ function restoreSidebarScroll() {
 onMounted(restoreSidebarScroll)
 router.on('before', saveSidebarScroll)
 router.on('navigate', restoreSidebarScroll)
+
+// ── Smart back navigation for all .btn-back buttons ──
+// Intercepts clicks to use browser history instead of hardcoded routes,
+// avoiding redirects to pages the user may not have permission for.
+function handleBackClick(e) {
+    const backBtn = e.target.closest('.btn-back')
+    if (backBtn) {
+        e.preventDefault()
+        e.stopPropagation()
+        if (window.history.length > 1) {
+            window.history.back()
+        } else {
+            router.visit(route('app.dashboard', { _tenant: company.value?.slug }))
+        }
+    }
+}
+onMounted(() => document.addEventListener('click', handleBackClick, true))
+onUnmounted(() => document.removeEventListener('click', handleBackClick, true))
 
 // ── Collapsible sections ──
 function loadSections() {
@@ -427,16 +445,16 @@ function can(section) {
 /* ── Collapsible sections ─── */
 .section-toggle {
   display: flex; align-items: center; justify-content: space-between;
-  width: 100%; padding: 8px 16px; margin-top: 6px;
-  background: none; border: none; border-top: 1px solid #F3F4F6;
+  width: 100%; padding: 10px 16px; margin-top: 10px;
+  background: none; border: none; border-top: 1px solid #E5E7EB;
   cursor: pointer; transition: background 0.15s;
 }
-.section-toggle:hover { background: #F9FAFB; }
+.section-toggle:hover { background: #F3F4F6; }
 .section-label {
-  font-size: 0.68rem; font-weight: 700; color: #9CA3AF;
-  text-transform: uppercase; letter-spacing: 0.06em;
+  font-size: 0.75rem; font-weight: 800; color: #4B5563;
+  text-transform: uppercase; letter-spacing: 0.08em;
 }
-.section-arrow { font-size: 0.55rem; color: #9CA3AF; transition: transform 0.15s; }
+.section-arrow { font-size: 0.6rem; color: #6B7280; transition: transform 0.15s; }
 .section-links { /* no extra styling needed, just a wrapper */ }
 
 .sidebar-footer { padding: 8px 0; border-top: 1px solid #E5E7EB; }
