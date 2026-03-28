@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RentalAsset extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Traits\HasAuditLog;
 
     protected $fillable = [
         'company_id',

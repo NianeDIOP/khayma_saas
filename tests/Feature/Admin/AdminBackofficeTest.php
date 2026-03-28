@@ -250,12 +250,13 @@ class AdminBackofficeTest extends TestCase
     public function admin_can_list_audit_logs(): void
     {
         AuditLog::factory()->count(2)->create();
+        $total = AuditLog::count();
 
         $this->actingAs($this->admin())
              ->get('/admin/audit-logs')
              ->assertStatus(200)
              ->assertInertia(fn ($p) => $p->component('Admin/AuditLogs/Index')
-                 ->has('logs.data', 2)
+                 ->has('logs.data', $total)
                  ->has('actions'));
     }
 

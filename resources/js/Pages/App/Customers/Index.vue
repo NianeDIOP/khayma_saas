@@ -8,6 +8,16 @@ const props = defineProps({
   filters: Object,
 })
 
+const importFile = ref(null)
+function submitImport() {
+  if (!importFile.value) return
+  const form = new FormData()
+  form.append('file', importFile.value)
+  router.post(route('app.import.customers', { _tenant: route().params._tenant }), form, {
+    onSuccess: () => { importFile.value = null },
+  })
+}
+
 const search = ref(props.filters?.search || '')
 const category = ref(props.filters?.category || '')
 let debounce = null
@@ -39,9 +49,18 @@ const categoryColors = { normal: '#6B7280', vip: '#F59E0B', professional: '#3B82
 
     <div class="page-header">
       <h1 class="page-title"><i class="fa-solid fa-user-group" style="color:#2563EB"></i> Clients</h1>
-      <Link :href="route('app.customers.create', { _tenant: route().params._tenant })" class="btn-primary">
-        <i class="fa-solid fa-plus"></i> Nouveau client
-      </Link>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <a :href="route('app.export.customers', { _tenant: route().params._tenant })" class="btn-secondary" title="Exporter Excel">
+          <i class="fa-solid fa-file-excel"></i> Exporter
+        </a>
+        <label class="btn-secondary" style="cursor:pointer;" title="Importer Excel">
+          <i class="fa-solid fa-file-import"></i> Importer
+          <input type="file" accept=".xlsx,.xls,.csv" style="display:none" @change="e => { importFile = e.target.files[0]; submitImport() }" />
+        </label>
+        <Link :href="route('app.customers.create', { _tenant: route().params._tenant })" class="btn-primary">
+          <i class="fa-solid fa-plus"></i> Nouveau client
+        </Link>
+      </div>
     </div>
 
     <!-- Filters -->

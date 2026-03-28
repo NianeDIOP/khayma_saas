@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use App\Models\AppNotification;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -58,6 +59,14 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error'   => fn () => $request->session()->get('error'),
             ],
+            'unreadNotifications' => function () use ($request) {
+                $user = $request->user();
+                if (!$user) return 0;
+                return AppNotification::forUser($user->id)
+                    ->when(App::bound('currentCompany'), fn ($q) => $q->where('company_id', App::make('currentCompany')->id))
+                    ->unread()
+                    ->count();
+            },
         ];
     }
 }

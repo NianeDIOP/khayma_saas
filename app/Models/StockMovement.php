@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StockMovement extends Model
 {
+    use \App\Traits\HasAuditLog;
+
     protected $fillable = [
         'company_id',
         'product_id',

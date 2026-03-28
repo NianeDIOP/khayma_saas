@@ -50,6 +50,9 @@ use App\Http\Controllers\App\Location\PaymentController as RentalPaymentControll
 use App\Http\Controllers\App\Location\CalendarController;
 use App\Http\Controllers\App\Location\ReportController as LocationReportController;
 use App\Http\Controllers\App\TeamController;
+use App\Http\Controllers\App\NotificationController;
+use App\Http\Controllers\App\PdfController;
+use App\Http\Controllers\App\ExportImportController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -58,9 +61,9 @@ Route::get('/', fn () => view('welcome'))->name('home');
 // ── Authentification ─────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
     Route::get('/login',    [LoginController::class,    'create'])->name('login');
-    Route::post('/login',   [LoginController::class,    'store'])->name('login.store');
+    Route::post('/login',   [LoginController::class,    'store'])->name('login.store')->middleware('throttle:login');
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
-    Route::post('/register',[RegisterController::class, 'store'])->name('register.store');
+    Route::post('/register',[RegisterController::class, 'store'])->name('register.store')->middleware('throttle:login');
 });
 
 Route::post('/logout', [LoginController::class, 'destroy'])
@@ -107,6 +110,27 @@ Route::middleware(['tenant', 'auth', 'subscription'])
          Route::get('/team/{user}/edit',  [TeamController::class, 'edit'])->name('team.edit');
          Route::put('/team/{user}',       [TeamController::class, 'update'])->name('team.update');
          Route::delete('/team/{user}',    [TeamController::class, 'destroy'])->name('team.destroy');
+
+         // Notifications
+         Route::get('/notifications',                    [NotificationController::class, 'index'])->name('notifications.index');
+         Route::get('/notifications/unread-count',       [NotificationController::class, 'unreadCount'])->name('notifications.unread-count');
+         Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead'])->name('notifications.read');
+         Route::post('/notifications/read-all',          [NotificationController::class, 'markAllRead'])->name('notifications.read-all');
+
+         // PDF exports
+         Route::get('/pdf/sale/{sale}',     [PdfController::class, 'sale'])->name('pdf.sale');
+         Route::get('/pdf/quote/{quote}',   [PdfController::class, 'quote'])->name('pdf.quote');
+         Route::get('/pdf/contract/{contract}', [PdfController::class, 'contract'])->name('pdf.contract');
+
+         // Exports Excel
+         Route::get('/export/products',  [ExportImportController::class, 'exportProducts'])->name('export.products');
+         Route::get('/export/customers', [ExportImportController::class, 'exportCustomers'])->name('export.customers');
+         Route::get('/export/suppliers', [ExportImportController::class, 'exportSuppliers'])->name('export.suppliers');
+
+         // Imports Excel
+         Route::post('/import/products',  [ExportImportController::class, 'importProducts'])->name('import.products');
+         Route::post('/import/customers', [ExportImportController::class, 'importCustomers'])->name('import.customers');
+         Route::post('/import/suppliers', [ExportImportController::class, 'importSuppliers'])->name('import.suppliers');
 
          // Clients
          Route::resource('customers', CustomerController::class);

@@ -7,6 +7,7 @@ defineProps({ title: { type: String, default: 'Espace entreprise' } })
 const page = usePage()
 const company = computed(() => page.props.currentCompany)
 const user    = computed(() => page.props.auth?.user)
+const unreadCount = computed(() => page.props.unreadNotifications || 0)
 const sidebarOpen = ref(true)
 const sidebarNavRef = ref(null)
 
@@ -119,6 +120,10 @@ function can(section) {
           {{ user?.name || 'Utilisateur' }}
           <small class="role-tag">{{ userRole }}</small>
         </span>
+        <Link :href="route('app.notifications.index', { _tenant: company?.slug })" class="topbar-bell" title="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span v-if="unreadCount > 0" class="bell-badge">{{ unreadCount > 99 ? '99+' : unreadCount }}</span>
+        </Link>
         <a href="/" class="topbar-home" title="Retour au site">
           <i class="fa-solid fa-house"></i>
         </a>
@@ -415,6 +420,18 @@ function can(section) {
 .role-tag {
   font-size: 0.6rem; font-weight: 700; padding: 1px 6px; border-radius: 3px;
   background: #EEF2FF; color: #4F46E5; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.topbar-bell {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%; color: #6B7280;
+  text-decoration: none; transition: all 0.15s; font-size: 0.9rem;
+}
+.topbar-bell:hover { background: #FEF3C7; color: #D97706; }
+.bell-badge {
+  position: absolute; top: 2px; right: 2px; min-width: 16px; height: 16px;
+  background: #EF4444; color: #FFF; font-size: 0.6rem; font-weight: 700;
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  padding: 0 4px; line-height: 1;
 }
 .topbar-home {
   display: flex; align-items: center; justify-content: center;
