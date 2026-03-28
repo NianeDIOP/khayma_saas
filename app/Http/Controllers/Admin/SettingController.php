@@ -16,6 +16,19 @@ class SettingController extends Controller
         'data_retention_days',
         'maintenance_mode',
         'support_email',
+        // Email / SMTP
+        'mail_mailer',
+        'mail_host',
+        'mail_port',
+        'mail_username',
+        'mail_password',
+        'mail_from_address',
+        'mail_from_name',
+        // SMS
+        'sms_provider',
+        'sms_api_url',
+        'sms_api_token',
+        'sms_from',
     ];
 
     public function index()
@@ -31,6 +44,19 @@ class SettingController extends Controller
             'data_retention_days' => '90',
             'maintenance_mode'    => '0',
             'support_email'       => '',
+            // Email / SMTP
+            'mail_mailer'         => 'log',
+            'mail_host'           => '',
+            'mail_port'           => '587',
+            'mail_username'       => '',
+            'mail_password'       => '',
+            'mail_from_address'   => '',
+            'mail_from_name'      => 'Khayma',
+            // SMS
+            'sms_provider'        => 'log',
+            'sms_api_url'         => '',
+            'sms_api_token'       => '',
+            'sms_from'            => 'KHAYMA',
         ];
 
         foreach ($defaults as $key => $default) {
@@ -50,6 +76,19 @@ class SettingController extends Controller
             'data_retention_days' => 'required|integer|min:30|max:365',
             'maintenance_mode'    => 'required|in:0,1',
             'support_email'       => 'nullable|email|max:255',
+            // Email / SMTP
+            'mail_mailer'         => 'required|in:log,smtp,sendmail',
+            'mail_host'           => 'nullable|string|max:255',
+            'mail_port'           => 'nullable|integer|min:1|max:65535',
+            'mail_username'       => 'nullable|string|max:255',
+            'mail_password'       => 'nullable|string|max:255',
+            'mail_from_address'   => 'nullable|email|max:255',
+            'mail_from_name'      => 'nullable|string|max:100',
+            // SMS
+            'sms_provider'        => 'required|in:log,fake,api',
+            'sms_api_url'         => 'nullable|url|max:500',
+            'sms_api_token'       => 'nullable|string|max:255',
+            'sms_from'            => 'nullable|string|max:20',
         ]);
 
         foreach ($validated as $key => $value) {

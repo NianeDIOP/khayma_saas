@@ -295,11 +295,24 @@ class AdminBackofficeTest extends TestCase
                  'data_retention_days' => 180,
                  'maintenance_mode' => '0',
                  'support_email' => 'test@example.com',
+                 'mail_mailer' => 'smtp',
+                 'mail_host' => 'smtp.test.local',
+                 'mail_port' => 2525,
+                 'mail_username' => 'user@test.local',
+                 'mail_password' => 'secret',
+                 'mail_from_address' => 'no-reply@test.local',
+                 'mail_from_name' => 'Test Platform',
+                 'sms_provider' => 'api',
+                 'sms_api_url' => 'https://sms.test.local/send',
+                 'sms_api_token' => 'sms-token',
+                 'sms_from' => 'TESTAPP',
              ])
              ->assertRedirect();
 
         $this->assertEquals('TestApp', PlatformSetting::get('app_name'));
         $this->assertEquals('EUR', PlatformSetting::get('default_currency'));
+        $this->assertEquals('smtp', PlatformSetting::get('mail_mailer'));
+        $this->assertEquals('api', PlatformSetting::get('sms_provider'));
     }
 
     #[Test]
@@ -307,7 +320,34 @@ class AdminBackofficeTest extends TestCase
     {
         $this->actingAs($this->admin())
              ->put('/admin/settings', [])
-             ->assertSessionHasErrors(['app_name', 'default_currency', 'trial_duration_days']);
+             ->assertSessionHasErrors(['app_name', 'default_currency', 'trial_duration_days', 'mail_mailer', 'sms_provider']);
+    }
+
+    #[Test]
+    public function settings_validate_email_and_sms_field_formats(): void
+    {
+        $this->actingAs($this->admin())
+             ->put('/admin/settings', [
+                 'app_name' => 'Khayma',
+                 'default_currency' => 'XOF',
+                 'trial_duration_days' => 7,
+                 'grace_period_days' => 3,
+                 'data_retention_days' => 90,
+                 'maintenance_mode' => '0',
+                 'support_email' => 'support@khayma.sn',
+                 'mail_mailer' => 'invalid-mailer',
+                 'mail_host' => 'smtp.khayma.sn',
+                 'mail_port' => 587,
+                 'mail_username' => 'smtp-user',
+                 'mail_password' => 'smtp-pass',
+                 'mail_from_address' => 'noreply@khayma.sn',
+                 'mail_from_name' => 'Khayma',
+                 'sms_provider' => 'invalid-provider',
+                 'sms_api_url' => 'not-a-url',
+                 'sms_api_token' => 'abc',
+                 'sms_from' => 'KHAYMA',
+             ])
+             ->assertSessionHasErrors(['mail_mailer', 'sms_provider', 'sms_api_url']);
     }
 
     // ── Company CRUD (extended) ─────────────────────────────────

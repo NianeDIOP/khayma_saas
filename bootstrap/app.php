@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \App\Http\Middleware\SecurityHeaders::class,
+            \App\Http\Middleware\ApplyPlatformCommunicationSettings::class,
         ]);
         $middleware->validateCsrfTokens(except: [
             'api/workflow',
