@@ -57,10 +57,23 @@ use App\Http\Controllers\App\ReportController;
 use App\Http\Controllers\App\PaymentController;
 use App\Http\Controllers\App\StorageController;
 use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\Admin\FaqController as AdminFaq;
+use App\Http\Controllers\Admin\BlogPostController as AdminBlogPost;
+use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessage;
 use Illuminate\Support\Facades\Route;
 
-// ── Site public ──────────────────────────────────────────────────
-Route::get('/', fn () => view('welcome'))->name('home');
+// ── Site public (vitrine) ────────────────────────────────────────
+Route::get('/',           fn () => view('welcome'))->name('home');
+Route::get('/modules',    [SiteController::class, 'modules'])->name('site.modules');
+Route::get('/tarifs',     [SiteController::class, 'pricing'])->name('site.pricing');
+Route::get('/demo',       [SiteController::class, 'demo'])->name('site.demo');
+Route::get('/contact',    [SiteController::class, 'contact'])->name('site.contact');
+Route::post('/contact',   [SiteController::class, 'contactStore'])->name('site.contact.store')->middleware('throttle:5,1');
+Route::get('/faq',        [SiteController::class, 'faq'])->name('site.faq');
+Route::get('/blog',       [SiteController::class, 'blog'])->name('site.blog');
+Route::get('/blog/{blogPost:slug}', [SiteController::class, 'blogShow'])->name('site.blog.show');
+Route::get('/legal/{page}', [SiteController::class, 'legal'])->name('site.legal');
 
 // ── Webhook PayDunya (public, no auth, no CSRF) ───────────────────
 Route::post('/payment/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
@@ -362,5 +375,16 @@ Route::middleware(['auth', 'admin'])
          // Legal Pages
          Route::get('/legal-pages',  [AdminLegalPage::class, 'index'])->name('legal-pages.index');
          Route::put('/legal-pages',  [AdminLegalPage::class, 'update'])->name('legal-pages.update');
+
+         // FAQ
+         Route::resource('faqs', AdminFaq::class);
+
+         // Blog Posts
+         Route::resource('blog-posts', AdminBlogPost::class);
+
+         // Contact Messages
+         Route::get('/contact-messages',                [AdminContactMessage::class, 'index'])->name('contact-messages.index');
+         Route::get('/contact-messages/{contactMessage}',[AdminContactMessage::class, 'show'])->name('contact-messages.show');
+         Route::delete('/contact-messages/{contactMessage}', [AdminContactMessage::class, 'destroy'])->name('contact-messages.destroy');
      });
 

@@ -77,6 +77,18 @@ const adminName = page.props.auth?.user?.name || 'Admin'
           :class="['nav-item', { active: $page.url.startsWith('/admin/legal-pages') }]">
           <i class="fa-solid fa-file-contract" style="color:#8B5CF6"></i> <span>Pages légales</span>
         </Link>
+        <Link :href="route('admin.faqs.index')"
+          :class="['nav-item', { active: $page.url.startsWith('/admin/faqs') }]">
+          <i class="fa-solid fa-circle-question" style="color:#F59E0B"></i> <span>FAQ</span>
+        </Link>
+        <Link :href="route('admin.blog-posts.index')"
+          :class="['nav-item', { active: $page.url.startsWith('/admin/blog-posts') }]">
+          <i class="fa-solid fa-newspaper" style="color:#3B82F6"></i> <span>Blog</span>
+        </Link>
+        <Link :href="route('admin.contact-messages.index')"
+          :class="['nav-item', { active: $page.url.startsWith('/admin/contact-messages') }]">
+          <i class="fa-solid fa-envelope" style="color:#EF4444"></i> <span>Messages</span>
+        </Link>
       </nav>
 
       <!-- Sidebar footer with admin name -->
