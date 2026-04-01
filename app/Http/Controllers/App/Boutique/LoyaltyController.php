@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App\Boutique;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\LoyaltyConfig;
+use App\Models\LoyaltyTier;
 use App\Models\LoyaltyTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -59,6 +60,7 @@ class LoyaltyController extends Controller
             'topCustomers'  => $topCustomers,
             'totalEarned'   => $totalEarned,
             'totalRedeemed' => $totalRedeemed,
+            'tiers'         => LoyaltyTier::where('company_id', $company->id)->orderBy('min_points')->get(),
             'filters'       => $request->only(['search', 'type']),
         ]);
     }
@@ -80,5 +82,42 @@ class LoyaltyController extends Controller
 
         return redirect()->route('app.boutique.loyalty.index')
             ->with('success', 'Configuration fidélité mise à jour.');
+    }
+
+    // ── Tier Management ───────────────────────────────────────
+
+    public function storeTier(Request $request)
+    {
+        $validated = $request->validate([
+            'name'             => ['required', 'string', 'max:50'],
+            'min_points'       => ['required', 'integer', 'min:0'],
+            'bonus_multiplier' => ['required', 'numeric', 'min:1', 'max:10'],
+        ]);
+
+        $company = $this->company();
+        $maxSort = LoyaltyTier::where('company_id', $company->id)->max('sort_order') ?? 0;
+
+        LoyaltyTier::create([
+            'company_id'       => $company->id,
+            'name'             => $validated['name'],
+            'min_points'       => $validated['min_points'],
+            'bonus_multiplier' => $validated['bonus_multiplier'],
+            'sort_order'       => $maxSort + 1,
+        ]);
+
+        return redirect()->route('app.boutique.loyalty.index')
+            ->with('success', "Palier « {$validated['name']} » créé.");
+    }
+
+    public function destroyTier(LoyaltyTier $tier)
+    {
+        if ((int) $tier->company_id !== (int) $this->company()->id) {
+            abort(403);
+        }
+
+        $tier->delete();
+
+        return redirect()->route('app.boutique.loyalty.index')
+            ->with('success', 'Palier supprimé.');
     }
 }

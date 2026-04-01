@@ -14,7 +14,15 @@ class DepotTransfer extends Model
     protected $fillable = [
         'company_id', 'from_depot_id', 'to_depot_id', 'user_id',
         'reference', 'status', 'notes',
+        'approved_by', 'approved_at', 'rejection_reason',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'approved_at' => 'datetime',
+        ];
+    }
 
     public function scopeForCompany($query, int $companyId)
     {
@@ -39,6 +47,11 @@ class DepotTransfer extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function approver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
     }
 
     public function items(): HasMany

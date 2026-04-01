@@ -239,4 +239,21 @@ class Company extends Model
                     ->latest()
                     ->first();
     }
+
+    public function currentPlan(): ?Plan
+    {
+        return $this->activeSubscription()?->plan;
+    }
+
+    // ── Phase 4E ──────────────────────────────────────────────
+
+    public function companyFiles(): HasMany
+    {
+        return $this->hasMany(CompanyFile::class);
+    }
+
+    public function loyaltyTiers(): HasMany
+    {
+        return $this->hasMany(LoyaltyTier::class);
+    }
 }

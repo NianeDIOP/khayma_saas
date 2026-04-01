@@ -55,6 +55,8 @@ use App\Http\Controllers\App\PdfController;
 use App\Http\Controllers\App\ExportImportController;
 use App\Http\Controllers\App\ReportController;
 use App\Http\Controllers\App\PaymentController;
+use App\Http\Controllers\App\StorageController;
+use App\Http\Controllers\Auth\OtpController;
 use Illuminate\Support\Facades\Route;
 
 // ── Site public ──────────────────────────────────────────────────
@@ -69,6 +71,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/login',   [LoginController::class,    'store'])->name('login.store')->middleware('throttle:login');
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
     Route::post('/register',[RegisterController::class, 'store'])->name('register.store')->middleware('throttle:login');
+
+    // OTP Authentication
+    Route::post('/otp/send',   [OtpController::class, 'send'])->name('otp.send')->middleware('throttle:login');
+    Route::post('/otp/verify', [OtpController::class, 'verify'])->name('otp.verify')->middleware('throttle:login');
 });
 
 Route::post('/logout', [LoginController::class, 'destroy'])
@@ -179,6 +185,11 @@ Route::middleware(['tenant', 'auth', 'subscription'])
          Route::get('/payment/callback/{transaction}',         [PaymentController::class, 'callback'])->name('payment.callback');
          Route::get('/payment/cancel/{transaction}',           [PaymentController::class, 'cancel'])->name('payment.cancel');
 
+         // Fichiers / Stockage (R2)
+         Route::get('/storage',                    [StorageController::class, 'index'])->name('storage.index');
+         Route::post('/storage/upload',            [StorageController::class, 'upload'])->name('storage.upload');
+         Route::delete('/storage/{file}',          [StorageController::class, 'destroy'])->name('storage.destroy');
+
          // ── Module Restaurant ────────────────────────────────────
          Route::prefix('restaurant')->name('restaurant.')->group(function () {
              // Catégories de menu
@@ -262,12 +273,16 @@ Route::middleware(['tenant', 'auth', 'subscription'])
              // Fidélité
              Route::get('/loyalty',         [LoyaltyController::class, 'index'])->name('loyalty.index');
              Route::put('/loyalty/config',  [LoyaltyController::class, 'updateConfig'])->name('loyalty.update-config');
+             Route::post('/loyalty/tiers',           [LoyaltyController::class, 'storeTier'])->name('loyalty.tiers.store');
+             Route::delete('/loyalty/tiers/{tier}',  [LoyaltyController::class, 'destroyTier'])->name('loyalty.tiers.destroy');
 
              // Transferts inter-dépôts
              Route::get('/transfers',          [TransferController::class, 'index'])->name('transfers.index');
              Route::get('/transfers/create',   [TransferController::class, 'create'])->name('transfers.create');
              Route::post('/transfers',         [TransferController::class, 'store'])->name('transfers.store');
              Route::get('/transfers/{transfer}', [TransferController::class, 'show'])->name('transfers.show');
+             Route::post('/transfers/{transfer}/approve', [TransferController::class, 'approve'])->name('transfers.approve');
+             Route::post('/transfers/{transfer}/reject',  [TransferController::class, 'reject'])->name('transfers.reject');
 
              // Rapports Boutique
              Route::get('/reports', [BoutiqueReportController::class, 'index'])->name('reports.index');

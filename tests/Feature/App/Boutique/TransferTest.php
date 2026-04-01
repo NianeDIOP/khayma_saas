@@ -68,16 +68,12 @@ class TransferTest extends TestCase
         ]);
 
         $response->assertRedirect();
-        $this->assertDatabaseHas('depot_transfers', ['company_id' => $this->company->id, 'status' => 'completed']);
+        // Phase 4E: transfers now start as 'pending' (approval workflow)
+        $this->assertDatabaseHas('depot_transfers', ['company_id' => $this->company->id, 'status' => 'pending']);
         $this->assertDatabaseHas('depot_transfer_items', ['product_id' => $product->id, 'quantity' => 30]);
 
-        // Check stock moved
-        $this->assertEquals(70, StockItem::where('product_id', $product->id)->where('depot_id', $this->depotA->id)->value('quantity'));
-        $this->assertEquals(30, StockItem::where('product_id', $product->id)->where('depot_id', $this->depotB->id)->value('quantity'));
-
-        // Check stock movements logged
-        $this->assertDatabaseHas('stock_movements', ['product_id' => $product->id, 'depot_id' => $this->depotA->id, 'type' => 'transfer']);
-        $this->assertDatabaseHas('stock_movements', ['product_id' => $product->id, 'depot_id' => $this->depotB->id, 'type' => 'transfer']);
+        // Stock should NOT move yet (pending approval)
+        $this->assertEquals(100, StockItem::where('product_id', $product->id)->where('depot_id', $this->depotA->id)->value('quantity'));
     }
 
     #[Test]
@@ -121,8 +117,8 @@ class TransferTest extends TestCase
         ]);
 
         $response->assertRedirect();
-        $this->assertEquals(10, \App\Models\VariantStockItem::where('product_variant_id', $variant->id)->where('depot_id', $this->depotA->id)->value('quantity'));
-        $this->assertEquals(10, \App\Models\VariantStockItem::where('product_variant_id', $variant->id)->where('depot_id', $this->depotB->id)->value('quantity'));
+        // Phase 4E: stock stays unchanged until approval
+        $this->assertEquals(20, \App\Models\VariantStockItem::where('product_variant_id', $variant->id)->where('depot_id', $this->depotA->id)->value('quantity'));
     }
 
     #[Test]

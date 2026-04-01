@@ -9,6 +9,7 @@ const props = defineProps({
     topCustomers: Array,
     totalEarned: Number,
     totalRedeemed: Number,
+    tiers: Array,
     filters: Object,
 });
 
@@ -39,6 +40,24 @@ function applyFilters() {
 
 function formatPrice(v) {
     return new Intl.NumberFormat('fr-FR').format(v);
+}
+
+const tierForm = useForm({
+    name: '',
+    min_points: 0,
+    bonus_multiplier: 1.5,
+});
+
+function addTier() {
+    tierForm.post(route('app.boutique.loyalty.tiers.store', { _tenant: t() }), {
+        onSuccess: () => tierForm.reset(),
+    });
+}
+
+function deleteTier(id) {
+    if (confirm('Supprimer ce palier ?')) {
+        router.delete(route('app.boutique.loyalty.tiers.destroy', { _tenant: t(), tier: id }));
+    }
 }
 </script>
 
@@ -132,6 +151,47 @@ function formatPrice(v) {
         </div>
 
         <!-- Transactions -->
+        <div style="margin-top:20px;">
+            <h2 style="font-size:0.95rem;font-weight:700;margin-bottom:12px;">Paliers de fidélité</h2>
+            <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                <div v-for="tier in tiers" :key="tier.id"
+                     style="border:1px solid #E5E7EB;padding:10px 16px;display:flex;align-items:center;gap:12px;">
+                    <div>
+                        <div style="font-weight:700;font-size:0.88rem;">{{ tier.name }}</div>
+                        <div style="font-size:0.72rem;color:#6B7280;">
+                            ≥ {{ formatPrice(tier.min_points) }} pts — ×{{ tier.bonus_multiplier }}
+                        </div>
+                    </div>
+                    <button @click="deleteTier(tier.id)"
+                            style="padding:2px 8px;background:#FEE2E2;color:#B91C1C;border:none;font-size:0.72rem;font-weight:600;cursor:pointer;">
+                        ✕
+                    </button>
+                </div>
+                <div v-if="!tiers.length" style="color:#9CA3AF;font-size:0.82rem;">Aucun palier défini.</div>
+            </div>
+            <form @submit.prevent="addTier" style="display:flex;gap:8px;align-items:flex-end;margin-bottom:20px;flex-wrap:wrap;">
+                <div>
+                    <label style="font-size:0.72rem;color:#6B7280;">Nom</label>
+                    <input v-model="tierForm.name" type="text" placeholder="Bronze"
+                           style="display:block;padding:6px 10px;border:1px solid #D1D5DB;font-size:0.82rem;width:120px;" />
+                </div>
+                <div>
+                    <label style="font-size:0.72rem;color:#6B7280;">Points min</label>
+                    <input v-model.number="tierForm.min_points" type="number" min="0"
+                           style="display:block;padding:6px 10px;border:1px solid #D1D5DB;font-size:0.82rem;width:100px;" />
+                </div>
+                <div>
+                    <label style="font-size:0.72rem;color:#6B7280;">Multiplicateur</label>
+                    <input v-model.number="tierForm.bonus_multiplier" type="number" min="1" max="10" step="0.1"
+                           style="display:block;padding:6px 10px;border:1px solid #D1D5DB;font-size:0.82rem;width:100px;" />
+                </div>
+                <button type="submit" :disabled="tierForm.processing"
+                        style="padding:7px 16px;background:#8B5CF6;color:white;border:none;font-weight:600;font-size:0.82rem;cursor:pointer;">
+                    + Ajouter
+                </button>
+            </form>
+        </div>
+
         <div style="margin-top:20px;">
             <h2 style="font-size:0.95rem;font-weight:700;margin-bottom:12px;">Historique des transactions</h2>
             <div style="display:flex;gap:8px;margin-bottom:12px;">

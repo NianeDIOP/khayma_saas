@@ -74,7 +74,7 @@ class TransferController extends Controller
                 'to_depot_id'  => $validated['to_depot_id'],
                 'user_id'      => auth()->id(),
                 'reference'    => 'TRF-' . strtoupper(uniqid()),
-                'status'       => 'completed',
+                'status'       => 'pending',
                 'notes'        => $validated['notes'] ?? null,
             ]);
 
@@ -85,43 +85,72 @@ class TransferController extends Controller
                     'product_variant_id' => $item['variant_id'] ?? null,
                     'quantity'           => $item['quantity'],
                 ]);
+            }
 
+            return $transfer;
+        });
+
+        return redirect()->route('app.boutique.transfers.index')
+            ->with('success', "Transfert {$transfer->reference} créé (en attente d'approbation).");
+    }
+
+    /**
+     * Approve a pending transfer: execute stock movements.
+     */
+    public function approve(DepotTransfer $transfer)
+    {
+        $company = $this->company();
+        if ((int) $transfer->company_id !== (int) $company->id) {
+            abort(403);
+        }
+        if ($transfer->status !== 'pending') {
+            return back()->withErrors(['transfer' => 'Ce transfert ne peut pas être approuvé.']);
+        }
+
+        DB::transaction(function () use ($transfer, $company) {
+            $transfer->update([
+                'status'      => 'completed',
+                'approved_by' => auth()->id(),
+                'approved_at' => now(),
+            ]);
+
+            foreach ($transfer->items as $item) {
                 // Decrement from source depot
                 $fromStock = StockItem::firstOrCreate(
-                    ['product_id' => $item['product_id'], 'depot_id' => $validated['from_depot_id']],
+                    ['product_id' => $item->product_id, 'depot_id' => $transfer->from_depot_id],
                     ['company_id' => $company->id, 'quantity' => 0]
                 );
-                $fromStock->decrement('quantity', $item['quantity']);
+                $fromStock->decrement('quantity', $item->quantity);
 
                 // Increment in destination depot
                 $toStock = StockItem::firstOrCreate(
-                    ['product_id' => $item['product_id'], 'depot_id' => $validated['to_depot_id']],
+                    ['product_id' => $item->product_id, 'depot_id' => $transfer->to_depot_id],
                     ['company_id' => $company->id, 'quantity' => 0]
                 );
-                $toStock->increment('quantity', $item['quantity']);
+                $toStock->increment('quantity', $item->quantity);
 
                 // Variant stock if applicable
-                if (!empty($item['variant_id'])) {
+                if ($item->product_variant_id) {
                     $fromVSI = VariantStockItem::firstOrCreate(
-                        ['product_variant_id' => $item['variant_id'], 'depot_id' => $validated['from_depot_id']],
+                        ['product_variant_id' => $item->product_variant_id, 'depot_id' => $transfer->from_depot_id],
                         ['company_id' => $company->id, 'quantity' => 0]
                     );
-                    $fromVSI->decrement('quantity', $item['quantity']);
+                    $fromVSI->decrement('quantity', $item->quantity);
 
                     $toVSI = VariantStockItem::firstOrCreate(
-                        ['product_variant_id' => $item['variant_id'], 'depot_id' => $validated['to_depot_id']],
+                        ['product_variant_id' => $item->product_variant_id, 'depot_id' => $transfer->to_depot_id],
                         ['company_id' => $company->id, 'quantity' => 0]
                     );
-                    $toVSI->increment('quantity', $item['quantity']);
+                    $toVSI->increment('quantity', $item->quantity);
                 }
 
                 // Log movements
                 StockMovement::create([
                     'company_id' => $company->id,
-                    'product_id' => $item['product_id'],
-                    'depot_id'   => $validated['from_depot_id'],
+                    'product_id' => $item->product_id,
+                    'depot_id'   => $transfer->from_depot_id,
                     'type'       => 'transfer',
-                    'quantity'   => $item['quantity'],
+                    'quantity'   => $item->quantity,
                     'reference'  => $transfer->reference,
                     'notes'      => "Transfert vers " . ($transfer->toDepot->name ?? ''),
                     'user_id'    => auth()->id(),
@@ -129,21 +158,47 @@ class TransferController extends Controller
 
                 StockMovement::create([
                     'company_id' => $company->id,
-                    'product_id' => $item['product_id'],
-                    'depot_id'   => $validated['to_depot_id'],
+                    'product_id' => $item->product_id,
+                    'depot_id'   => $transfer->to_depot_id,
                     'type'       => 'transfer',
-                    'quantity'   => $item['quantity'],
+                    'quantity'   => $item->quantity,
                     'reference'  => $transfer->reference,
                     'notes'      => "Transfert depuis " . ($transfer->fromDepot->name ?? ''),
                     'user_id'    => auth()->id(),
                 ]);
             }
-
-            return $transfer;
         });
 
-        return redirect()->route('app.boutique.transfers.index')
-            ->with('success', "Transfert {$transfer->reference} effectué.");
+        return redirect()->route('app.boutique.transfers.show', $transfer)
+            ->with('success', "Transfert {$transfer->reference} approuvé.");
+    }
+
+    /**
+     * Reject a pending transfer.
+     */
+    public function reject(Request $request, DepotTransfer $transfer)
+    {
+        $company = $this->company();
+        if ((int) $transfer->company_id !== (int) $company->id) {
+            abort(403);
+        }
+        if ($transfer->status !== 'pending') {
+            return back()->withErrors(['transfer' => 'Ce transfert ne peut pas être rejeté.']);
+        }
+
+        $validated = $request->validate([
+            'rejection_reason' => ['required', 'string', 'max:500'],
+        ]);
+
+        $transfer->update([
+            'status'           => 'cancelled',
+            'approved_by'      => auth()->id(),
+            'approved_at'      => now(),
+            'rejection_reason' => $validated['rejection_reason'],
+        ]);
+
+        return redirect()->route('app.boutique.transfers.show', $transfer)
+            ->with('success', "Transfert {$transfer->reference} rejeté.");
     }
 
     public function show(DepotTransfer $transfer)

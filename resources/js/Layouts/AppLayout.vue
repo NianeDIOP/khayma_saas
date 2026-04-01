@@ -360,6 +360,12 @@ function can(section) {
             </Link>
           </div>
         </template>
+
+        <!-- ── Fichiers & Stockage ── -->
+        <Link :href="route('app.storage.index', { _tenant: company?.slug })"
+          :class="['nav-item', { active: $page.url.includes('/storage') }]">
+          <i class="fa-solid fa-cloud-arrow-up" style="color:#0EA5E9"></i> <span>Fichiers</span>
+        </Link>
       </nav>
 
       <div class="sidebar-footer">
